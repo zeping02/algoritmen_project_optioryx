@@ -1,0 +1,23 @@
+NAME small_fixture
+NMAX 2
+ITEMS DEPOT A B C D E F
+DEPOT DEPOT
+SNAKE DEPOT A B C D E F
+DISTANCES
+0 2 3 4 5 6 7
+2 0 1 2 3 4 5
+3 1 0 1 2 3 4
+4 2 1 0 1 2 3
+5 3 2 1 0 1 2
+6 4 3 2 1 0 1
+7 5 4 3 2 1 0
+END_DISTANCES
+ORDERS
+o1 wave_1 A B
+o2 wave_1 B C
+o3 wave_1 E
+o4 wave_1 F
+o5 wave_2 A D
+o6 wave_2 C
+o7 wave_2 E F
+END_ORDERS
