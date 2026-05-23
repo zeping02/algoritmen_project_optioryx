@@ -17,6 +17,7 @@
 #include "optioryx/core/evaluator.hpp"
 #include "optioryx/io/config_loader.hpp"
 #include "optioryx/io/instance_loader.hpp"
+#include "optioryx/io/submission_io.hpp"
 #include "optioryx/util/output.hpp"
 
 namespace optioryx {
@@ -88,6 +89,8 @@ Solution solve_instance(
         if (matches_solver(solver_name, "greedy")) {
             GreedyConfig greedy_config;
             greedy_config.config_id = config_string(config, "config_id", "greedy_default");
+            greedy_config.local_search_passes = config_int(config, "local_search_passes", 1);
+            greedy_config.local_search_neighbor_window = config_int(config, "local_search_neighbor_window", 8);
             solution.config_id = greedy_config.config_id;
             result = solve_wave_greedy(instance, evaluator, static_cast<int>(wave_index), greedy_config);
         } else if (matches_solver(solver_name, "simulated_annealing")) {
@@ -223,6 +226,10 @@ void write_summary(
     }
 }
 
+bool is_submission_output(const std::filesystem::path& path) {
+    return path.extension() == ".csv";
+}
+
 int run_solve_mode(const std::vector<std::string>& args) {
     const std::filesystem::path input_path = require_option(args, "--input");
     const std::filesystem::path output_path = require_option(args, "--output");
@@ -236,13 +243,20 @@ int run_solve_mode(const std::vector<std::string>& args) {
 
     const ProblemInstance instance = load_instance(input_path);
     const Solution solution = solve_instance(instance, solver, config, seed);
-    write_solution_json(output_path, instance, solution);
+    if (is_submission_output(output_path)) {
+        write_submission_csv(output_path, instance, solution);
+    } else {
+        write_solution_json(output_path, instance, solution);
+    }
 
     std::cout << "Solver: " << solution.solver_name << "\n";
     std::cout << "Config: " << solution.config_id << "\n";
     std::cout << "Objective: " << solution.objective << "\n";
     std::cout << "Runtime ms: " << solution.runtime_ms << "\n";
     std::cout << "Feasible: " << (solution.feasible ? "yes" : "no") << "\n";
+    if (is_submission_output(output_path)) {
+        std::cout << "Submission rows: " << instance.orders.size() << "\n";
+    }
     return solution.feasible ? 0 : 2;
 }
 
@@ -269,6 +283,28 @@ int run_dump_convergence_mode(const std::vector<std::string>& args) {
     }
 
     write_convergence_csv(output_path, records);
+    return 0;
+}
+
+int run_validate_submission_mode(const std::vector<std::string>& args) {
+    const std::filesystem::path input_path = require_option(args, "--input");
+    const std::filesystem::path submission_path = require_option(args, "--submission");
+
+    const ProblemInstance instance = load_instance(input_path);
+    const std::vector<SubmissionRow> rows = load_submission_csv(submission_path);
+    const std::vector<std::string> errors = validate_submission_rows(instance, rows);
+
+    std::cout << "Submission rows: " << rows.size() << "\n";
+    if (!errors.empty()) {
+        std::cout << "Valid submission: no\n";
+        for (const std::string& error : errors) {
+            std::cout << " - " << error << "\n";
+        }
+        return 2;
+    }
+
+    std::cout << "Valid submission: yes\n";
+    std::cout << "Local score: " << score_submission_rows(instance, rows) << "\n";
     return 0;
 }
 
@@ -334,6 +370,7 @@ void print_usage() {
     std::cout << "  optioryx_cli solve --solver <name> --input <path> --output <path> [--config <path>] [--seed <n>]\n";
     std::cout << "  optioryx_cli benchmark --input <path> --out-dir <path> [--suite <name>]\n";
     std::cout << "  optioryx_cli dump-convergence --solver <name> --input <path> --output <path> [--config <path>] [--seed <n>]\n";
+    std::cout << "  optioryx_cli validate-submission --input <path> --submission <path>\n";
 }
 
 }  // namespace
@@ -361,6 +398,9 @@ int main(int argc, char** argv) {
         }
         if (mode == "dump-convergence") {
             return optioryx::run_dump_convergence_mode(args);
+        }
+        if (mode == "validate-submission") {
+            return optioryx::run_validate_submission_mode(args);
         }
 
         optioryx::print_usage();

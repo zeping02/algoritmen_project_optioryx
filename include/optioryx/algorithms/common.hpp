@@ -17,6 +17,7 @@ enum class StartSolutionStrategy {
 enum class NeighborhoodStrategy {
     relocate,
     swap,
+    merge_split,
     mixed,
 };
 

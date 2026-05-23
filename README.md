@@ -3,6 +3,7 @@
 This repository contains a C++20 implementation of the Order Batching assignment:
 
 - Greedy savings heuristic
+- Bounded greedy local search using snake-span-nearby swaps and relocations
 - Simulated annealing with configurable start strategies, neighborhoods, and cooling schedules
 - Genetic algorithm with permutation decoding and elitism
 - Paper-inspired seed-and-selection heuristics
@@ -12,7 +13,7 @@ This repository contains a C++20 implementation of the Order Batching assignment
 
 - `include/optioryx`: public headers
 - `src`: solver implementations and CLI
-- `data/fixtures`: runnable synthetic instances
+- `fixtures`: runnable synthetic instances
 - `scripts`: benchmark runners, aggregators, and plot generators
 - `tests`: C++ regression tests and a smoke test for the benchmark pipeline
 
@@ -64,11 +65,42 @@ Supported solver names:
 ## Example Commands
 
 ```text
-optioryx_cli solve --solver greedy --input data/fixtures/small.instance --output build/greedy.json
-optioryx_cli solve --solver genetic --input data/fixtures/small.instance --output build/ga.json --seed 11
-optioryx_cli benchmark --input data/fixtures/medium.instance --out-dir build/benchmark --suite assignment
+optioryx_cli solve --solver greedy --input fixtures/small.instance --output build/greedy.json
+optioryx_cli solve --solver genetic --input fixtures/small.instance --output build/ga.json --seed 11
+optioryx_cli benchmark --input fixtures/medium.instance --out-dir build/benchmark --suite assignment
 python scripts/aggregate_results.py --input-dir build/benchmark --output-dir build/benchmark/analysis
 python scripts/plot_results.py --input-dir build/benchmark --output-dir build/benchmark/plots
+```
+
+## Competition Data
+
+If the downloaded Kaggle files live in `data/`, you can point `--input` at the directory directly. The loader will read `pick_data.csv` and `dist_matrix.csv`, use `ASIS_SEQUENCE` as the fixed route order, and enforce `nmax = 20`.
+
+Generate a submission:
+
+```text
+optioryx_cli solve --solver seed_selection --input data --output build/competition_submission.csv
+```
+
+For the current strongest competition-oriented baseline, build in Release mode and use:
+
+```text
+cmake -S . -B build_release -DCMAKE_BUILD_TYPE=Release
+cmake --build build_release
+build_release/optioryx_cli solve --solver greedy --input data --output build_release/greedy_strong.csv --config configs/greedy_competition_strong.cfg
+build_release/optioryx_cli validate-submission --input data --submission build_release/greedy_strong.csv
+```
+
+Validate and score it locally:
+
+```text
+optioryx_cli validate-submission --input data --submission build/competition_submission.csv
+```
+
+Score the provided example submission:
+
+```text
+optioryx_cli validate-submission --input data --submission data/example_submission.csv
 ```
 
 ## Config Files
@@ -86,12 +118,24 @@ final_temperature=0.05
 lundy_beta=0.01
 ```
 
+Greedy also accepts local-search controls:
+
+```text
+config_id=greedy_competition_strong
+local_search_passes=2
+local_search_neighbor_window=12
+```
+
+Use `configs/greedy_competition_fast.cfg` for the original fast savings baseline without local search, `configs/greedy_competition_local.cfg` for a balanced run, `configs/greedy_competition_strong.cfg` for a stronger run, and `configs/greedy_competition_ultra.cfg` for the best local score measured so far.
+
 ## Verification
 
 The repository ships with:
 
-- synthetic fixtures in `data/fixtures`
+- synthetic fixtures in `fixtures`
 - C++ regression tests in `tests/test_main.cpp`
 - a smoke benchmark pipeline in `tests/smoke_test.py`
 
 The Python analysis stack expects `numpy`, `pandas`, and `matplotlib`.
+
+See `IMPROVEMENTS.md` for the feedback-driven changes, local measurements, and remaining limitations.

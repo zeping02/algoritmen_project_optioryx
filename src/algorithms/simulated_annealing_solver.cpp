@@ -155,6 +155,47 @@ bool apply_swap_move(BatchList& batch_list, std::mt19937_64& rng) {
     return true;
 }
 
+bool apply_merge_split_move(const ProblemInstance& instance, BatchList& batch_list, std::mt19937_64& rng) {
+    if (batch_list.size() < 2U) {
+        return false;
+    }
+
+    std::uniform_int_distribution<std::size_t> pick_batch(0, batch_list.size() - 1U);
+    std::size_t first_batch = pick_batch(rng);
+    std::size_t second_batch = first_batch;
+    while (second_batch == first_batch) {
+        second_batch = pick_batch(rng);
+    }
+    if (first_batch > second_batch) {
+        std::swap(first_batch, second_batch);
+    }
+
+    std::vector<int> combined_orders = batch_list[first_batch];
+    combined_orders.insert(combined_orders.end(), batch_list[second_batch].begin(), batch_list[second_batch].end());
+    if (combined_orders.size() < 2U) {
+        return false;
+    }
+    std::shuffle(combined_orders.begin(), combined_orders.end(), rng);
+
+    if (combined_orders.size() <= instance.nmax) {
+        batch_list[first_batch] = std::move(combined_orders);
+        batch_list.erase(batch_list.begin() + static_cast<std::ptrdiff_t>(second_batch));
+        return true;
+    }
+
+    const std::size_t min_first_size = combined_orders.size() - instance.nmax;
+    const std::size_t max_first_size = std::min(instance.nmax, combined_orders.size() - 1U);
+    if (min_first_size > max_first_size) {
+        return false;
+    }
+
+    std::uniform_int_distribution<std::size_t> pick_split(min_first_size, max_first_size);
+    const std::size_t first_size = pick_split(rng);
+    batch_list[first_batch].assign(combined_orders.begin(), combined_orders.begin() + static_cast<std::ptrdiff_t>(first_size));
+    batch_list[second_batch].assign(combined_orders.begin() + static_cast<std::ptrdiff_t>(first_size), combined_orders.end());
+    return true;
+}
+
 bool apply_neighbor_move(
     const ProblemInstance& instance,
     NeighborhoodStrategy neighborhood,
@@ -166,19 +207,28 @@ bool apply_neighbor_move(
     if (neighborhood == NeighborhoodStrategy::swap) {
         return apply_swap_move(batch_list, rng);
     }
-
-    std::uniform_int_distribution<int> pick(0, 1);
-    if (pick(rng) == 0) {
-        if (apply_relocate_move(instance, batch_list, rng)) {
-            return true;
-        }
-        return apply_swap_move(batch_list, rng);
+    if (neighborhood == NeighborhoodStrategy::merge_split) {
+        return apply_merge_split_move(instance, batch_list, rng);
     }
 
+    std::uniform_int_distribution<int> pick(0, 2);
+    const int selected = pick(rng);
+    if (selected == 0 && apply_relocate_move(instance, batch_list, rng)) {
+        return true;
+    }
+    if (selected == 1 && apply_swap_move(batch_list, rng)) {
+        return true;
+    }
+    if (selected == 2 && apply_merge_split_move(instance, batch_list, rng)) {
+        return true;
+    }
+    if (apply_relocate_move(instance, batch_list, rng)) {
+        return true;
+    }
     if (apply_swap_move(batch_list, rng)) {
         return true;
     }
-    return apply_relocate_move(instance, batch_list, rng);
+    return apply_merge_split_move(instance, batch_list, rng);
 }
 
 double update_temperature(double temperature, const SimulatedAnnealingConfig& config) {

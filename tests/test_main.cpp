@@ -11,6 +11,7 @@
 #include "optioryx/algorithms/simulated_annealing_solver.hpp"
 #include "optioryx/core/evaluator.hpp"
 #include "optioryx/io/instance_loader.hpp"
+#include "optioryx/io/submission_io.hpp"
 
 namespace {
 
@@ -27,10 +28,11 @@ using optioryx::SelectionRule;
 using optioryx::SimulatedAnnealingConfig;
 using optioryx::Solution;
 using optioryx::StartSolutionStrategy;
+using optioryx::SubmissionRow;
 using optioryx::WaveSolution;
 
 std::filesystem::path fixture_path(const std::string& name) {
-    return std::filesystem::path("data") / "fixtures" / name;
+    return std::filesystem::path("fixtures") / name;
 }
 
 void expect(bool condition, const std::string& message) {
@@ -144,6 +146,76 @@ void test_ga_decoder_and_regression() {
     expect(result.objective <= greedy.objective + 1e-9, "GA should not be worse than greedy on the small fixture");
 }
 
+void test_submission_roundtrip() {
+    const ProblemInstance instance = optioryx::load_instance(fixture_path("small.instance"));
+    const BatchEvaluator evaluator(instance);
+    const auto wave_one = optioryx::solve_wave_greedy(instance, evaluator, 0, GreedyConfig{});
+    const auto wave_two = optioryx::solve_wave_greedy(instance, evaluator, 1, GreedyConfig{});
+    Solution solution = make_solution(instance, wave_one, wave_two);
+    solution.feasible = true;
+
+    std::filesystem::create_directories("build");
+    const std::filesystem::path submission_path = std::filesystem::path("build") / "test_submission.csv";
+    optioryx::write_submission_csv(submission_path, instance, solution);
+    const std::vector<SubmissionRow> rows = optioryx::load_submission_csv(submission_path);
+    const std::vector<std::string> errors = optioryx::validate_submission_rows(instance, rows);
+
+    expect(errors.empty(), "Generated submission should validate");
+    expect_near(optioryx::score_submission_rows(instance, rows), solution.objective, 1e-9, "Submission score mismatch");
+}
+
+void test_submission_validation_rejects_common_errors() {
+    const ProblemInstance instance = optioryx::load_instance(fixture_path("small.instance"));
+    const BatchEvaluator evaluator(instance);
+    const auto wave_one = optioryx::solve_wave_greedy(instance, evaluator, 0, GreedyConfig{});
+    const auto wave_two = optioryx::solve_wave_greedy(instance, evaluator, 1, GreedyConfig{});
+    Solution solution = make_solution(instance, wave_one, wave_two);
+    solution.feasible = true;
+
+    const std::vector<SubmissionRow> valid_rows = optioryx::build_submission_rows(instance, solution);
+
+    std::vector<SubmissionRow> duplicate_rows = valid_rows;
+    duplicate_rows.push_back(valid_rows.front());
+    expect(!optioryx::validate_submission_rows(instance, duplicate_rows).empty(), "Duplicate ORDER_ID should be rejected");
+
+    std::vector<SubmissionRow> missing_rows = valid_rows;
+    missing_rows.pop_back();
+    expect(!optioryx::validate_submission_rows(instance, missing_rows).empty(), "Missing ORDER_ID should be rejected");
+
+    std::vector<SubmissionRow> mixed_wave_rows = valid_rows;
+    const std::string first_list = mixed_wave_rows.front().list_id;
+    for (SubmissionRow& row : mixed_wave_rows) {
+        if (row.wave_id != mixed_wave_rows.front().wave_id) {
+            row.list_id = first_list;
+            break;
+        }
+    }
+    expect(!optioryx::validate_submission_rows(instance, mixed_wave_rows).empty(), "LIST_ID across waves should be rejected");
+
+    std::vector<SubmissionRow> over_capacity_rows = valid_rows;
+    int changed = 0;
+    for (SubmissionRow& row : over_capacity_rows) {
+        if (row.wave_id == "wave_1" && changed < 3) {
+            row.list_id = "too-large";
+            ++changed;
+        }
+    }
+    expect(!optioryx::validate_submission_rows(instance, over_capacity_rows).empty(), "LIST_ID above nmax should be rejected");
+}
+
+void test_competition_loader_if_available() {
+    if (!std::filesystem::exists(std::filesystem::path("data") / "pick_data.csv") ||
+        !std::filesystem::exists(std::filesystem::path("data") / "dist_matrix.csv")) {
+        return;
+    }
+
+    const ProblemInstance instance = optioryx::load_instance("data");
+    expect(instance.orders.size() == 10246U, "Competition loader should read all orders");
+    expect(instance.waves.size() == 12U, "Competition loader should read all waves");
+    expect(instance.item_ids.size() == 422U, "Competition loader should read all locations");
+    expect(instance.start_index != instance.end_index, "Competition loader should keep distinct START and END");
+}
+
 }  // namespace
 
 int main() {
@@ -153,6 +225,9 @@ int main() {
         test_seed_selection();
         test_simulated_annealing_regression();
         test_ga_decoder_and_regression();
+        test_submission_roundtrip();
+        test_submission_validation_rejects_common_errors();
+        test_competition_loader_if_available();
         std::cout << "All tests passed.\n";
         return 0;
     } catch (const std::exception& exception) {

@@ -1,0 +1,9 @@
+build/
+build_*/
+*.obj
+*.obj.d
+*.exe
+*.dll
+*.a
+*.lib
+*.ninja_lock

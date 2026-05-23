@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -33,6 +34,10 @@ private:
     BatchStats compute_stats(int wave_index, const std::vector<int>& order_indices) const;
 
     const ProblemInstance& instance_;
+    std::size_t mask_words_ = 0;
+    std::vector<int> items_by_snake_rank_;
+    std::vector<std::vector<std::uint64_t>> order_item_masks_;
+    std::vector<std::vector<int>> order_items_by_snake_rank_;
     mutable std::vector<std::unordered_map<std::string, BatchStats>> cache_;
 };
 

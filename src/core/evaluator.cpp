@@ -1,8 +1,9 @@
 #include "optioryx/core/evaluator.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <limits>
-#include <sstream>
+#include <numeric>
 #include <stdexcept>
 
 namespace optioryx {
@@ -19,18 +20,46 @@ std::vector<int> sort_and_deduplicate(const std::vector<int>& values) {
 }  // namespace
 
 BatchEvaluator::BatchEvaluator(const ProblemInstance& instance)
-    : instance_(instance), cache_(instance.waves.size()) {}
+    : instance_(instance),
+      mask_words_((instance.item_ids.size() + 63U) / 64U),
+      items_by_snake_rank_(instance.item_ids.size()),
+      order_item_masks_(instance.orders.size(), std::vector<std::uint64_t>(mask_words_, 0U)),
+      order_items_by_snake_rank_(instance.orders.size()),
+      cache_(instance.waves.size()) {
+    std::iota(items_by_snake_rank_.begin(), items_by_snake_rank_.end(), 0);
+    std::sort(items_by_snake_rank_.begin(), items_by_snake_rank_.end(), [&](const int left, const int right) {
+        return instance_.snake_rank.at(static_cast<std::size_t>(left)) <
+               instance_.snake_rank.at(static_cast<std::size_t>(right));
+    });
+
+    for (std::size_t order_index = 0; order_index < instance_.orders.size(); ++order_index) {
+        std::vector<int> unique_items = sort_and_deduplicate(instance_.orders[order_index].items);
+        std::sort(unique_items.begin(), unique_items.end(), [&](const int left, const int right) {
+            return instance_.snake_rank.at(static_cast<std::size_t>(left)) <
+                   instance_.snake_rank.at(static_cast<std::size_t>(right));
+        });
+        order_items_by_snake_rank_[order_index] = unique_items;
+
+        for (const int item : unique_items) {
+            if (item == instance_.start_index || item == instance_.end_index) {
+                continue;
+            }
+            const std::size_t item_index = static_cast<std::size_t>(item);
+            order_item_masks_[order_index][item_index / 64U] |= (std::uint64_t{1} << (item_index % 64U));
+        }
+    }
+}
 
 std::string BatchEvaluator::make_key(const std::vector<int>& order_indices) const {
     std::vector<int> canonical = sort_and_deduplicate(order_indices);
-    std::ostringstream stream;
+    std::string key;
+    key.resize(canonical.size() * sizeof(int));
     for (std::size_t index = 0; index < canonical.size(); ++index) {
-        if (index > 0) {
-            stream << ",";
-        }
-        stream << canonical[index];
+        const int value = canonical[index];
+        const auto* bytes = reinterpret_cast<const char*>(&value);
+        std::copy(bytes, bytes + sizeof(int), key.begin() + static_cast<std::ptrdiff_t>(index * sizeof(int)));
     }
-    return stream.str();
+    return key;
 }
 
 BatchStats BatchEvaluator::compute_stats(int wave_index, const std::vector<int>& order_indices) const {
@@ -38,38 +67,39 @@ BatchStats BatchEvaluator::compute_stats(int wave_index, const std::vector<int>&
         throw std::out_of_range("Wave index out of range");
     }
 
-    std::vector<int> canonical_orders = sort_and_deduplicate(order_indices);
-    std::vector<int> items;
-    items.reserve(canonical_orders.size() * 3U);
+    const std::vector<int> canonical_orders = sort_and_deduplicate(order_indices);
+    std::vector<std::uint64_t> item_mask(mask_words_, 0U);
     for (const int order_index : canonical_orders) {
-        const Order& order = instance_.orders.at(static_cast<std::size_t>(order_index));
-        items.insert(items.end(), order.items.begin(), order.items.end());
+        const auto& order_mask = order_item_masks_.at(static_cast<std::size_t>(order_index));
+        for (std::size_t word = 0; word < mask_words_; ++word) {
+            item_mask[word] |= order_mask[word];
+        }
     }
-
-    items = sort_and_deduplicate(items);
-    items.erase(std::remove(items.begin(), items.end(), instance_.depot_index), items.end());
 
     BatchStats stats;
-    stats.unique_item_count = items.size();
-    if (items.empty()) {
-        return stats;
-    }
-
-    std::sort(items.begin(), items.end(), [&](const int left, const int right) {
-        return instance_.snake_rank.at(static_cast<std::size_t>(left)) <
-               instance_.snake_rank.at(static_cast<std::size_t>(right));
-    });
-
-    stats.min_snake_rank = instance_.snake_rank.at(static_cast<std::size_t>(items.front()));
-    stats.max_snake_rank = instance_.snake_rank.at(static_cast<std::size_t>(items.back()));
-    stats.span_width = stats.max_snake_rank - stats.min_snake_rank;
-
-    int previous = instance_.depot_index;
-    for (const int item : items) {
+    int previous = instance_.start_index;
+    bool has_items = false;
+    for (const int item : items_by_snake_rank_) {
+        const std::size_t item_index = static_cast<std::size_t>(item);
+        const bool present = (item_mask[item_index / 64U] & (std::uint64_t{1} << (item_index % 64U))) != 0U;
+        if (!present) {
+            continue;
+        }
+        if (!has_items) {
+            stats.min_snake_rank = instance_.snake_rank.at(item_index);
+            has_items = true;
+        }
+        stats.max_snake_rank = instance_.snake_rank.at(item_index);
+        ++stats.unique_item_count;
         stats.cost += instance_.distances.at(static_cast<std::size_t>(previous)).at(static_cast<std::size_t>(item));
         previous = item;
     }
-    stats.cost += instance_.distances.at(static_cast<std::size_t>(previous)).at(static_cast<std::size_t>(instance_.depot_index));
+    if (!has_items) {
+        return stats;
+    }
+
+    stats.span_width = stats.max_snake_rank - stats.min_snake_rank;
+    stats.cost += instance_.distances.at(static_cast<std::size_t>(previous)).at(static_cast<std::size_t>(instance_.end_index));
     return stats;
 }
 
@@ -111,17 +141,13 @@ double BatchEvaluator::solution_cost(const Solution& solution) const {
 }
 
 int BatchEvaluator::order_span_width(int order_index) const {
-    const Order& order = instance_.orders.at(static_cast<std::size_t>(order_index));
-    if (order.items.empty()) {
+    const std::vector<int>& items = order_items_by_snake_rank_.at(static_cast<std::size_t>(order_index));
+    if (items.empty()) {
         return 0;
     }
 
-    int min_rank = std::numeric_limits<int>::max();
-    int max_rank = std::numeric_limits<int>::min();
-    for (const int item : order.items) {
-        min_rank = std::min(min_rank, instance_.snake_rank.at(static_cast<std::size_t>(item)));
-        max_rank = std::max(max_rank, instance_.snake_rank.at(static_cast<std::size_t>(item)));
-    }
+    const int min_rank = instance_.snake_rank.at(static_cast<std::size_t>(items.front()));
+    const int max_rank = instance_.snake_rank.at(static_cast<std::size_t>(items.back()));
     return max_rank - min_rank;
 }
 

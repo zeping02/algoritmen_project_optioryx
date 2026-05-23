@@ -16,6 +16,7 @@ add_library(
     src/core/evaluator.cpp
     src/core/analysis.cpp
     src/io/instance_loader.cpp
+    src/io/submission_io.cpp
     src/io/config_loader.cpp
     src/util/output.cpp
     src/algorithms/greedy_solver.cpp
@@ -51,7 +52,7 @@ if(BUILD_TESTING)
                 ${Python3_EXECUTABLE}
                 ${CMAKE_SOURCE_DIR}/tests/smoke_test.py
                 --cli $<TARGET_FILE:optioryx_cli>
-                --instance ${CMAKE_SOURCE_DIR}/data/fixtures/small.instance
+                --instance ${CMAKE_SOURCE_DIR}/fixtures/small.instance
                 --workdir ${CMAKE_BINARY_DIR}/smoke
         )
         set_tests_properties(benchmark_smoke PROPERTIES WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

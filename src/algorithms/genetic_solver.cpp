@@ -53,8 +53,11 @@ int tournament_pick(const std::vector<Chromosome>& population, int tournament_si
 }
 
 std::vector<int> order_crossover(const std::vector<int>& left, const std::vector<int>& right, std::mt19937_64& rng) {
-    if (left.size() < 2U) {
-        return left;
+    if (left.empty()) {
+        return {};
+    }
+    if (left.size() == 1U) {
+        return {left.front()};
     }
 
     std::uniform_int_distribution<std::size_t> pick(0, left.size() - 1U);

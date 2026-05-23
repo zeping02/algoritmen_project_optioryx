@@ -39,6 +39,9 @@ NeighborhoodStrategy parse_neighborhood_strategy(const std::string& value) {
     if (normalized == "swap") {
         return NeighborhoodStrategy::swap;
     }
+    if (normalized == "merge_split" || normalized == "mergesplit" || normalized == "merge-split") {
+        return NeighborhoodStrategy::merge_split;
+    }
     if (normalized == "mixed") {
         return NeighborhoodStrategy::mixed;
     }
@@ -97,6 +100,8 @@ std::string to_string(NeighborhoodStrategy value) {
             return "relocate";
         case NeighborhoodStrategy::swap:
             return "swap";
+        case NeighborhoodStrategy::merge_split:
+            return "merge_split";
         case NeighborhoodStrategy::mixed:
             return "mixed";
     }

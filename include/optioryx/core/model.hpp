@@ -54,13 +54,15 @@ struct Solution {
 struct ProblemInstance {
     std::string name;
     std::size_t nmax = 0;
-    int depot_index = 0;
+    int start_index = 0;
+    int end_index = 0;
     std::vector<std::string> item_ids;
     std::vector<int> snake_rank;
     std::vector<std::vector<double>> distances;
     std::vector<Order> orders;
     std::vector<Wave> waves;
     std::unordered_map<std::string, int> item_index_by_id;
+    std::unordered_map<std::string, int> order_index_by_id;
     std::unordered_map<std::string, int> wave_index_by_id;
 };
 
