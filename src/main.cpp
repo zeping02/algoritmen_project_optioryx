@@ -101,6 +101,25 @@ Solution solve_instance(
             greedy_config.pair_rebuild_passes = config_int(config, "pair_rebuild_passes", 0);
             greedy_config.pair_rebuild_neighbor_window =
                 config_int(config, "pair_rebuild_neighbor_window", greedy_config.local_search_neighbor_window);
+            greedy_config.triple_rebuild_passes = config_int(config, "triple_rebuild_passes", 0);
+            greedy_config.triple_rebuild_neighbor_window =
+                config_int(config, "triple_rebuild_neighbor_window", greedy_config.pair_rebuild_neighbor_window);
+            greedy_config.triple_rebuild_combination_window =
+                config_int(config, "triple_rebuild_combination_window", 0);
+            greedy_config.post_triple_pair_rebuild_passes = config_int(config, "post_triple_pair_rebuild_passes", 0);
+            greedy_config.post_triple_pair_rebuild_neighbor_window = config_int(
+                config,
+                "post_triple_pair_rebuild_neighbor_window",
+                greedy_config.pair_rebuild_neighbor_window);
+            greedy_config.post_pair_triple_rebuild_passes = config_int(config, "post_pair_triple_rebuild_passes", 0);
+            greedy_config.post_pair_triple_rebuild_neighbor_window = config_int(
+                config,
+                "post_pair_triple_rebuild_neighbor_window",
+                greedy_config.triple_rebuild_neighbor_window);
+            greedy_config.post_pair_triple_rebuild_combination_window = config_int(
+                config,
+                "post_pair_triple_rebuild_combination_window",
+                greedy_config.triple_rebuild_combination_window);
             greedy_config.final_local_search_passes = config_int(config, "final_local_search_passes", 0);
             solution.config_id = greedy_config.config_id;
             result = solve_wave_greedy(instance, evaluator, static_cast<int>(wave_index), greedy_config);

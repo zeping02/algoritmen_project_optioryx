@@ -24,6 +24,10 @@
 - Route elimination now uses best-improvement source selection and can use beam search for assigning the removed route's orders to destination routes.
 - Route elimination can optionally test several deterministic source-orderings during beam assignment. This was kept as an experimental switch because it was valid but did not beat the best single-ordering run.
 - A two-route rebuild heuristic was added after route elimination. It combines two snake-nearby routes, rebuilds two feasible routes using sorted split and greedy seed strategies, polishes the pair with the existing swap/relocate descent, and only accepts strictly lower total cost.
+- The two-route rebuild now also tests a regret-greedy assignment variant. At each step it assigns the order whose cost difference between the two rebuilt routes is largest, so hard-to-place orders are handled before easy ones.
+- A bounded three-route rebuild step was added after pair rebuild. It rebuilds three snake-nearby routes with sorted split, seeded greedy assignment, and seeded regret assignment, then keeps the change only if the three-route total cost strictly decreases.
+- Pair rebuild can optionally run again after triple rebuild. This catches two-route improvements opened by larger three-route moves.
+- Triple rebuild can optionally run again after post-triple pair polish. This creates a bounded pair/triple cycle and tests whether small refinements reopen useful three-route moves.
 - A final local-search polish can run after route rebuilds to catch improvements opened by the larger pair reconstruction moves.
 
 ## Useful Competition Commands
@@ -73,13 +77,26 @@ Measured on the included competition data in a Release build:
 - `greedy_competition_pair_rebuild_five_pass_polished`: score around `5.01849e+06`, about 724 seconds, 517 routes.
 - `greedy_competition_pair_rebuild_six_pass_polished`: score around `5.01802e+06`, about 853 seconds, 517 routes.
 - `greedy_competition_pair_rebuild_six_pass_deep_polish`: score around `5.01802e+06`, no extra score gain versus four final polish passes.
-- `greedy_competition_final`: same settings as the best measured six-pass polished rebuild run.
+- `greedy_competition_final` after regret-greedy rebuild assignment: score around `5.00225e+06`, about 487 seconds, 517 routes.
+- `greedy_competition_final_plus3`: score around `5.00228e+06`, valid but not chosen because the ninth rebuild pass was slightly worse than eight passes.
+- `greedy_competition_triple_rebuild_probe`: score around `5.01327e+06`, about 169 seconds, showing that triple rebuild improves a shallow pair-rebuild solution.
+- `greedy_competition_final_triple`: score around `4.99975e+06`, about 520 seconds.
+- `greedy_competition_final_triple2`: score around `4.99804e+06`, about 544 seconds.
+- `greedy_competition_final_triple3`: score around `4.99696e+06`, about 565 seconds.
+- `greedy_competition_final_triple4`: score around `4.99696e+06`, no gain over triple3 and therefore not chosen.
+- `greedy_competition_final_triple_pair_polish`: score around `4.99656e+06`, about 609 seconds.
+- `greedy_competition_final_triple_pair_polish_wide`: score around `4.99653e+06`, about 629 seconds.
+- `greedy_competition_final_triple_pair_polish_wide2`: score around `4.99627e+06`, about 671 seconds.
+- `greedy_competition_final_triple_pair_polish_wide3`: score around `4.99642e+06`, valid but worse than two post-triple pair passes.
+- `greedy_competition_final_second_triple`: score around `4.99572e+06`, about 692 seconds.
+- `greedy_competition_final_second_triple2`: score around `4.99368e+06`, about 704 seconds.
+- `greedy_competition_final_second_triple3`: score around `4.99368e+06`, no score gain over two second-triple passes.
 
 The exact runtime depends on machine load, but the strong config is clearly better than the Pulse Pick reference score mentioned in `MetaAnalyse.pdf`.
 
 ## Remaining Limitations
 
 - The exact initial savings phase still considers many candidate pairs, so runtime is not yet at the 5 second production reference.
-- The best-scoring final config is intentionally quality-oriented and takes about 14 minutes locally. For a faster paper/competition comparison, the one-pass or five-pass rebuild configs are useful trade-off points.
+- The best-scoring final config is intentionally quality-oriented and takes about 11 minutes locally. For a faster paper/competition comparison, the one-pass or five-pass rebuild configs are useful trade-off points.
 - Simulated annealing and the genetic algorithm currently benefit mainly from the improved greedy warm-start; their random search needs more efficient delta evaluation before very long runs become attractive.
 - `src/main.cpp` still combines CLI parsing, solver construction, and benchmarking. Splitting it into smaller CLI/benchmark/solver-factory modules would improve maintainability.

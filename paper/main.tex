@@ -24,7 +24,7 @@
 \maketitle
 
 \begin{abstract}
-Dit verslag bespreekt de verbetering van een C++20-oplossing voor het Order Batching Problem uit de Optioryx-opdracht. De oorspronkelijke oplossing werd uitgebreid met snellere savings-constructie, lokale zoekstappen, route-eliminatie, beam search en een deterministische twee-route-herbouwheuristiek. De beste lokaal gevalideerde oplossing behaalt momenteel een score van ongeveer $5{,}018{,}020$ met 517 routes. Naast scorekwaliteit worden correctheid, runtime, reproduceerbaarheid en de link met bedrijfsfeedback besproken.
+Dit verslag bespreekt de verbetering van een C++20-oplossing voor het Order Batching Problem uit de Optioryx-opdracht. De oorspronkelijke oplossing werd uitgebreid met snellere savings-constructie, lokale zoekstappen, route-eliminatie, beam search en deterministische twee- en drie-route-herbouwheuristieken met regret-greedy assignment. De beste lokaal gevalideerde oplossing behaalt momenteel een score van ongeveer $4{,}993{,}680$ met 517 routes. Naast scorekwaliteit worden correctheid, runtime, reproduceerbaarheid en de link met bedrijfsfeedback besproken.
 \end{abstract}
 
 \section{Inleiding}
@@ -65,6 +65,10 @@ Seed-and-selection & Literatuurgebaseerd en uitlegbaar & Slechtere score in huid
 Route-eliminatie + beam & Verlaagt routecount en score & Meer runtime en complexiteit & Belangrijke tussenstap \\
 Multi-ordering beam & Test meerdere volgordes bij route-eliminatie & Slechtere score dan single-ordering & Niet gekozen \\
 Twee-route rebuild & Doorbreekt lokale optima met meerdere orders tegelijk & Lange runtime & Gekozen voor eindconfig \\
+Regret-greedy rebuild & Plaatst eerst orders met groot verschil in invoegkost & Nog steeds heuristisch & Gekozen voor eindconfig \\
+Drie-route rebuild & Verplaatst orders gecoordineerd over drie routes & Extra runtime en complexiteit & Gekozen voor eindconfig \\
+Post-triple pair rebuild & Verfijnt twee routes na grotere triple moves & Extra runtime; derde pass slechter & Gekozen voor eindconfig \\
+Tweede triple-fase & Heropent drie-route moves na pair polish & Extra runtime; derde pass geen winst & Gekozen voor eindconfig \\
 \bottomrule
 \end{tabular}
 \caption{Vergelijking van onderzochte algoritmische aanpakken}
@@ -81,7 +85,10 @@ De sterkste solver bestaat uit de volgende stappen:
     \item lokale zoekstap met swaps en relocaties tussen batches met nabije snake-span centers;
     \item route-eliminatie om kleine routes op te lossen in andere routes met vrije capaciteit;
     \item best-improvement selectie en bounded beam search voor route-eliminatie;
-    \item twee-route rebuild: combineer twee nabije routes, maak twee nieuwe haalbare routes met gesorteerde split- en seed-strategieen, polish het paar, en accepteer alleen als de gecombineerde routekost daalt;
+    \item twee-route rebuild: combineer twee nabije routes, maak twee nieuwe haalbare routes met gesorteerde split-, seed- en regret-greedy strategieen, polish het paar, en accepteer alleen als de gecombineerde routekost daalt;
+    \item drie-route rebuild: combineer drie nabije routes, probeer gesorteerde split-, seed- en regret-strategieen, polish de drie paren, en accepteer alleen bij lagere totale kost;
+    \item post-triple pair rebuild: voer na de drie-route fase opnieuw twee-route rebuild uit omdat grotere moves nieuwe kleine verbeteringen kunnen openen;
+    \item tweede triple-fase: voer na de pair-polish nogmaals een begrensde drie-route rebuild uit;
     \item finale local-search polish na de rebuilds.
 \end{enumerate}
 
@@ -100,22 +107,33 @@ beam\_eliminate & 5066010 & 517 & $\sim$135s & Beste pre-rebuild score \\
 beam\_multi\_order & 5066230 & 517 & $\sim$93s & Getest alternatief, niet beter \\
 pair\_rebuild\_xwide & 5042240 & 517 & $\sim$310s & Een rebuild-pass, venster 40 \\
 pair\_rebuild\_five\_pass\_polished & 5018490 & 517 & $\sim$724s & Sterke kwaliteits/runtime-balans \\
-pair\_rebuild\_six\_pass\_polished & 5018020 & 517 & $\sim$853s & Beste gemeten score \\
+pair\_rebuild\_six\_pass\_polished & 5018020 & 517 & $\sim$853s & Beste pre-regret score \\
+final\_regret\_rebuild & 5003710 & 517 & $\sim$464s & Regret-greedy rebuild, zes passes \\
+final\_plus2\_regret & 5002250 & 517 & $\sim$487s & Beste gemeten score, acht passes \\
+final\_plus3\_regret & 5002280 & 517 & $\sim$506s & Negende pass slechter \\
+final\_triple & 4999750 & 517 & $\sim$520s & Een triple-rebuild-pass \\
+final\_triple3 & 4996960 & 517 & $\sim$565s & Beste gemeten score \\
+final\_triple4 & 4996960 & 517 & $\sim$577s & Vierde pass geen winst \\
+triple\_pair\_polish\_wide2 & 4996270 & 517 & $\sim$671s & Beste gemeten score \\
+triple\_pair\_polish\_wide3 & 4996420 & 517 & $\sim$707s & Derde post-triple pass slechter \\
+second\_triple & 4995720 & 517 & $\sim$692s & Een tweede triple-pass \\
+second\_triple2 & 4993680 & 517 & $\sim$704s & Beste gemeten score \\
+second\_triple3 & 4993680 & 517 & $\sim$709s & Derde pass geen winst \\
 \bottomrule
 \end{tabular}
 \caption{Benchmarkresultaten op de competitiedata in Release-build}
 \end{table}
 
 \section{Vergelijking en discussie}
-De grootste sprongen kwamen niet uit zwaardere metaheuristieken, maar uit beter gebruik van probleemspecifieke structuur. Savings greedy gaf een sterke basis; lokale zoekstappen verbeterden de clustering; route-eliminatie verlaagde het aantal routes. Beam search bracht de oplossing naar 517 routes, wat gelijk is aan de theoretische ondergrens op basis van $\sum_w \lceil |orders_w|/20\rceil$. Daarna moest verdere winst uit betere routecompositie komen. De twee-route rebuild bleek hiervoor effectief: de score daalde van ongeveer $5{,}066{,}010$ naar $5{,}018{,}020$. De prijs is runtime: de beste variant duurt lokaal ongeveer 853 seconden. De vijf-pass variant met finale polish is met ongeveer $5{,}018{,}490$ een bruikbaar compromis wanneer runtime zwaarder weegt.
+De grootste sprongen kwamen niet uit zwaardere metaheuristieken, maar uit beter gebruik van probleemspecifieke structuur. Savings greedy gaf een sterke basis; lokale zoekstappen verbeterden de clustering; route-eliminatie verlaagde het aantal routes. Beam search bracht de oplossing naar 517 routes, wat gelijk is aan de theoretische ondergrens op basis van $\sum_w \lceil |orders_w|/20\rceil$. Daarna moest verdere winst uit betere routecompositie komen. De twee-route rebuild bleek hiervoor effectief: de score daalde van ongeveer $5{,}066{,}010$ naar $5{,}018{,}020$. Door binnen de rebuild ook regret-greedy assignment te gebruiken, daalde de score verder naar ongeveer $5{,}002{,}250$. Drie-route rebuild verlaagde de score tot ongeveer $4{,}996{,}960$. Door daarna opnieuw pair rebuild te draaien, daalde de score verder tot ongeveer $4{,}996{,}270$. Een tweede triple-fase na deze pair-polish bracht de score naar ongeveer $4{,}993{,}680$. Een derde pass in die tweede triple-fase gaf geen verdere winst, wat een natuurlijk stopcriterium geeft.
 
 \section{Gekozen oplossing}
-De huidige gekozen oplossing is \texttt{configs/greedy\_competition\_final.cfg}. Deze configuratie gebruikt beam route-eliminatie, zes pair-rebuild-passen met venster 40 en vier finale local-search-passen. Ze behaalde lokaal een geldige score van ongeveer $5{,}018{,}020$ met 517 routes. De aanpak is gekozen omdat ze de beste gemeten score geeft en nog steeds goed uitlegbaar is in termen van savings, local search, beperkte beam search en een strikt verbeterende rebuild-neighbourhood.
+De huidige gekozen oplossing is \texttt{configs/greedy\_competition\_final.cfg}. Deze configuratie gebruikt beam route-eliminatie, acht regret-aware pair-rebuild-passen met venster 40, drie triple-rebuild-passen met venster 4, twee post-triple pair-rebuild-passen met venster 40, twee tweede triple-passen met venster 4 en vier finale local-search-passen. Ze behaalde lokaal een geldige score van ongeveer $4{,}993{,}680$ met 517 routes. De aanpak is gekozen omdat ze de beste gemeten score geeft en nog steeds goed uitlegbaar is in termen van savings, local search, beperkte beam search en strikt verbeterende rebuild-neighbourhoods.
 
 \section{Beperkingen en toekomstig werk}
-De runtime ligt boven de ongeveer 5 seconden van Pulse Pick. Voor competitie is dat aanvaardbaar, maar voor productie niet. Verder blijven route-eliminatie en pair rebuild heuristisch: een exacte of min-cost-flow-achtige herverdeling, ruin-and-recreate of snellere delta-evaluatie voor SA/GA kunnen vervolgwerk zijn. Een diepere finale polish werd getest en gaf geen extra winst boven $5{,}018{,}020$.
+De runtime ligt boven de ongeveer 5 seconden van Pulse Pick. Voor competitie is dat aanvaardbaar, maar voor productie niet. Verder blijven route-eliminatie en rebuild heuristisch: een exacte of min-cost-flow-achtige herverdeling, ruin-and-recreate of snellere delta-evaluatie voor SA/GA kunnen vervolgwerk zijn. Een vierde triple-rebuild-pass, een derde post-triple pair-pass en een derde tweede-triple pass gaven geen extra winst, waardoor de huidige versie tekenen van verzadiging toont.
 
 \section{Conclusie}
-Het project verwerkt de belangrijkste bedrijfsfeedback: lokale validatie, harde constraints, greedy warm-start, overlapgerichte local search, rijkere neighbourhoods en reproduceerbare scoremetingen. De beste score verbeterde van de voorbeeldbaseline en eerdere greedy-varianten naar ongeveer $5{,}018{,}020$. De gekozen aanpak vormt een verdedigbare trade-off tussen kwaliteit, runtime en uitlegbaarheid.
+Het project verwerkt de belangrijkste bedrijfsfeedback: lokale validatie, harde constraints, greedy warm-start, overlapgerichte local search, rijkere neighbourhoods en reproduceerbare scoremetingen. De beste score verbeterde van de voorbeeldbaseline en eerdere greedy-varianten naar ongeveer $4{,}993{,}680$. De gekozen aanpak vormt een verdedigbare trade-off tussen kwaliteit, runtime en uitlegbaarheid.
 
 \end{document}

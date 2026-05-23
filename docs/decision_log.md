@@ -161,3 +161,103 @@ The final config stays focused on the measured best combination: beam route elim
 
 ## Link With Paper
 These are negative results for the alternatives section and strengthen the justification for the final choice.
+
+# Decision 8
+
+## Context
+The two-route rebuild improved route composition, but its seed-based construction inserted remaining orders in a fixed span-descending order. That can place easy orders before constrained orders and close capacity in a way that blocks better assignments.
+
+## Link with bedrijfsfeedback
+The feedback emphasized overlap and route spread. Regret ordering is directly linked to this: orders that strongly prefer one rebuilt route because of lower incremental snake-route cost are placed first.
+
+## Options
+- Keep only fixed span-descending insertion.
+- Try randomized rebuild orderings.
+- Add deterministic regret-greedy insertion.
+
+## Chosen Solution
+Add deterministic regret-greedy insertion as an extra candidate inside pair rebuild.
+
+## Reason
+It stays explainable and reproducible, adds a larger effective neighbourhood, and every accepted rebuild must still strictly improve the combined route cost.
+
+## Consequences
+The final measured score improved from about `5.01802e+06` to about `5.00225e+06`. Eight regret-aware rebuild passes were best; a ninth pass was slightly worse, so it was not selected.
+
+## Link With Paper
+Use this decision to explain why the final improvement is not just parameter tuning: it changes the order-construction heuristic inside the rebuild neighbourhood.
+
+# Decision 9
+
+## Context
+After regret-greedy pair rebuild, the solution was still locally constrained by moves that only repartition two routes at a time. Some improvements require a coordinated exchange among three routes.
+
+## Link with bedrijfsfeedback
+The feedback asks for richer neighbourhoods and better use of overlap/snake spread. Three-route rebuild is a richer deterministic neighbourhood that can redistribute orders across a small local route group while preserving wave and capacity constraints.
+
+## Options
+- Stop at pair rebuild because it is simpler.
+- Add stochastic ruin-and-recreate over many routes.
+- Add bounded deterministic three-route rebuild.
+
+## Chosen Solution
+Add bounded three-route rebuild with sorted split, seeded greedy assignment, and seeded regret assignment.
+
+## Reason
+It is larger than pair rebuild but still explainable, deterministic, and controlled by strict improvement acceptance. The search is bounded by a small snake-neighbourhood window.
+
+## Consequences
+The best measured score improved from about `5.00225e+06` to about `4.99696e+06`. A fourth triple pass matched the three-pass score but took longer, so three passes were selected.
+
+## Link With Paper
+This decision supports the final discussion of neighbourhood size: pair rebuild solved many local optima, while three-route rebuild handled remaining 3-route interactions with diminishing returns after three passes.
+
+# Decision 10
+
+## Context
+Three-route rebuild changed route composition in larger steps. After such a move, smaller two-route rebuilds can again become useful because nearby route centers and contents have changed.
+
+## Link with bedrijfsfeedback
+This remains tied to richer neighbourhoods and overlap/snake spread: the algorithm alternates broad repartitioning with local refinement while preserving all hard submission constraints.
+
+## Options
+- Stop after triple rebuild and final swap/relocate local search.
+- Add another triple pass.
+- Rerun bounded pair rebuild after triple rebuild.
+
+## Chosen Solution
+Add optional post-triple pair rebuild and select two passes with window 40.
+
+## Reason
+It directly tests whether triple moves open new two-route improvements. The measured results improved from about `4.99696e+06` to about `4.99627e+06`; a third pass was worse, so two passes were selected.
+
+## Consequences
+The final score improved slightly at the cost of extra runtime. The method remains deterministic and strictly improvement-based.
+
+## Link With Paper
+Use this decision to discuss complementarity of neighbourhoods and diminishing returns.
+
+# Decision 11
+
+## Context
+Post-triple pair rebuild improved the solution, suggesting that alternating neighbourhood sizes can expose improvements that a single block of passes misses.
+
+## Link with bedrijfsfeedback
+This continues the richer-neighbourhood requirement while staying deterministic, feasible, and traceable for the paper.
+
+## Options
+- Stop after post-triple pair rebuild.
+- Add another pair pass.
+- Add a second bounded triple phase after the pair polish.
+
+## Chosen Solution
+Add an optional second triple phase and select two passes with window 4.
+
+## Reason
+The first pass improved the score to about `4.99572e+06`; the second improved it further to about `4.99368e+06`. A third pass did not improve the score, so two passes are selected.
+
+## Consequences
+The final configuration is more runtime-heavy but gives the best measured local score. The method remains deterministic and strictly improvement-based.
+
+## Link With Paper
+Use this decision to explain the final interleaved local-search schedule: pair rebuild, triple rebuild, pair polish, then second triple polish.

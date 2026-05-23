@@ -38,6 +38,10 @@
 - Best-improvement route-eliminatie met beperkte beam search.
 - Multi-ordering beam assignment als getest maar niet gekozen alternatief.
 - Twee-route rebuild om routecompositie te verbeteren nadat het minimumaantal routes bereikt is.
+- Regret-greedy assignment binnen twee-route rebuild.
+- Drie-route rebuild als grotere deterministische neighbourhood.
+- Post-triple pair rebuild als lokale verfijning na grotere moves.
+- Tweede triple-rebuild-fase als laatste grotere polish na pair-verfijning.
 - Finale local-search polish na rebuilds.
 - Validatietests voor veelvoorkomende Kaggle-fouten.
 
@@ -50,7 +54,7 @@
 - Tabellen: zie `docs/algorithm_comparison.md`.
 
 ## 7. Gekozen Eindoplossing
-- `greedy_competition_final`: beam route-eliminatie, zes pair-rebuild-passen met venster 40 en finale local-search polish.
+- `greedy_competition_final`: beam route-eliminatie, acht regret-aware pair-rebuild-passen, drie triple-rebuild-passen, twee post-triple pair-rebuild-passen, twee tweede triple-passen en finale local-search polish.
 - Reden: beste lokaal gemeten score, valide output, deterministisch en goed uitlegbaar.
 - Trade-off: veel hogere runtime dan fast greedy en beam-only, maar duidelijk betere score.
 

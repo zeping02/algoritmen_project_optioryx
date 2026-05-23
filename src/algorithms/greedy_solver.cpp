@@ -1,6 +1,7 @@
 #include "optioryx/algorithms/greedy_solver.hpp"
 
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <cstdint>
 #include <cmath>
@@ -648,6 +649,114 @@ void consider_greedy_seed_rebuild(
         best_right);
 }
 
+void consider_regret_seed_rebuild(
+    const ProblemInstance& instance,
+    const std::vector<int>& items_by_snake_rank,
+    const std::vector<std::vector<int>>& order_items_by_snake_rank,
+    const std::string& wave_id,
+    std::vector<int> combined_orders,
+    double current_cost,
+    double& best_cost,
+    SearchBatch& best_left,
+    SearchBatch& best_right) {
+    if (combined_orders.size() <= 1U) {
+        return;
+    }
+
+    const auto minmax = std::minmax_element(
+        combined_orders.begin(),
+        combined_orders.end(),
+        [&](const int left, const int right) {
+            return order_rank_center_value(instance, order_items_by_snake_rank, left) <
+                   order_rank_center_value(instance, order_items_by_snake_rank, right);
+        });
+    if (minmax.first == combined_orders.end() || minmax.second == combined_orders.end() ||
+        *minmax.first == *minmax.second) {
+        return;
+    }
+
+    const int left_seed = *minmax.first;
+    const int right_seed = *minmax.second;
+    SearchBatch left = make_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, wave_id, {left_seed});
+    SearchBatch right =
+        make_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, wave_id, {right_seed});
+
+    combined_orders.erase(std::remove(combined_orders.begin(), combined_orders.end(), left_seed), combined_orders.end());
+    combined_orders.erase(std::remove(combined_orders.begin(), combined_orders.end(), right_seed), combined_orders.end());
+
+    while (!combined_orders.empty()) {
+        std::size_t best_pos = 0;
+        bool best_to_left = true;
+        double best_regret = -std::numeric_limits<double>::infinity();
+        double best_increment = std::numeric_limits<double>::infinity();
+        int best_span = -1;
+        std::size_t best_item_count = 0;
+
+        for (std::size_t pos = 0; pos < combined_orders.size(); ++pos) {
+            const int order_index = combined_orders[pos];
+            const bool left_has_capacity = left.batch.order_indices.size() < instance.nmax;
+            const bool right_has_capacity = right.batch.order_indices.size() < instance.nmax;
+            if (!left_has_capacity && !right_has_capacity) {
+                return;
+            }
+
+            double left_increment = std::numeric_limits<double>::infinity();
+            double right_increment = std::numeric_limits<double>::infinity();
+            if (left_has_capacity) {
+                left_increment =
+                    incremental_cost_for_order(instance, items_by_snake_rank, order_items_by_snake_rank, left, order_index);
+            }
+            if (right_has_capacity) {
+                right_increment =
+                    incremental_cost_for_order(instance, items_by_snake_rank, order_items_by_snake_rank, right, order_index);
+            }
+
+            const bool to_left = left_increment <= right_increment;
+            const double best_candidate_increment = std::min(left_increment, right_increment);
+            const double worst_candidate_increment = std::max(left_increment, right_increment);
+            const double regret = worst_candidate_increment - best_candidate_increment;
+            const int span = order_rank_span_value(instance, order_items_by_snake_rank, order_index);
+            const std::size_t item_count = order_items_by_snake_rank[static_cast<std::size_t>(order_index)].size();
+
+            if (regret > best_regret + 1e-9 ||
+                (std::abs(regret - best_regret) <= 1e-9 &&
+                 (best_candidate_increment < best_increment - 1e-9 ||
+                  (std::abs(best_candidate_increment - best_increment) <= 1e-9 &&
+                   (span > best_span ||
+                    (span == best_span &&
+                     (item_count > best_item_count ||
+                      (item_count == best_item_count && order_index < combined_orders[best_pos])))))))) {
+                best_pos = pos;
+                best_to_left = to_left;
+                best_regret = regret;
+                best_increment = best_candidate_increment;
+                best_span = span;
+                best_item_count = item_count;
+            }
+        }
+
+        const int order_index = combined_orders[best_pos];
+        if (best_to_left && left.batch.order_indices.size() < instance.nmax) {
+            add_order_to_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, left, order_index);
+        } else {
+            add_order_to_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, right, order_index);
+        }
+        combined_orders.erase(combined_orders.begin() + static_cast<std::ptrdiff_t>(best_pos));
+    }
+
+    consider_rebuilt_partition(
+        instance,
+        items_by_snake_rank,
+        order_items_by_snake_rank,
+        wave_id,
+        left.batch.order_indices,
+        right.batch.order_indices,
+        current_cost,
+        best_cost,
+        best_left,
+        best_right);
+}
+
 bool rebuild_pair_if_better(
     const ProblemInstance& instance,
     const std::vector<int>& items_by_snake_rank,
@@ -720,12 +829,378 @@ bool rebuild_pair_if_better(
         best_left,
         best_right);
 
+    consider_regret_seed_rebuild(
+        instance,
+        items_by_snake_rank,
+        order_items_by_snake_rank,
+        left.batch.wave_id,
+        combined_orders,
+        current_cost,
+        best_cost,
+        best_left,
+        best_right);
+
     if (best_cost >= current_cost - 1e-9) {
         return false;
     }
 
     left = std::move(best_left);
     right = std::move(best_right);
+    return true;
+}
+
+double total_rebuild_cost(const std::array<SearchBatch, 3>& routes) {
+    return routes[0].cost + routes[1].cost + routes[2].cost;
+}
+
+std::array<std::size_t, 3> balanced_three_sizes(std::size_t order_count, std::size_t nmax) {
+    std::array<std::size_t, 3> sizes{
+        order_count / 3U,
+        order_count / 3U,
+        order_count / 3U,
+    };
+    for (std::size_t index = 0; index < order_count % 3U; ++index) {
+        ++sizes[index];
+    }
+
+    for (std::size_t index = 0; index < sizes.size(); ++index) {
+        if (sizes[index] == 0U) {
+            sizes[index] = 1U;
+        }
+        if (sizes[index] > nmax) {
+            sizes[index] = nmax;
+        }
+    }
+    return sizes;
+}
+
+void polish_rebuilt_triple(
+    const ProblemInstance& instance,
+    const std::vector<int>& items_by_snake_rank,
+    const std::vector<std::vector<int>>& order_items_by_snake_rank,
+    std::array<SearchBatch, 3>& routes) {
+    bool improved = true;
+    while (improved) {
+        improved = false;
+        for (std::size_t left_index = 0; left_index < routes.size(); ++left_index) {
+            for (std::size_t right_index = left_index + 1U; right_index < routes.size(); ++right_index) {
+                while (!routes[left_index].batch.order_indices.empty() &&
+                       !routes[right_index].batch.order_indices.empty()) {
+                    const LocalAction action = find_best_pair_action(
+                        instance,
+                        items_by_snake_rank,
+                        order_items_by_snake_rank,
+                        routes[left_index],
+                        routes[right_index]);
+                    if (action.type == LocalActionType::none) {
+                        break;
+                    }
+                    apply_local_action(
+                        instance,
+                        items_by_snake_rank,
+                        order_items_by_snake_rank,
+                        routes[left_index],
+                        routes[right_index],
+                        action);
+                    improved = true;
+                }
+            }
+        }
+    }
+}
+
+void consider_rebuilt_triple_partition(
+    const ProblemInstance& instance,
+    const std::vector<int>& items_by_snake_rank,
+    const std::vector<std::vector<int>>& order_items_by_snake_rank,
+    const std::string& wave_id,
+    const std::array<std::vector<int>, 3>& order_groups,
+    double current_cost,
+    double& best_cost,
+    std::array<SearchBatch, 3>& best_routes) {
+    for (const std::vector<int>& orders : order_groups) {
+        if (orders.empty() || orders.size() > instance.nmax) {
+            return;
+        }
+    }
+
+    std::array<SearchBatch, 3> candidate_routes{
+        make_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, wave_id, order_groups[0]),
+        make_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, wave_id, order_groups[1]),
+        make_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, wave_id, order_groups[2]),
+    };
+    polish_rebuilt_triple(instance, items_by_snake_rank, order_items_by_snake_rank, candidate_routes);
+
+    for (const SearchBatch& route : candidate_routes) {
+        if (route.batch.order_indices.empty() || route.batch.order_indices.size() > instance.nmax) {
+            return;
+        }
+    }
+
+    const double candidate_cost = total_rebuild_cost(candidate_routes);
+    if (candidate_cost < current_cost - 1e-9 && candidate_cost < best_cost - 1e-9) {
+        best_cost = candidate_cost;
+        best_routes = std::move(candidate_routes);
+    }
+}
+
+void consider_sorted_triple_split(
+    const ProblemInstance& instance,
+    const std::vector<int>& items_by_snake_rank,
+    const std::vector<std::vector<int>>& order_items_by_snake_rank,
+    const std::string& wave_id,
+    const std::vector<int>& combined_orders,
+    double current_cost,
+    double& best_cost,
+    std::array<SearchBatch, 3>& best_routes) {
+    const std::array<std::size_t, 3> sizes = balanced_three_sizes(combined_orders.size(), instance.nmax);
+    if (sizes[0] + sizes[1] + sizes[2] != combined_orders.size()) {
+        return;
+    }
+
+    std::array<std::vector<int>, 3> groups;
+    std::size_t offset = 0;
+    for (std::size_t group_index = 0; group_index < groups.size(); ++group_index) {
+        groups[group_index].assign(
+            combined_orders.begin() + static_cast<std::ptrdiff_t>(offset),
+            combined_orders.begin() + static_cast<std::ptrdiff_t>(offset + sizes[group_index]));
+        offset += sizes[group_index];
+    }
+
+    consider_rebuilt_triple_partition(
+        instance,
+        items_by_snake_rank,
+        order_items_by_snake_rank,
+        wave_id,
+        groups,
+        current_cost,
+        best_cost,
+        best_routes);
+}
+
+std::array<int, 3> select_three_center_seeds(
+    const ProblemInstance& instance,
+    const std::vector<std::vector<int>>& order_items_by_snake_rank,
+    std::vector<int> combined_orders) {
+    std::sort(combined_orders.begin(), combined_orders.end(), [&](const int left, const int right) {
+        const double left_center = order_rank_center_value(instance, order_items_by_snake_rank, left);
+        const double right_center = order_rank_center_value(instance, order_items_by_snake_rank, right);
+        if (std::abs(left_center - right_center) > 1e-9) {
+            return left_center < right_center;
+        }
+        return left < right;
+    });
+    return {
+        combined_orders.front(),
+        combined_orders[combined_orders.size() / 2U],
+        combined_orders.back(),
+    };
+}
+
+void remove_seed_orders(std::vector<int>& orders, const std::array<int, 3>& seeds) {
+    for (const int seed : seeds) {
+        const auto found = std::find(orders.begin(), orders.end(), seed);
+        if (found != orders.end()) {
+            orders.erase(found);
+        }
+    }
+}
+
+void consider_three_seed_rebuild(
+    const ProblemInstance& instance,
+    const std::vector<int>& items_by_snake_rank,
+    const std::vector<std::vector<int>>& order_items_by_snake_rank,
+    const std::string& wave_id,
+    std::vector<int> combined_orders,
+    bool regret_ordering,
+    double current_cost,
+    double& best_cost,
+    std::array<SearchBatch, 3>& best_routes) {
+    if (combined_orders.size() < 3U || combined_orders.size() > 3U * instance.nmax) {
+        return;
+    }
+
+    const std::array<int, 3> seeds =
+        select_three_center_seeds(instance, order_items_by_snake_rank, combined_orders);
+    if (seeds[0] == seeds[1] || seeds[0] == seeds[2] || seeds[1] == seeds[2]) {
+        return;
+    }
+
+    std::array<SearchBatch, 3> routes{
+        make_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, wave_id, {seeds[0]}),
+        make_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, wave_id, {seeds[1]}),
+        make_search_batch(instance, items_by_snake_rank, order_items_by_snake_rank, wave_id, {seeds[2]}),
+    };
+
+    remove_seed_orders(combined_orders, seeds);
+    if (!regret_ordering) {
+        std::sort(combined_orders.begin(), combined_orders.end(), [&](const int left_order, const int right_order) {
+            const int left_span = order_rank_span_value(instance, order_items_by_snake_rank, left_order);
+            const int right_span = order_rank_span_value(instance, order_items_by_snake_rank, right_order);
+            if (left_span != right_span) {
+                return left_span > right_span;
+            }
+            return left_order < right_order;
+        });
+    }
+
+    while (!combined_orders.empty()) {
+        std::size_t selected_pos = 0;
+        std::size_t selected_route = 0;
+        double best_regret = -std::numeric_limits<double>::infinity();
+        double best_increment = std::numeric_limits<double>::infinity();
+        int best_span = -1;
+        std::size_t best_item_count = 0;
+
+        const std::size_t candidate_limit = regret_ordering ? combined_orders.size() : 1U;
+        for (std::size_t pos = 0; pos < candidate_limit; ++pos) {
+            const int order_index = combined_orders[pos];
+            std::array<double, 3> increments{
+                std::numeric_limits<double>::infinity(),
+                std::numeric_limits<double>::infinity(),
+                std::numeric_limits<double>::infinity(),
+            };
+
+            for (std::size_t route_index = 0; route_index < routes.size(); ++route_index) {
+                if (routes[route_index].batch.order_indices.size() < instance.nmax) {
+                    increments[route_index] = incremental_cost_for_order(
+                        instance,
+                        items_by_snake_rank,
+                        order_items_by_snake_rank,
+                        routes[route_index],
+                        order_index);
+                }
+            }
+
+            std::array<std::size_t, 3> route_order{0U, 1U, 2U};
+            std::sort(route_order.begin(), route_order.end(), [&](const std::size_t left, const std::size_t right) {
+                if (std::abs(increments[left] - increments[right]) > 1e-9) {
+                    return increments[left] < increments[right];
+                }
+                return routes[left].batch.order_indices.size() < routes[right].batch.order_indices.size();
+            });
+            if (!std::isfinite(increments[route_order[0]])) {
+                return;
+            }
+
+            const double regret = std::isfinite(increments[route_order[1]])
+                                      ? increments[route_order[1]] - increments[route_order[0]]
+                                      : std::numeric_limits<double>::infinity();
+            const int span = order_rank_span_value(instance, order_items_by_snake_rank, order_index);
+            const std::size_t item_count = order_items_by_snake_rank[static_cast<std::size_t>(order_index)].size();
+            if (!regret_ordering ||
+                regret > best_regret + 1e-9 ||
+                (std::abs(regret - best_regret) <= 1e-9 &&
+                 (increments[route_order[0]] < best_increment - 1e-9 ||
+                  (std::abs(increments[route_order[0]] - best_increment) <= 1e-9 &&
+                   (span > best_span ||
+                    (span == best_span &&
+                     (item_count > best_item_count ||
+                      (item_count == best_item_count && order_index < combined_orders[selected_pos])))))))) {
+                selected_pos = pos;
+                selected_route = route_order[0];
+                best_regret = regret;
+                best_increment = increments[route_order[0]];
+                best_span = span;
+                best_item_count = item_count;
+            }
+        }
+
+        const int order_index = combined_orders[selected_pos];
+        add_order_to_search_batch(
+            instance,
+            items_by_snake_rank,
+            order_items_by_snake_rank,
+            routes[selected_route],
+            order_index);
+        combined_orders.erase(combined_orders.begin() + static_cast<std::ptrdiff_t>(selected_pos));
+    }
+
+    std::array<std::vector<int>, 3> groups{
+        routes[0].batch.order_indices,
+        routes[1].batch.order_indices,
+        routes[2].batch.order_indices,
+    };
+    consider_rebuilt_triple_partition(
+        instance,
+        items_by_snake_rank,
+        order_items_by_snake_rank,
+        wave_id,
+        groups,
+        current_cost,
+        best_cost,
+        best_routes);
+}
+
+bool rebuild_triple_if_better(
+    const ProblemInstance& instance,
+    const std::vector<int>& items_by_snake_rank,
+    const std::vector<std::vector<int>>& order_items_by_snake_rank,
+    SearchBatch& first,
+    SearchBatch& second,
+    SearchBatch& third) {
+    if (first.batch.wave_id != second.batch.wave_id || first.batch.wave_id != third.batch.wave_id) {
+        return false;
+    }
+
+    std::vector<int> combined_orders = first.batch.order_indices;
+    combined_orders.insert(combined_orders.end(), second.batch.order_indices.begin(), second.batch.order_indices.end());
+    combined_orders.insert(combined_orders.end(), third.batch.order_indices.begin(), third.batch.order_indices.end());
+    if (combined_orders.size() < 3U || combined_orders.size() > 3U * instance.nmax) {
+        return false;
+    }
+
+    const double current_cost = first.cost + second.cost + third.cost;
+    double best_cost = current_cost;
+    std::array<SearchBatch, 3> best_routes;
+
+    std::vector<int> by_center = combined_orders;
+    std::sort(by_center.begin(), by_center.end(), [&](const int left_order, const int right_order) {
+        const double left_center = order_rank_center_value(instance, order_items_by_snake_rank, left_order);
+        const double right_center = order_rank_center_value(instance, order_items_by_snake_rank, right_order);
+        if (std::abs(left_center - right_center) > 1e-9) {
+            return left_center < right_center;
+        }
+        return left_order < right_order;
+    });
+    consider_sorted_triple_split(
+        instance,
+        items_by_snake_rank,
+        order_items_by_snake_rank,
+        first.batch.wave_id,
+        by_center,
+        current_cost,
+        best_cost,
+        best_routes);
+
+    consider_three_seed_rebuild(
+        instance,
+        items_by_snake_rank,
+        order_items_by_snake_rank,
+        first.batch.wave_id,
+        combined_orders,
+        false,
+        current_cost,
+        best_cost,
+        best_routes);
+    consider_three_seed_rebuild(
+        instance,
+        items_by_snake_rank,
+        order_items_by_snake_rank,
+        first.batch.wave_id,
+        combined_orders,
+        true,
+        current_cost,
+        best_cost,
+        best_routes);
+
+    if (best_cost >= current_cost - 1e-9) {
+        return false;
+    }
+
+    first = std::move(best_routes[0]);
+    second = std::move(best_routes[1]);
+    third = std::move(best_routes[2]);
     return true;
 }
 
@@ -1216,6 +1691,82 @@ std::size_t rebuild_nearby_pairs(
     return rebuild_count;
 }
 
+std::size_t rebuild_nearby_triples(
+    const ProblemInstance& instance,
+    const std::vector<int>& items_by_snake_rank,
+    const std::vector<std::vector<int>>& order_items_by_snake_rank,
+    std::vector<SearchBatch>& search_batches,
+    int passes,
+    int neighbor_window,
+    int combination_window) {
+    if (passes <= 0 || neighbor_window <= 0 || search_batches.size() < 3U) {
+        return 0;
+    }
+
+    std::size_t rebuild_count = 0;
+    for (int pass = 0; pass < passes && search_batches.size() >= 3U; ++pass) {
+        std::vector<std::size_t> sorted_indices(search_batches.size());
+        std::iota(sorted_indices.begin(), sorted_indices.end(), 0);
+        std::sort(sorted_indices.begin(), sorted_indices.end(), [&](const std::size_t left, const std::size_t right) {
+            return span_center(search_batches[left]) < span_center(search_batches[right]);
+        });
+
+        bool improved_this_pass = false;
+        for (std::size_t pos = 0; pos + 2U < sorted_indices.size(); ++pos) {
+            const std::size_t max_gap =
+                std::min<std::size_t>(static_cast<std::size_t>(neighbor_window), (sorted_indices.size() - 1U - pos) / 2U);
+            for (std::size_t gap = 1U; gap <= max_gap; ++gap) {
+                SearchBatch& first = search_batches[sorted_indices[pos]];
+                SearchBatch& second = search_batches[sorted_indices[pos + gap]];
+                SearchBatch& third = search_batches[sorted_indices[pos + 2U * gap]];
+                if (rebuild_triple_if_better(
+                        instance,
+                        items_by_snake_rank,
+                        order_items_by_snake_rank,
+                        first,
+                        second,
+                        third)) {
+                    ++rebuild_count;
+                    improved_this_pass = true;
+                }
+            }
+
+            const std::size_t max_combination_offset = std::min<std::size_t>(
+                static_cast<std::size_t>(std::max(0, combination_window)),
+                sorted_indices.size() - 1U - pos);
+            for (std::size_t first_offset = 1U; first_offset < max_combination_offset; ++first_offset) {
+                for (std::size_t second_offset = first_offset + 1U;
+                     second_offset <= max_combination_offset;
+                     ++second_offset) {
+                    if (second_offset == 2U * first_offset) {
+                        continue;
+                    }
+
+                    SearchBatch& first = search_batches[sorted_indices[pos]];
+                    SearchBatch& second = search_batches[sorted_indices[pos + first_offset]];
+                    SearchBatch& third = search_batches[sorted_indices[pos + second_offset]];
+                    if (rebuild_triple_if_better(
+                            instance,
+                            items_by_snake_rank,
+                            order_items_by_snake_rank,
+                            first,
+                            second,
+                            third)) {
+                        ++rebuild_count;
+                        improved_this_pass = true;
+                    }
+                }
+            }
+        }
+
+        if (!improved_this_pass) {
+            break;
+        }
+    }
+
+    return rebuild_count;
+}
+
 std::size_t improve_with_local_search(
     const ProblemInstance& instance,
     const std::vector<int>& items_by_snake_rank,
@@ -1231,8 +1782,18 @@ std::size_t improve_with_local_search(
     int post_elimination_local_search_passes,
     int pair_rebuild_passes,
     int pair_rebuild_neighbor_window,
+    int triple_rebuild_passes,
+    int triple_rebuild_neighbor_window,
+    int triple_rebuild_combination_window,
+    int post_triple_pair_rebuild_passes,
+    int post_triple_pair_rebuild_neighbor_window,
+    int post_pair_triple_rebuild_passes,
+    int post_pair_triple_rebuild_neighbor_window,
+    int post_pair_triple_rebuild_combination_window,
     int final_local_search_passes) {
-    if (passes <= 0 && route_elimination_passes <= 0) {
+    if (passes <= 0 && route_elimination_passes <= 0 && pair_rebuild_passes <= 0 &&
+        triple_rebuild_passes <= 0 && post_triple_pair_rebuild_passes <= 0 &&
+        post_pair_triple_rebuild_passes <= 0) {
         return 0;
     }
 
@@ -1277,7 +1838,42 @@ std::size_t improve_with_local_search(
         pair_rebuild_neighbor_window);
     improvement_count += rebuilt_count;
 
-    if (rebuilt_count > 0U) {
+    const std::size_t triple_rebuilt_count = rebuild_nearby_triples(
+        instance,
+        items_by_snake_rank,
+        order_items_by_snake_rank,
+        search_batches,
+        triple_rebuild_passes,
+        triple_rebuild_neighbor_window,
+        triple_rebuild_combination_window);
+    improvement_count += triple_rebuilt_count;
+
+    std::size_t post_triple_rebuilt_count = 0;
+    if (triple_rebuilt_count > 0U) {
+        post_triple_rebuilt_count = rebuild_nearby_pairs(
+            instance,
+            items_by_snake_rank,
+            order_items_by_snake_rank,
+            search_batches,
+            post_triple_pair_rebuild_passes,
+            post_triple_pair_rebuild_neighbor_window);
+        improvement_count += post_triple_rebuilt_count;
+    }
+
+    std::size_t post_pair_triple_rebuilt_count = 0;
+    if (post_triple_rebuilt_count > 0U) {
+        post_pair_triple_rebuilt_count = rebuild_nearby_triples(
+            instance,
+            items_by_snake_rank,
+            order_items_by_snake_rank,
+            search_batches,
+            post_pair_triple_rebuild_passes,
+            post_pair_triple_rebuild_neighbor_window,
+            post_pair_triple_rebuild_combination_window);
+        improvement_count += post_pair_triple_rebuilt_count;
+    }
+
+    if (rebuilt_count + triple_rebuilt_count + post_triple_rebuilt_count + post_pair_triple_rebuilt_count > 0U) {
         improvement_count += improve_nearby_pairs(
             instance,
             items_by_snake_rank,
@@ -1407,7 +2003,10 @@ WaveSolveResult solve_wave_greedy(
     std::size_t local_improvements = 0;
     if ((config.local_search_passes > 0 && config.local_search_neighbor_window > 0) ||
         config.route_elimination_passes > 0 ||
-        (config.pair_rebuild_passes > 0 && config.pair_rebuild_neighbor_window > 0)) {
+        (config.pair_rebuild_passes > 0 && config.pair_rebuild_neighbor_window > 0) ||
+        (config.triple_rebuild_passes > 0 && config.triple_rebuild_neighbor_window > 0) ||
+        (config.post_triple_pair_rebuild_passes > 0 && config.post_triple_pair_rebuild_neighbor_window > 0) ||
+        (config.post_pair_triple_rebuild_passes > 0 && config.post_pair_triple_rebuild_neighbor_window > 0)) {
         const std::vector<std::vector<int>> order_items_by_snake_rank = build_order_items_by_snake_rank(instance);
         local_improvements = improve_with_local_search(
             instance,
@@ -1424,6 +2023,14 @@ WaveSolveResult solve_wave_greedy(
             config.post_elimination_local_search_passes,
             config.pair_rebuild_passes,
             config.pair_rebuild_neighbor_window,
+            config.triple_rebuild_passes,
+            config.triple_rebuild_neighbor_window,
+            config.triple_rebuild_combination_window,
+            config.post_triple_pair_rebuild_passes,
+            config.post_triple_pair_rebuild_neighbor_window,
+            config.post_pair_triple_rebuild_passes,
+            config.post_pair_triple_rebuild_neighbor_window,
+            config.post_pair_triple_rebuild_combination_window,
             config.final_local_search_passes);
     }
 
@@ -1448,6 +2055,19 @@ WaveSolveResult solve_wave_greedy(
         std::to_string(config.post_elimination_local_search_passes);
     result.metadata["pair_rebuild_passes"] = std::to_string(config.pair_rebuild_passes);
     result.metadata["pair_rebuild_neighbor_window"] = std::to_string(config.pair_rebuild_neighbor_window);
+    result.metadata["triple_rebuild_passes"] = std::to_string(config.triple_rebuild_passes);
+    result.metadata["triple_rebuild_neighbor_window"] = std::to_string(config.triple_rebuild_neighbor_window);
+    result.metadata["triple_rebuild_combination_window"] = std::to_string(config.triple_rebuild_combination_window);
+    result.metadata["post_triple_pair_rebuild_passes"] =
+        std::to_string(config.post_triple_pair_rebuild_passes);
+    result.metadata["post_triple_pair_rebuild_neighbor_window"] =
+        std::to_string(config.post_triple_pair_rebuild_neighbor_window);
+    result.metadata["post_pair_triple_rebuild_passes"] =
+        std::to_string(config.post_pair_triple_rebuild_passes);
+    result.metadata["post_pair_triple_rebuild_neighbor_window"] =
+        std::to_string(config.post_pair_triple_rebuild_neighbor_window);
+    result.metadata["post_pair_triple_rebuild_combination_window"] =
+        std::to_string(config.post_pair_triple_rebuild_combination_window);
     result.metadata["final_local_search_passes"] = std::to_string(config.final_local_search_passes);
     result.metadata["local_improvements"] = std::to_string(local_improvements);
 

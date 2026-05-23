@@ -19,6 +19,14 @@ struct GreedyConfig {
     int post_elimination_local_search_passes = 0;
     int pair_rebuild_passes = 0;
     int pair_rebuild_neighbor_window = 0;
+    int triple_rebuild_passes = 0;
+    int triple_rebuild_neighbor_window = 0;
+    int triple_rebuild_combination_window = 0;
+    int post_triple_pair_rebuild_passes = 0;
+    int post_triple_pair_rebuild_neighbor_window = 0;
+    int post_pair_triple_rebuild_passes = 0;
+    int post_pair_triple_rebuild_neighbor_window = 0;
+    int post_pair_triple_rebuild_combination_window = 0;
     int final_local_search_passes = 0;
 };
 

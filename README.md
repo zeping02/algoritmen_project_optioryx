@@ -91,7 +91,7 @@ build_release/optioryx_cli solve --solver greedy --input data --output build_rel
 build_release/optioryx_cli validate-submission --input data --submission build_release/greedy_final.csv
 ```
 
-Latest local Release measurement for this final config: valid submission, score around `5.01802e+06`, 517 routes.
+Latest local Release measurement for this final config: valid submission, score around `4.99368e+06`, 517 routes.
 
 Summarize a submission for the paper:
 

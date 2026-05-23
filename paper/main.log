@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.17)  23 MAY 2026 13:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.17)  23 MAY 2026 21:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -733,27 +733,97 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--68
 []|\OT1/cmr/m/n/10.95 Gekozen voor
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
+[]|\OT1/cmr/m/n/10.95 Gekozen voor
+ []
+
+
+Underfull \hbox (badness 5431) in paragraph at lines 69--69
+[]|\OT1/cmr/m/n/10.95 Verplaatst or-ders ge-
+ []
+
+
+Underfull \hbox (badness 4205) in paragraph at lines 69--69
+\OT1/cmr/m/n/10.95 coor-di-neerd over drie
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
+[]|\OT1/cmr/m/n/10.95 Gekozen voor
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--70
+[]|\OT1/cmr/m/n/10.95 Post-triple pair
+ []
+
+
+Underfull \hbox (badness 2096) in paragraph at lines 70--70
+[]|\OT1/cmr/m/n/10.95 Extra run-time; derde
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
+[]|\OT1/cmr/m/n/10.95 Gekozen voor
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--71
+[]|\OT1/cmr/m/n/10.95 Tweede triple-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--71
+[]|\OT1/cmr/m/n/10.95 Heropent drie-route
+ []
+
+
+Underfull \hbox (badness 2096) in paragraph at lines 71--71
+[]|\OT1/cmr/m/n/10.95 Extra run-time; derde
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--72
+[]|\OT1/cmr/m/n/10.95 Gekozen voor
+ []
+
 [2]
-Overfull \hbox (16.00748pt too wide) in paragraph at lines 95--96
+Overfull \hbox (16.00748pt too wide) in paragraph at lines 102--103
 []|\OT1/cmr/m/n/10.95 Random/voorbeeldbaseline| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 96--97
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
 []|\OT1/cmr/m/n/10.95 Savings zon-der lo-cal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 102--103
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
 []|\OT1/cmr/m/n/10.95 Sterke
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 102--103
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
 \OT1/cmr/m/n/10.95 kwaliteits/runtime-
  []
 
-[3] [4] (main.aux)
+
+Underfull \hbox (badness 5175) in paragraph at lines 111--112
+[]|\OT1/cmr/m/n/10.95 Regret-greedy re-build,
+ []
+
+
+Underfull \hbox (badness 5681) in paragraph at lines 112--113
+[]|\OT1/cmr/m/n/10.95 Beste ge-me-ten score,
+ []
+
+
+Underfull \hbox (badness 1122) in paragraph at lines 118--119
+[]|\OT1/cmr/m/n/10.95 Derde post-triple pass
+ []
+
+[3] [4] [5] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
@@ -762,13 +832,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 120BC8955C81F07924AAB68110F4557A;1897.
  ) 
 Here is how much of TeX's memory you used:
- 12892 strings out of 467870
- 200904 string characters out of 5418354
- 651408 words of memory out of 5000000
+ 12896 strings out of 467870
+ 200929 string characters out of 5418354
+ 656408 words of memory out of 5000000
  41597 multiletter control sequences out of 15000+600000
  634754 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,79p,803b,553s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,79p,1083b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\zepin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1095.pk><C:/Users/zepin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/zepin/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -783,9 +853,9 @@ epin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:
 pfb><C:/Users/zepin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
 m/cmsy10.pfb><C:/Users/zepin/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
 msfonts/cm/cmtt10.pfb>
-Output written on main.pdf (4 pages, 162526 bytes).
+Output written on main.pdf (5 pages, 165367 bytes).
 PDF statistics:
- 150 PDF objects out of 1000 (max. 8388607)
- 27 named destinations out of 1000 (max. 500000)
+ 158 PDF objects out of 1000 (max. 8388607)
+ 31 named destinations out of 1000 (max. 500000)
  105 words of extra memory for PDF output out of 10000 (max. 10000000)
 
