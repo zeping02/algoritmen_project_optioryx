@@ -82,13 +82,21 @@ Generate a submission:
 optioryx_cli solve --solver seed_selection --input data --output build/competition_submission.csv
 ```
 
-For the current strongest competition-oriented baseline, build in Release mode and use:
+For the current strongest competition-oriented run, build in Release mode and use:
 
 ```text
 cmake -S . -B build_release -DCMAKE_BUILD_TYPE=Release
 cmake --build build_release
-build_release/optioryx_cli solve --solver greedy --input data --output build_release/greedy_strong.csv --config configs/greedy_competition_strong.cfg
-build_release/optioryx_cli validate-submission --input data --submission build_release/greedy_strong.csv
+build_release/optioryx_cli solve --solver greedy --input data --output build_release/greedy_final.csv --config configs/greedy_competition_final.cfg
+build_release/optioryx_cli validate-submission --input data --submission build_release/greedy_final.csv
+```
+
+Latest local Release measurement for this final config: valid submission, score around `5.01802e+06`, 517 routes.
+
+Summarize a submission for the paper:
+
+```text
+python scripts/summarize_submission.py --cli build_release/optioryx_cli --input data --submission build_release/greedy_final.csv --output build_release/greedy_final_summary.csv
 ```
 
 Validate and score it locally:
@@ -126,7 +134,7 @@ local_search_passes=2
 local_search_neighbor_window=12
 ```
 
-Use `configs/greedy_competition_fast.cfg` for the original fast savings baseline without local search, `configs/greedy_competition_local.cfg` for a balanced run, `configs/greedy_competition_strong.cfg` for a stronger run, and `configs/greedy_competition_ultra.cfg` for the best local score measured so far.
+Use `configs/greedy_competition_fast.cfg` for the original fast savings baseline without local search, `configs/greedy_competition_local.cfg` for a balanced run, `configs/greedy_competition_strong.cfg`/`ultra`/`deep` for progressively stronger runs, `configs/greedy_competition_beam_eliminate.cfg` for the best pre-rebuild score, and `configs/greedy_competition_final.cfg` for the best measured competition score so far.
 
 ## Verification
 
@@ -138,4 +146,4 @@ The repository ships with:
 
 The Python analysis stack expects `numpy`, `pandas`, and `matplotlib`.
 
-See `IMPROVEMENTS.md` for the feedback-driven changes, local measurements, and remaining limitations.
+See `IMPROVEMENTS.md` for the feedback-driven changes, local measurements, and remaining limitations. Paper-oriented notes are in `docs/algorithm_comparison.md`, `docs/decision_log.md`, `docs/iteration_log.md`, and `docs/paper_outline.md`.

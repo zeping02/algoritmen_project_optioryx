@@ -1,0 +1,163 @@
+# Decision Log
+
+# Decision 1
+
+## Context
+The initial greedy implementation was correct but too slow on the full competition data because it repeatedly rescanned all active batch pairs.
+
+## Options
+- Keep the full rescan for simplicity.
+- Use a lazy priority queue of positive savings candidates.
+- Replace greedy with a stochastic method immediately.
+
+## Chosen Solution
+Use a lazy priority queue for savings candidates.
+
+## Reason
+It preserves the same Clarke-Wright-style greedy idea while avoiding repeated full rescans.
+
+## Consequences
+The algorithm remains deterministic and explainable. It still evaluates many candidate pairs, but it became practical on the full dataset.
+
+## Link With Paper
+This supports the implementation section: same heuristic principle, better data structure.
+
+# Decision 2
+
+## Context
+Optioryx feedback emphasized overlap, warm starts, and richer local search.
+
+## Options
+- Use only the savings result.
+- Add stochastic simulated annealing after greedy.
+- Add deterministic local search with swaps and relocations.
+
+## Chosen Solution
+Add bounded pairwise local search after savings.
+
+## Reason
+It gives a large score improvement and is easy to explain: neighboring batches along the snake route are likely to exchange compatible orders.
+
+## Consequences
+Runtime increases, but solution quality improves strongly. The method is deterministic for a given input/config.
+
+## Link With Paper
+This is a clear quality-versus-runtime trade-off.
+
+# Decision 3
+
+## Context
+The improved solution still contained more routes than theoretically necessary.
+
+## Options
+- Ignore route count and keep pairwise local search only.
+- Allow arbitrary large reoptimization.
+- Add greedy route elimination for small batches.
+
+## Chosen Solution
+Add route elimination: try to dissolve small batches into existing batches with spare capacity when incremental insertion cost is lower than the removed route cost.
+
+## Reason
+It directly targets remaining route overhead and is connected to the competition objective.
+
+## Consequences
+Score improved from about `5.10029e+06` to `5.08056e+06`, and later post-elimination polish improved it further to about `5.07088e+06`.
+
+## Link With Paper
+This can be described as a post-processing heuristic that trades extra runtime for lower route count and better score.
+
+# Decision 4
+
+## Context
+SA and GA are required by the assignment, but did not beat the final greedy variant in short competition runs.
+
+## Options
+- Make SA/GA the final submission method.
+- Keep them for comparison and analysis.
+- Remove them.
+
+## Chosen Solution
+Keep SA and GA as implemented comparison methods, but use greedy eliminate as the final submission generator.
+
+## Reason
+The final greedy variant gives the best measured local score and is more predictable.
+
+## Consequences
+The paper can still compare all required methods, while the competition submission uses the empirically strongest approach.
+
+## Link With Paper
+This supports the "why this final approach" section.
+
+# Decision 5
+
+## Context
+Route elimination improved score, but the first version chose the first feasible route to remove and greedily assigned its orders.
+
+## Options
+- Keep first-improvement elimination.
+- Select the feasible elimination with the largest immediate saving.
+- Use beam search for assigning removed-route orders to destination routes.
+- Use exact min-cost flow.
+
+## Chosen Solution
+Use best-improvement source selection and a bounded beam search for the assignment of orders from the removed route.
+
+## Reason
+Best-improvement avoids wasting capacity on a weak early elimination. Beam search explores several plausible destination assignments without the complexity of an exact solver.
+
+## Consequences
+The best measured score improved to about `5.06601e+06` and route count dropped to 517. Runtime and implementation complexity increased.
+
+## Link With Paper
+This is a useful example of a controlled trade-off: limited extra search gives measurable improvement while staying explainable.
+
+# Decision 6
+
+## Context
+After best-improvement beam route elimination, the solution reached 517 routes, which equals the theoretical minimum obtained by summing `ceil(wave_orders / 20)` over all waves. Further score improvements therefore had to come from better route composition, not from fewer routes.
+
+## Link with bedrijfsfeedback
+This addresses the feedback about overlap and ASIS/snake spread: orders should be grouped so their union of pick locations forms a short snake-route span with useful overlap.
+
+## Options
+- Keep only swap/relocate local search.
+- Add exact two-route repartitioning.
+- Add deterministic two-route rebuild with strict acceptance.
+- Add a large stochastic ruin-and-recreate phase.
+
+## Chosen Solution
+Add deterministic two-route rebuild as an optional greedy post-processing step.
+
+## Reason
+It can escape local optima that require moving multiple orders at once, but remains simpler and easier to explain than exact partitioning or a broad stochastic destroy/repair method. Every accepted rebuild is locally score-safe because it must strictly lower the combined cost of the two routes.
+
+## Consequences
+The best measured score improved from about `5.06601e+06` to about `5.01802e+06`. Runtime increased substantially, making this a quality-oriented offline configuration rather than a production-speed setting.
+
+## Link With Paper
+Use this decision in the discussion of trade-offs: the project first minimized route count, then improved fixed-route composition with a larger deterministic neighbourhood.
+
+# Decision 7
+
+## Context
+Multi-ordering beam route elimination and deeper final polishing were tested as potential extensions.
+
+## Link with bedrijfsfeedback
+Both tests support the requested runtime-versus-quality analysis and show that alternatives were evaluated instead of assumed.
+
+## Options
+- Use multi-ordering beam assignment as final.
+- Use deeper final local search.
+- Keep them documented but not selected.
+
+## Chosen Solution
+Keep multi-ordering and deep final polish configurable, but do not select them as the final configuration.
+
+## Reason
+Multi-ordering produced a valid but slightly worse score (`5.06623e+06`). Increasing final polish from four to eight passes did not improve the best rebuild score (`5.01802e+06`).
+
+## Consequences
+The final config stays focused on the measured best combination: beam route elimination, six pair-rebuild passes with window 40, and four final local-search passes.
+
+## Link With Paper
+These are negative results for the alternatives section and strengthen the justification for the final choice.

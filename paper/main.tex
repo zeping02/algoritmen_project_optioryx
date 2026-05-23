@@ -1,0 +1,121 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[dutch]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+\title{Analyse en Verbetering van het Optioryx Order Batching Algoritme}
+\author{[VUL NAAM IN]}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Dit verslag bespreekt de verbetering van een C++20-oplossing voor het Order Batching Problem uit de Optioryx-opdracht. De oorspronkelijke oplossing werd uitgebreid met snellere savings-constructie, lokale zoekstappen, route-eliminatie, beam search en een deterministische twee-route-herbouwheuristiek. De beste lokaal gevalideerde oplossing behaalt momenteel een score van ongeveer $5{,}018{,}020$ met 517 routes. Naast scorekwaliteit worden correctheid, runtime, reproduceerbaarheid en de link met bedrijfsfeedback besproken.
+\end{abstract}
+
+\section{Inleiding}
+Optioryx optimaliseert magazijnprocessen. In deze opdracht staat orderpicking centraal: orders moeten in pickroutes worden gegroepeerd zodat de totale wandelafstand daalt. Het probleem is NP-hard, waardoor heuristieken en metaheuristieken nodig zijn.
+
+\section{Probleemstelling}
+De input bestaat uit waves met orders, een vaste pickvolgorde volgens een snake-pattern en een afstandsmatrix tussen locaties. Alle items van een order moeten in dezelfde route blijven, routes mogen alleen orders uit dezelfde wave bevatten en elke route bevat maximaal $n_{\max}=20$ orders. De output is een CSV-submission met kolommen \texttt{WAVE\_ID}, \texttt{ORDER\_ID} en \texttt{LIST\_ID}.
+
+\section{Analyse van de IDE- en projectcontext}
+De hoofdlogica staat in \texttt{src/algorithms/greedy\_solver.cpp}. Andere relevante onderdelen zijn \texttt{src/core/evaluator.cpp} voor routekosten en validatie, \texttt{src/io/submission\_io.cpp} voor submissionvalidatie, en \texttt{src/main.cpp} voor de CLI. Tests staan in \texttt{tests/}; configs in \texttt{configs/}; paper- en beslisnotities in \texttt{docs/}. De open IDE-bestanden \texttt{README.md}, \texttt{IMPROVEMENTS.md}, \texttt{CMakeLists.txt} en \texttt{src/util/output.cpp} tonen respectievelijk run-instructies, wijzigingslog, buildstructuur en outputgeneratie.
+
+\section{Bedrijfsfeedback}
+Uit de Optioryx-meta-analyse kwamen de volgende technische vereisten naar voren:
+\begin{itemize}
+    \item submissions lokaal valideren;
+    \item \texttt{LIST\_ID}'s mogen geen waves mengen;
+    \item elke lijst mag maximaal 20 orders bevatten;
+    \item greedy warm-starts zijn belangrijk;
+    \item denk in overlap tussen orders en in ASIS-/snake-spreiding;
+    \item test rijkere neighbourhoods dan enkel swap;
+    \item bespreek runtime versus kwaliteit.
+\end{itemize}
+
+\section{Oorspronkelijke aanpak}
+De oorspronkelijke basis was een greedy savings-heuristiek: start met singleton-batches en merge telkens het batchpaar met de grootste positieve besparing. Deze aanpak is goed uitlegbaar en sluit aan bij Clarke-Wright, maar zonder verdere lokale zoekstappen blijven veel verbeteringen liggen.
+
+\section{Onderzochte alternatieven}
+\begin{table}[H]
+\centering
+\begin{tabular}{p{3cm}p{4cm}p{4cm}p{3cm}}
+\toprule
+\textbf{Aanpak} & \textbf{Voordelen} & \textbf{Nadelen} & \textbf{Beslissing} \\
+\midrule
+Savings greedy & Deterministisch, snel, goed uitlegbaar & Blijft lokaal steken & Gebruikt als basis \\
+Simulated annealing & Kan uit lokale optima ontsnappen; vereist door opdracht & Short runs versloegen beste greedy niet & Behouden voor vergelijking \\
+Genetisch algoritme & Permutatierepresentatie met DP-decoder & Trager en minder competitief in metingen & Behouden voor vergelijking \\
+Seed-and-selection & Literatuurgebaseerd en uitlegbaar & Slechtere score in huidige tests & Vergelijkingsbaseline \\
+Route-eliminatie + beam & Verlaagt routecount en score & Meer runtime en complexiteit & Belangrijke tussenstap \\
+Multi-ordering beam & Test meerdere volgordes bij route-eliminatie & Slechtere score dan single-ordering & Niet gekozen \\
+Twee-route rebuild & Doorbreekt lokale optima met meerdere orders tegelijk & Lange runtime & Gekozen voor eindconfig \\
+\bottomrule
+\end{tabular}
+\caption{Vergelijking van onderzochte algoritmische aanpakken}
+\end{table}
+
+\section{Methodologie}
+Elke verbetering werd getest met \texttt{ctest}, lokale submissionvalidatie en metingen op de volledige competitiedata. Voor runtime werd een Release-build gebruikt. Voor submissionstatistieken werd \texttt{scripts/summarize\_submission.py} toegevoegd.
+
+\section{Implementatie}
+De sterkste solver bestaat uit de volgende stappen:
+\begin{enumerate}
+    \item savings-constructie met een lazy priority queue;
+    \item snelle routekosten via itemmasks;
+    \item lokale zoekstap met swaps en relocaties tussen batches met nabije snake-span centers;
+    \item route-eliminatie om kleine routes op te lossen in andere routes met vrije capaciteit;
+    \item best-improvement selectie en bounded beam search voor route-eliminatie;
+    \item twee-route rebuild: combineer twee nabije routes, maak twee nieuwe haalbare routes met gesorteerde split- en seed-strategieen, polish het paar, en accepteer alleen als de gecombineerde routekost daalt;
+    \item finale local-search polish na de rebuilds.
+\end{enumerate}
+
+\section{Experimenten en resultaten}
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrp{4cm}}
+\toprule
+\textbf{Configuratie} & \textbf{Score} & \textbf{Routes} & \textbf{Runtime} & \textbf{Opmerking} \\
+\midrule
+Example submission & 11124958 & -- & -- & Random/voorbeeldbaseline \\
+greedy\_fast & 5511080 & 534 & $\sim$20s & Savings zonder local search \\
+greedy\_best\_plus & 5100290 & 534 & $\sim$81s & Pairwise descent \\
+eliminate\_polished\_plus & 5070880 & 518 & $\sim$121s & Route-eliminatie + polish \\
+beam\_eliminate & 5066010 & 517 & $\sim$135s & Beste pre-rebuild score \\
+beam\_multi\_order & 5066230 & 517 & $\sim$93s & Getest alternatief, niet beter \\
+pair\_rebuild\_xwide & 5042240 & 517 & $\sim$310s & Een rebuild-pass, venster 40 \\
+pair\_rebuild\_five\_pass\_polished & 5018490 & 517 & $\sim$724s & Sterke kwaliteits/runtime-balans \\
+pair\_rebuild\_six\_pass\_polished & 5018020 & 517 & $\sim$853s & Beste gemeten score \\
+\bottomrule
+\end{tabular}
+\caption{Benchmarkresultaten op de competitiedata in Release-build}
+\end{table}
+
+\section{Vergelijking en discussie}
+De grootste sprongen kwamen niet uit zwaardere metaheuristieken, maar uit beter gebruik van probleemspecifieke structuur. Savings greedy gaf een sterke basis; lokale zoekstappen verbeterden de clustering; route-eliminatie verlaagde het aantal routes. Beam search bracht de oplossing naar 517 routes, wat gelijk is aan de theoretische ondergrens op basis van $\sum_w \lceil |orders_w|/20\rceil$. Daarna moest verdere winst uit betere routecompositie komen. De twee-route rebuild bleek hiervoor effectief: de score daalde van ongeveer $5{,}066{,}010$ naar $5{,}018{,}020$. De prijs is runtime: de beste variant duurt lokaal ongeveer 853 seconden. De vijf-pass variant met finale polish is met ongeveer $5{,}018{,}490$ een bruikbaar compromis wanneer runtime zwaarder weegt.
+
+\section{Gekozen oplossing}
+De huidige gekozen oplossing is \texttt{configs/greedy\_competition\_final.cfg}. Deze configuratie gebruikt beam route-eliminatie, zes pair-rebuild-passen met venster 40 en vier finale local-search-passen. Ze behaalde lokaal een geldige score van ongeveer $5{,}018{,}020$ met 517 routes. De aanpak is gekozen omdat ze de beste gemeten score geeft en nog steeds goed uitlegbaar is in termen van savings, local search, beperkte beam search en een strikt verbeterende rebuild-neighbourhood.
+
+\section{Beperkingen en toekomstig werk}
+De runtime ligt boven de ongeveer 5 seconden van Pulse Pick. Voor competitie is dat aanvaardbaar, maar voor productie niet. Verder blijven route-eliminatie en pair rebuild heuristisch: een exacte of min-cost-flow-achtige herverdeling, ruin-and-recreate of snellere delta-evaluatie voor SA/GA kunnen vervolgwerk zijn. Een diepere finale polish werd getest en gaf geen extra winst boven $5{,}018{,}020$.
+
+\section{Conclusie}
+Het project verwerkt de belangrijkste bedrijfsfeedback: lokale validatie, harde constraints, greedy warm-start, overlapgerichte local search, rijkere neighbourhoods en reproduceerbare scoremetingen. De beste score verbeterde van de voorbeeldbaseline en eerdere greedy-varianten naar ongeveer $5{,}018{,}020$. De gekozen aanpak vormt een verdedigbare trade-off tussen kwaliteit, runtime en uitlegbaarheid.
+
+\end{document}

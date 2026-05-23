@@ -91,6 +91,17 @@ Solution solve_instance(
             greedy_config.config_id = config_string(config, "config_id", "greedy_default");
             greedy_config.local_search_passes = config_int(config, "local_search_passes", 1);
             greedy_config.local_search_neighbor_window = config_int(config, "local_search_neighbor_window", 8);
+            greedy_config.route_elimination_passes = config_int(config, "route_elimination_passes", 0);
+            greedy_config.route_elimination_max_batch_size = config_int(config, "route_elimination_max_batch_size", 12);
+            greedy_config.route_elimination_beam_width = config_int(config, "route_elimination_beam_width", 1);
+            greedy_config.route_elimination_candidates_per_order =
+                config_int(config, "route_elimination_candidates_per_order", 1);
+            greedy_config.route_elimination_ordering_trials = config_int(config, "route_elimination_ordering_trials", 1);
+            greedy_config.post_elimination_local_search_passes = config_int(config, "post_elimination_local_search_passes", 0);
+            greedy_config.pair_rebuild_passes = config_int(config, "pair_rebuild_passes", 0);
+            greedy_config.pair_rebuild_neighbor_window =
+                config_int(config, "pair_rebuild_neighbor_window", greedy_config.local_search_neighbor_window);
+            greedy_config.final_local_search_passes = config_int(config, "final_local_search_passes", 0);
             solution.config_id = greedy_config.config_id;
             result = solve_wave_greedy(instance, evaluator, static_cast<int>(wave_index), greedy_config);
         } else if (matches_solver(solver_name, "simulated_annealing")) {
