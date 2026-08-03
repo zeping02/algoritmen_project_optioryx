@@ -112,3 +112,27 @@
 - Change: tested a third pass in the second triple phase.
 - Result: the third pass matched the two-pass score (`4.99368e+06`) but took longer, so two passes were selected.
 - Paper note: another negative result that explains the final parameter choice.
+
+## Iteration S: Combinatorial Triple Neighbourhood
+
+- Change: extended triple rebuild so it can test all local three-route combinations inside a center-sorted window, in addition to the previous arithmetic-gap triples.
+- Result: with combination window 4 the score improved from `4.99368e+06` to about `4.99104e+06` at roughly the same runtime scale.
+- Paper note: the older triple scan missed route triples such as positions `(i, i+1, i+4)` or `(i, i+2, i+3)`. The new option expands the deterministic neighbourhood while still accepting only strictly lower three-route cost.
+
+## Iteration T: Combination-Window Tuning
+
+- Change: benchmarked combination windows 5, 6, 7, 8, 9, 10, and 11 on the full competition data.
+- Result: the best measured score is now `4.94495e+06` with 517 routes and valid submission. Runtime rose from about 704 seconds for the old second-triple config to about 2383 seconds for window 11.
+- Paper note: this is a clear quality/runtime trade-off. Larger windows improve route composition, but the algorithm becomes an offline-quality solver rather than a fast operational solver.
+
+## Iteration U: Tail Pair Rebuild
+
+- Change: after the second combinatorial triple phase, added an optional pair-rebuild phase to catch two-route improvements opened by the final large three-route moves.
+- Result: one pass improved the score to about `4.94229e+06`; two passes improved it to about `4.94162e+06`; three passes reached about `4.94153e+06`.
+- Paper note: this confirms the same complementarity pattern as earlier: a broad triple neighbourhood can reopen smaller pair-neighbourhood improvements.
+
+## Iteration V: Tail Pair Saturation
+
+- Change: tested a fourth tail pair-rebuild pass.
+- Result: the fourth pass matched the three-pass score (`4.94153e+06`) but took longer, so three tail pair passes were selected.
+- Paper note: this is a clean negative result and justifies the chosen stopping point for this added phase.

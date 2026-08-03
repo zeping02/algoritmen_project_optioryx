@@ -12,6 +12,8 @@ namespace optioryx {
 
 namespace {
 
+// Simulated annealing werkt op een eenvoudigere representatie:
+// een vector van batches, waarbij elke batch een vector orderindices is.
 using BatchList = std::vector<std::vector<int>>;
 
 BatchList to_batch_list(const std::vector<Batch>& batches) {
@@ -36,6 +38,7 @@ std::vector<Batch> to_batches(const std::string& wave_id, const BatchList& batch
 }
 
 double evaluate_batch_list(const BatchEvaluator& evaluator, int wave_index, const BatchList& batch_list) {
+    // Objective van een tijdelijke SA-oplossing zonder eerst Batch-objecten te bouwen.
     double objective = 0.0;
     for (const std::vector<int>& batch : batch_list) {
         objective += evaluator.batch_cost(wave_index, batch);
@@ -44,6 +47,8 @@ double evaluate_batch_list(const BatchEvaluator& evaluator, int wave_index, cons
 }
 
 BatchList build_randomized_start(const ProblemInstance& instance, int wave_index, std::mt19937_64& rng) {
+    // Randomized start verdeelt orders willekeurig over batches met capaciteit.
+    // Dit werd gebruikt om te vergelijken met een sterke greedy warm-start.
     std::vector<int> shuffled_orders = instance.waves.at(static_cast<std::size_t>(wave_index)).order_indices;
     std::shuffle(shuffled_orders.begin(), shuffled_orders.end(), rng);
 
@@ -71,6 +76,8 @@ BatchList build_randomized_start(const ProblemInstance& instance, int wave_index
 }
 
 bool apply_relocate_move(const ProblemInstance& instance, BatchList& batch_list, std::mt19937_64& rng) {
+    // Relocate verplaatst een order naar een andere bestaande batch of, als zinvol,
+    // naar een nieuwe batch. Capaciteit wordt hierbij behouden.
     if (batch_list.empty()) {
         return false;
     }
@@ -126,6 +133,7 @@ bool apply_relocate_move(const ProblemInstance& instance, BatchList& batch_list,
 }
 
 bool apply_swap_move(BatchList& batch_list, std::mt19937_64& rng) {
+    // Swap wisselt twee orders tussen twee niet-lege batches.
     if (batch_list.size() < 2U) {
         return false;
     }
@@ -156,6 +164,8 @@ bool apply_swap_move(BatchList& batch_list, std::mt19937_64& rng) {
 }
 
 bool apply_merge_split_move(const ProblemInstance& instance, BatchList& batch_list, std::mt19937_64& rng) {
+    // Merge-split combineert twee batches en splitst ze opnieuw.
+    // Dit is een grotere move dan relocate/swap en kan lokale structuren doorbreken.
     if (batch_list.size() < 2U) {
         return false;
     }
@@ -201,6 +211,8 @@ bool apply_neighbor_move(
     NeighborhoodStrategy neighborhood,
     BatchList& batch_list,
     std::mt19937_64& rng) {
+    // Bij "mixed" proberen we verschillende move-types. Als de willekeurig gekozen
+    // move niet toepasbaar is, vallen we terug op een andere haalbare move.
     if (neighborhood == NeighborhoodStrategy::relocate) {
         return apply_relocate_move(instance, batch_list, rng);
     }
@@ -232,6 +244,7 @@ bool apply_neighbor_move(
 }
 
 double update_temperature(double temperature, const SimulatedAnnealingConfig& config) {
+    // Temperatuurdaling bepaalt hoe vaak slechtere oplossingen later nog geaccepteerd worden.
     if (config.cooling == CoolingSchedule::geometric) {
         return std::max(config.final_temperature, temperature * config.geometric_alpha);
     }
@@ -247,6 +260,9 @@ WaveSolveResult solve_wave_simulated_annealing(
     int wave_index,
     const SimulatedAnnealingConfig& config,
     std::mt19937_64& rng) {
+    // SA accepteert altijd verbeteringen en soms verslechteringen.
+    // Die kans neemt af met de temperatuur, zodat het algoritme eerst exploreert
+    // en later meer op lokale verbetering lijkt.
     const auto started = std::chrono::steady_clock::now();
     const Wave& wave = instance.waves.at(static_cast<std::size_t>(wave_index));
 
@@ -281,6 +297,8 @@ WaveSolveResult solve_wave_simulated_annealing(
 
         const double candidate_objective = evaluate_batch_list(evaluator, wave_index, candidate_batches);
         const double delta = candidate_objective - current_objective;
+        // Metropolis-acceptatie: slechtere oplossingen kunnen tijdelijk worden aanvaard
+        // om uit lokale optima te ontsnappen.
         const bool accept = delta <= 0.0 || probability(rng) < std::exp(-delta / std::max(temperature, 1e-9));
         if (accept) {
             current_batches = std::move(candidate_batches);

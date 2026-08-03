@@ -42,6 +42,8 @@
 - Drie-route rebuild als grotere deterministische neighbourhood.
 - Post-triple pair rebuild als lokale verfijning na grotere moves.
 - Tweede triple-rebuild-fase als laatste grotere polish na pair-verfijning.
+- Combinatorische triple-vensters als uitbreiding op de eerdere sparse arithmetic-gap triple scan.
+- Tail pair-rebuild na de tweede triple-fase als laatste twee-route verfijning.
 - Finale local-search polish na rebuilds.
 - Validatietests voor veelvoorkomende Kaggle-fouten.
 
@@ -54,15 +56,15 @@
 - Tabellen: zie `docs/algorithm_comparison.md`.
 
 ## 7. Gekozen Eindoplossing
-- `greedy_competition_final`: beam route-eliminatie, acht regret-aware pair-rebuild-passen, drie triple-rebuild-passen, twee post-triple pair-rebuild-passen, twee tweede triple-passen en finale local-search polish.
+- `greedy_competition_final`: beam route-eliminatie, acht regret-aware pair-rebuild-passen, drie triple-rebuild-passen, twee post-triple pair-rebuild-passen, twee tweede triple-passen, combinatorische triple-vensters van 11, drie tail pair-rebuild-passen en finale local-search polish.
 - Reden: beste lokaal gemeten score, valide output, deterministisch en goed uitlegbaar.
 - Trade-off: veel hogere runtime dan fast greedy en beam-only, maar duidelijk betere score.
 
 ## 8. Discussie
 - Sterktes: deterministic, feedbackgericht, valide en meetbaar beter.
-- Zwaktes: route-eliminatie en pair rebuild blijven heuristisch en runtime is hoog.
+- Zwaktes: route-eliminatie en rebuilds blijven heuristisch en runtime is hoog.
 - Beperkingen: SA/GA gebruiken nog geen snelle delta-evaluatie.
-- Mogelijke verbetering: min-cost-flow herverdeling of ruin-and-recreate met sterke acceptatiecriteria.
+- Mogelijke verbetering: grotere triple-vensters, min-cost-flow herverdeling of ruin-and-recreate met sterke acceptatiecriteria.
 
 ## 9. Conclusie
 - Samenvatting van scoreverbetering.

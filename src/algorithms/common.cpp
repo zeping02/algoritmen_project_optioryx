@@ -8,6 +8,8 @@ namespace optioryx {
 
 namespace {
 
+// Configbestanden mogen leesbaar blijven: hoofdletters, koppeltekens en
+// underscores worden hier genormaliseerd naar dezelfde interne naam.
 std::string normalize(std::string value) {
     std::transform(value.begin(), value.end(), value.begin(), [](unsigned char character) {
         if (character == '-') {
@@ -31,6 +33,9 @@ StartSolutionStrategy parse_start_strategy(const std::string& value) {
     throw std::runtime_error("Unknown start strategy: " + value);
 }
 
+// De parse-functies vertalen tekst uit .cfg-bestanden naar enumwaarden.
+// Onbekende waarden geven bewust een fout, zodat typfouten in experimenten
+// niet stilzwijgend een andere solverconfiguratie opleveren.
 NeighborhoodStrategy parse_neighborhood_strategy(const std::string& value) {
     const std::string normalized = normalize(value);
     if (normalized == "relocate") {
@@ -85,6 +90,7 @@ SelectionRule parse_selection_rule(const std::string& value) {
 }
 
 std::string to_string(StartSolutionStrategy value) {
+    // De to_string-functies worden gebruikt voor metadata, benchmark-CSV's en JSON-output.
     switch (value) {
         case StartSolutionStrategy::greedy:
             return "greedy";

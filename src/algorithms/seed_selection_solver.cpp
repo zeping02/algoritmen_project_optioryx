@@ -10,6 +10,8 @@ namespace optioryx {
 
 namespace {
 
+// Kies het startpunt van een nieuwe batch.
+// De geteste regels kiezen ofwel een dure order, ofwel een order met grote snake-span.
 int pick_seed(
     const BatchEvaluator& evaluator,
     int wave_index,
@@ -43,6 +45,8 @@ int pick_candidate(
     const std::vector<int>& current_orders,
     const std::vector<int>& remaining_orders,
     SelectionRule rule) {
+    // Kies welke resterende order aan de huidige batch wordt toegevoegd.
+    // We berekenen per kandidaat zowel extra routekost als extra snake-span.
     struct CandidateScore {
         int order_index = -1;
         double incremental_cost = 0.0;
@@ -67,6 +71,7 @@ int pick_candidate(
     }
 
     if (rule == SelectionRule::minimum_incremental_cost) {
+        // Zuiver kostencriterium: kies de order die de batch het minst duurder maakt.
         return std::min_element(scores.begin(), scores.end(), [](const CandidateScore& left, const CandidateScore& right) {
                    if (left.incremental_cost != right.incremental_cost) {
                        return left.incremental_cost < right.incremental_cost;
@@ -77,6 +82,7 @@ int pick_candidate(
     }
 
     if (rule == SelectionRule::minimum_span_expansion) {
+        // Spancriterium: hou de route compact in snake-volgorde.
         return std::min_element(scores.begin(), scores.end(), [](const CandidateScore& left, const CandidateScore& right) {
                    if (left.span_expansion != right.span_expansion) {
                        return left.span_expansion < right.span_expansion;
@@ -107,6 +113,7 @@ int pick_candidate(
     int best_order = scores.front().order_index;
     double best_value = std::numeric_limits<double>::infinity();
     for (const CandidateScore& score : scores) {
+        // Hybrid combineert genormaliseerde routekost en span-uitbreiding.
         const double objective = 0.7 * normalize(score.incremental_cost, min_incremental, max_incremental) +
                                  0.3 * normalize(score.span_expansion, min_span, max_span);
         if (objective < best_value) {
@@ -125,6 +132,8 @@ WaveSolveResult solve_wave_seed_selection(
     const BatchEvaluator& evaluator,
     int wave_index,
     const SeedSelectionConfig& config) {
+    // Baseline-algoritme: bouw batches een voor een op rond een seed-order.
+    // Het is snel en goed uitlegbaar, maar mist de latere routeherbouw van de greedy-eindsolver.
     const auto started = std::chrono::steady_clock::now();
     const Wave& wave = instance.waves.at(static_cast<std::size_t>(wave_index));
 

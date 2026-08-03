@@ -13,12 +13,16 @@ namespace optioryx {
 
 namespace {
 
+// Hulpstructuur voor dist_matrix.csv. De matrix wordt eenmalig ingelezen en
+// daarna in ProblemInstance opgeslagen als indices in plaats van locatie-id's.
 struct DistanceMatrixData {
     std::vector<std::string> item_ids;
     std::vector<std::vector<double>> distances;
     std::unordered_map<std::string, int> item_index_by_id;
 };
 
+// Sommige CSV-bestanden beginnen met een UTF-8 BOM. Die moet weg voor correcte
+// kolomnamen zoals WAVE_ID en LOCATION_ID.
 std::string strip_utf8_bom(std::string value) {
     constexpr unsigned char bom0 = 0xEF;
     constexpr unsigned char bom1 = 0xBB;
@@ -56,6 +60,7 @@ bool starts_with(const std::string& value, const std::string& prefix) {
 }
 
 std::size_t require_column(const std::vector<std::string>& header, const std::string& column_name) {
+    // Expliciete kolomcontrole geeft betere foutmeldingen bij verkeerde inputbestanden.
     for (std::size_t index = 0; index < header.size(); ++index) {
         if (trim(header[index]) == column_name) {
             return index;
@@ -72,6 +77,8 @@ std::vector<int> sort_and_deduplicate(const std::vector<int>& values) {
 }
 
 DistanceMatrixData read_distance_matrix(const std::filesystem::path& path) {
+    // Lees de volledige afstandsmatrix. Kolommen en rijen worden op locatienaam
+    // gematcht, zodat de rijvolgorde in het bestand niet per ongeluk bepalend is.
     std::ifstream input(path);
     if (!input) {
         throw std::runtime_error("Unable to open distance matrix: " + path.string());
@@ -131,6 +138,9 @@ DistanceMatrixData read_distance_matrix(const std::filesystem::path& path) {
 void finalize_snake_rank(
     ProblemInstance& instance,
     const std::unordered_map<std::string, int>& asis_sequence_by_location) {
+    // De competitie gebruikt ASIS_SEQUENCE als vaste pickvolgorde.
+    // START krijgt rank 0, END komt achteraan, onbekende locaties krijgen daarna
+    // alsnog een stabiele rank.
     instance.snake_rank.assign(instance.item_ids.size(), static_cast<int>(instance.item_ids.size() + 1U));
 
     int next_rank = 1;
@@ -176,6 +186,8 @@ void finalize_snake_rank(
 }
 
 std::filesystem::path resolve_competition_root(const std::filesystem::path& path) {
+    // De gebruiker mag de data-map, pick_data.csv of een ander CSV-bestand in
+    // dezelfde map doorgeven. Deze helper zoekt de echte competitieroot.
     if (std::filesystem::is_directory(path)) {
         return path;
     }
@@ -191,6 +203,8 @@ std::filesystem::path resolve_competition_root(const std::filesystem::path& path
 }  // namespace
 
 ProblemInstance load_fixture_instance(const std::filesystem::path& path) {
+    // Fixture-formaat voor kleine handmatige tests. Dit is eenvoudiger dan de
+    // competitiedata en maakt unit/smoke tests leesbaar.
     std::ifstream input(path);
     if (!input) {
         throw std::runtime_error("Unable to open instance file: " + path.string());
@@ -375,6 +389,9 @@ ProblemInstance load_fixture_instance(const std::filesystem::path& path) {
 }
 
 ProblemInstance load_competition_instance(const std::filesystem::path& path) {
+    // Laad de echte competitie-input: pick_data.csv + dist_matrix.csv.
+    // Alle string-id's worden hier naar integerindices vertaald zodat de solvers
+    // zelf snel en compact kunnen werken.
     const std::filesystem::path root = resolve_competition_root(path);
     if (root.empty()) {
         throw std::runtime_error("Competition input must be a directory containing pick_data.csv and dist_matrix.csv");
@@ -415,6 +432,8 @@ ProblemInstance load_competition_instance(const std::filesystem::path& path) {
 
     std::unordered_map<std::string, int> asis_sequence_by_location;
     while (std::getline(input, line)) {
+        // pick_data.csv bevat meerdere regels per order: een regel per picklocatie.
+        // We maken pas een nieuwe Order aan wanneer ORDER_ID voor het eerst gezien wordt.
         std::vector<std::string> fields = parse_csv_line(line);
         if (fields.size() < header.size()) {
             fields.resize(header.size());
@@ -469,6 +488,7 @@ ProblemInstance load_competition_instance(const std::filesystem::path& path) {
     }
 
     for (Order& order : instance.orders) {
+        // Dubbele locaties binnen een order hebben geen extra pickkost.
         order.items = sort_and_deduplicate(order.items);
     }
 

@@ -1,0 +1,133 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[dutch]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\geometry{margin=1.75cm}
+\setlength{\textfloatsep}{6pt plus 1pt minus 1pt}
+\setlength{\floatsep}{6pt plus 1pt minus 1pt}
+\setlength{\intextsep}{6pt plus 1pt minus 1pt}
+\setlength{\abovecaptionskip}{3pt}
+\setlength{\belowcaptionskip}{1pt}
+
+\title{Order Batching: Ontwerp, Vergelijking en Verbetering van Heuristieken}
+\author{Ze Ip}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In dit verslag beschrijf ik hoe ik het order-batching algoritme stap voor stap heb verbeterd. De opdracht is om orders te groeperen in picklijsten van maximaal twintig orders, zonder waves te mengen, en met een zo laag mogelijke totale pickafstand. Ik focus op de delen die ik zelf heb ontworpen: een snellere savings-greedy, lokale zoekstappen op basis van de snake-volgorde, route-eliminatie met beam search en twee- en drie-route-herbouwheuristieken. De beste lokaal gevalideerde inzending behaalde een score van $4{,}941{,}530$ met 517 routes. De belangrijkste les uit de experimenten was dat, zodra het minimale aantal routes bereikt was, de samenstelling van die routes veel belangrijker werd dan het verder tunen van losse swaps.
+\end{abstract}
+
+\section{Probleem en evaluatie}
+De input bestaat uit orders, waves, een vaste snake-pickvolgorde en een afstandsmatrix. Een oplossing is geldig als elke order precies een keer voorkomt, elke \texttt{LIST\_ID} binnen een wave blijft en geen lijst meer dan $n_{\max}=20$ orders bevat. De score is de totale pickafstand, dus lager is beter. In de evaluator wordt per lijst eerst de verzameling unieke picklocaties bepaald. Daarna worden die locaties in snake-volgorde afgelopen en worden de bijhorende afstanden opgeteld.
+
+Ik heb de experimenten telkens op drie dingen beoordeeld. Eerst moest de CSV geldig zijn; een lagere score is waardeloos als er bijvoorbeeld een order ontbreekt of een wave gemengd wordt. Daarna keek ik naar de score zelf. Als derde criterium hield ik runtime bij, omdat sommige verbeteringen duidelijk meer tijd vragen dan andere. De finale solver is dus geen snelle demo-configuratie, maar een kwaliteitsconfiguratie voor de competitie. Alle scores in dit verslag komen uit lokaal gevalideerde submissions op dezelfde dataset.
+
+\section{Ontworpen heuristieken}
+Mijn eerste bruikbare baseline was een savings-greedy. Die start met singleton-routes en voegt telkens het routepaar samen met de grootste positieve besparing. De eerste echte verbetering zat niet in een andere heuristiek, maar in de uitvoering ervan. In plaats van na elke merge opnieuw alle actieve paren te scannen, bewaart de solver kandidaatmerges in een lazy priority queue. Verouderde kandidaten worden bij het poppen herkend via versienummers. De greedy-keuze blijft daardoor dezelfde, maar de volledige dataset werd wel praktisch testbaar. In dezelfde fase heb ik itemmasks gebruikt om routekosten sneller te berekenen in het deel van de code dat het vaakst uitgevoerd wordt.
+
+Daarna heb ik de feedback over overlap en snake-spreiding vertaald naar lokale zoekstappen. Routes worden gesorteerd op het centrum van hun snake-span. Alleen nabije routes worden met elkaar vergeleken, omdat routes die ver uit elkaar liggen meestal weinig locaties delen en zelden een mooie combinatie vormen. Binnen zo'n routepaar probeert de solver swaps en relocaties tot er lokaal geen verbetering meer overblijft. Het venster is daarbij belangrijk: zonder begrenzing wordt de zoekruimte snel te groot, maar een te klein venster mist nuttige combinaties.
+
+De volgende stap was route-eliminatie. Daarin probeert de solver kleine routes volledig op te lossen door hun orders te verdelen over andere routes met vrije capaciteit. Ik heb hiervoor beam search gebruikt: per te verwijderen route worden meerdere gedeeltelijke toewijzingen bijgehouden, maar slechts een beperkt aantal. Dat maakt de stap minder kortzichtig dan een zuivere greedy-insertie, zonder dat ze oncontroleerbaar duur wordt. Deze stap was doorslaggevend, want zo bereikte de oplossing 517 routes, dezelfde waarde als de theoretische ondergrens die je krijgt door per wave het aantal orders naar blokken van twintig af te ronden. Vanaf dat moment kon de score niet meer dalen door simpelweg minder routes te maken. De winst moest dus uit betere route-inhoud komen.
+
+Daarom heb ik daarna vooral aan rebuild-stappen gewerkt. Een twee-route rebuild neemt twee nabije routes, gooit hun orders tijdelijk samen en verdeelt ze opnieuw over twee haalbare routes. De wijziging wordt alleen aanvaard als de echte routekost strikt daalt. De nuttigste variant was regret-greedy assignment: orders waarvoor het verschil tussen de beste en tweede beste plaatsing groot is, worden eerst geplaatst. Zo blijven de lastige orders niet tot het einde liggen. Drie-route rebuild gebruikt hetzelfde idee, maar met drie routes tegelijk. De finale solver test daarnaast alle lokale drie-route combinaties binnen een begrensd venster, in plaats van alleen vaste patronen zoals $(i,i+2,i+4)$. Na die triple-fase volgt nog een tail pair rebuild, omdat een grotere herverdeling vaak nieuwe twee-route verbeteringen openzet. De rode draad is dus geen willekeurige parameterzoektocht, maar gecontroleerd steeds grotere stukken opnieuw verdelen.
+
+\section{Onderzochte alternatieven}
+Naast de greedy-familie heb ik drie alternatieven getest. De seed-selection heuristic groepeert orders rond gekozen startorders, maar bleef op de volledige dataset duidelijk achter. Simulated annealing kreeg een greedy startoplossing en gebruikte een gemengde set moves: relocate, swap en merge-split. Het genetisch algoritme werkte met een permutatierepresentatie, order crossover, elitisme en een mutatie die met kans \texttt{insertion\_rate} een insertion move gebruikt en anders een swap. SA en GA waren interessant om te proberen, maar in de competitie-runs bleven ze dicht bij hun greedy warm-start. Zonder snellere delta-evaluatie vroegen ze veel rekentijd voor weinig extra winst.
+
+Dat deze alternatieven niet wonnen, was toch nuttige informatie. Het maakte duidelijk dat de winst hier niet vooral kwam uit willekeurig ontsnappen aan lokale optima. De betere verbeteringen gebruikten net de structuur van het probleem: wave-constraints, capaciteit, snake-spreiding en gedeelde locaties. Daarom heb ik de meeste tijd uiteindelijk gestoken in deterministische post-processing rond de greedy-oplossing.
+
+\section{Resultaten}
+Tabel~\ref{tab:best-algorithms} vergelijkt de beste full-data variant die ik per algoritmefamilie heb gevonden. Deze tabel hoort in de hoofdtekst, omdat ze de kern van de studie samenvat: de finale greedy-variant is niet gekozen omdat ze toevallig als laatste getest werd, maar omdat ze beter scoorde dan de andere onderzochte families.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{2.6cm}p{4.0cm}rrp{4.0cm}}
+\toprule
+\textbf{Familie} & \textbf{Beste geteste variant} & \textbf{Score} & \textbf{Routes} & \textbf{Inzicht} \\
+\midrule
+Voorbeeld & Gegeven voorbeeldsubmission & 11124958 & 522 & Vooral gebruikt om de evaluator te controleren. \\
+Seed-selection & Incremental cost selection & 7466690 & 517 & Geldig, maar groepeert te lokaal rond de seed. \\
+Simulated annealing & Greedy start, mixed moves & 5366160 & 534 & Interessant, maar de extra moves brachten weinig winst. \\
+Genetisch algoritme & Permutatie, order crossover, insertion/swap mutation & 5366160 & 534 & Haalbaar door de decoder, maar niet scherp genoeg. \\
+Greedy fast & Savings met lazy queue & 5511080 & 534 & Goede snelle baseline voor verdere experimenten. \\
+Greedy final & Beam eliminatie + pair/triple rebuilds & 4941530 & 517 & Beste score; bewust gekozen boven korte runtime. \\
+\bottomrule
+\end{tabular}
+\caption{Belangrijkste algoritmevergelijking op de competitiedata.}
+\label{tab:best-algorithms}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/algorithm_family_scores.pdf}
+\caption{Beste gevalideerde score per algoritmefamilie. De grootste winst kwam niet uit een algemene metaheuristiek, maar uit routeherbouw die rekening houdt met de structuur van de picklijsten.}
+\label{fig:algorithm-families}
+\end{figure}
+
+Figuur~\ref{fig:algorithm-families} maakt hetzelfde patroon visueel duidelijk. De seed-methode leverde wel geldige oplossingen, maar groepeerde te lokaal rond startorders. SA en GA waren vooral nuttig als controlegroep: hun scores tonen dat een algemene zoeklaag bovenop een eenvoudige greedy start niet automatisch genoeg is. De finale solver wint omdat hij de samenstelling van nabije routes echt opnieuw bekijkt, niet alleen losse orders verschuift.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\linewidth]{figures/score_progression.pdf}
+\caption{Scoreprogressie over de belangrijkste ontwerpstappen. Na het bereiken van 517 routes komt de winst vooral uit betere herverdeling van orders over bestaande routes.}
+\label{fig:score-progression}
+\end{figure}
+
+Figuur~\ref{fig:score-progression} toont dat de vooruitgang in twee fases kwam. Eerst was het vooral belangrijk om het aantal routes omlaag te krijgen. Route-eliminatie bracht de oplossing naar 517 routes. Daarna ging het niet meer om het aantal routes, maar om wat er in die routes zat. Pair rebuild verbeterde de routecompositie, regret-greedy assignment plaatste moeilijke orders vroeger, en drie-route rebuild maakte grotere herverdelingen mogelijk. De grootste late sprong kwam van het combinatorische triple-venster: de score ging van $4{,}993{,}680$ naar $4{,}944{,}950$. De tail pair rebuild gaf daarna nog een kleine laatste verbetering tot $4{,}941{,}530$; een vierde tail pass hielp niet meer.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\linewidth]{figures/runtime_tradeoff.pdf}
+\caption{Runtime tegenover score voor de geteste greedy-configuraties. De finale configuratie is scoregericht; de snellere rebuild-variant blijft nuttig als compromis.}
+\label{fig:runtime-tradeoff}
+\end{figure}
+
+\section{Inzichten en trade-offs}
+De belangrijkste les is dat het probleem na route-eliminatie van karakter veranderde. Voor 517 routes was het aantal routes nog een grote factor. Daarna was dat aantal al minimaal en werd overlap binnen routes bepalend. Eenvoudige swaps en relocaties konden dan niet ver genoeg springen, omdat sommige verbeteringen meerdere orders tegelijk over twee of drie routes moesten verplaatsen. Dat verklaart waarom rebuilds, ondanks hun hogere kost, meer opleverden dan nog meer gewone local-search-passes.
+
+Een tweede les is dat grotere zoekstappen nuttig waren zolang ze lokaal begrensd bleven. Een globale exhaustieve drie-route search zou te duur zijn, maar een center-sorted venster gebruikt de snake-structuur om de zoekruimte klein genoeg te houden. De strikte acceptatieregel houdt de methode bovendien eerlijk: elke rebuild verlaagt lokaal de werkelijke routekost en behoudt de harde constraints.
+
+Figuur~\ref{fig:runtime-tradeoff} toont de keerzijde. De gekozen eindoplossing is niet snel: lokaal duurde ze ongeveer 2523 seconden, tegenover ongeveer 20 seconden voor de fast greedy. Voor deze competitie vond ik dat aanvaardbaar, omdat het doel een zo goed mogelijke geldige inzending was. In een productiesetting zou ik deze aanpak eerst versnellen, bijvoorbeeld met incrementele delta-evaluatie of een exactere min-cost-flow-achtige herverdeling.
+
+\section{Validatie en reproduceerbaarheid}
+Om mezelf niet te misleiden met mooie maar ongeldige scores, heb ik elke variant opnieuw door de lokale validator gehaald. Die controle staat los van de solver: de solver schrijft een submission, daarna controleert dezelfde scorefunctie of alle orders exact een keer voorkomen, of geen wave gemengd wordt en of elke lijst maximaal twintig orders bevat. Daardoor konden snelle experimenten, mislukte alternatieven en de finale inzending met hetzelfde criterium worden vergeleken.
+
+Voor reproduceerbaarheid heb ik de meeste keuzes in configuratiebestanden gezet. De code bevat de algemene heuristieken, terwijl vensters, aantallen passes en beam-widths in configuraties staan. Daardoor blijft achteraf zichtbaar welke ontwerpkeuze bij welke score hoort. Tabel~\ref{tab:validation} vat samen welke controles ik gebruikte om te vermijden dat een lagere score eigenlijk door een ongeldige of toevallige variant kwam.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{3.1cm}p{4.2cm}p{6.0cm}}
+\toprule
+\textbf{Controle} & \textbf{Uitvoering} & \textbf{Waarom belangrijk} \\
+\midrule
+Haalbaarheid & Lokale validatie van elke CSV & Ongeldige routes zijn niet vergelijkbaar met geldige scores. \\
+Zelfde data & Full-data runs op identieke input & Voorkomt dat varianten op verschillende subsets worden beoordeeld. \\
+Routecount & Aantal lijsten naast score rapporteren & Toont wanneer de theoretische ondergrens van 517 routes bereikt is. \\
+Runtime & Wandkloktijd per configuratie noteren & Maakt zichtbaar welke scorewinst duurder wordt. \\
+Mislukte richtingen & SA, GA en seed-selection blijven in de vergelijking & Laat zien waarom de finale keuze meer is dan een voorkeur voor greedy. \\
+\bottomrule
+\end{tabular}
+\caption{Controles die gebruikt werden om de vergelijking eerlijk te houden.}
+\label{tab:validation}
+\end{table}
+
+\section{Conclusie}
+De finale aanpak verwerkt de belangrijkste aandachtspunten uit de feedback: lokale validatie, harde constraints, greedy warm-starts, overlapgerichte routeverbetering en een duidelijke afweging tussen runtime en kwaliteit. De beste score daalde van $5{,}511{,}080$ voor de snelle greedy naar $4{,}941{,}530$ voor de finale configuratie. Ik kies deze oplossing omdat elke grote stap meetbaar iets toevoegde, of juist aantoonde dat een alternatief minder geschikt was.
+
+De uiteindelijke keuze is dus niet het meest algemene algoritme, maar de combinatie die het best past bij deze dataset en constraints. De generieke metaheuristieken blijven nuttig als vergelijking, maar de beste resultaten kwamen uit heuristieken die direct inspelen op overlap tussen picklocaties, capaciteit per lijst en de vaste snake-volgorde. De eindoplossing is daardoor ook goed uit te leggen: eerst snel een sterke haalbare oplossing bouwen, daarna routes verwijderen tot de ondergrens, en ten slotte grotere lokale stukken opnieuw verdelen zolang dat aantoonbaar scorewinst oplevert.
+
+\end{document}

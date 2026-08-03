@@ -16,6 +16,9 @@ namespace optioryx {
 
 namespace {
 
+// Interne route tijdens de savings-constructie.
+// item_mask maakt het goedkoop om de kost van een merge te berekenen:
+// de routekost hangt af van de unieke picklocaties, niet van het aantal orders.
 struct ActiveBatch {
     Batch batch;
     std::vector<std::uint64_t> item_mask;
@@ -24,6 +27,10 @@ struct ActiveBatch {
     bool active = true;
 };
 
+// Zoekrepresentatie voor local search en rebuilds.
+// item_counts bewaart aantallen in plaats van bits, omdat orders tijdelijk
+// verwijderd en opnieuw toegevoegd worden. Als meerdere orders dezelfde locatie
+// gebruiken, blijft die locatie aanwezig zolang de count groter dan nul is.
 struct SearchBatch {
     Batch batch;
     std::vector<std::uint16_t> item_counts;
@@ -32,6 +39,9 @@ struct SearchBatch {
     int max_rank = 0;
 };
 
+// Kandidaatmerge voor de priority queue.
+// De version-velden maken lazy invalidation mogelijk: oude kandidaten blijven
+// in de queue staan, maar worden genegeerd zodra een van hun routes gewijzigd is.
 struct MergeCandidate {
     double saving = 0.0;
     double merged_cost = 0.0;
@@ -82,6 +92,9 @@ struct EliminationPlan {
 
 struct MergeCandidateLess {
     bool operator()(const MergeCandidate& left, const MergeCandidate& right) const {
+        // priority_queue geeft de "grootste" kandidaat eerst terug.
+        // Eerst maximaliseren we saving, daarna kiezen we bij gelijke saving
+        // de goedkoopste merged route als stabiele tie-breaker.
         if (std::abs(left.saving - right.saving) > 1e-9) {
             return left.saving < right.saving;
         }
@@ -92,6 +105,8 @@ struct MergeCandidateLess {
     }
 };
 
+// Een vaste sortering van locaties volgens de snake-route.
+// Alle routekosten lopen daarna lineair door deze lijst.
 std::vector<int> build_items_by_snake_rank(const ProblemInstance& instance) {
     std::vector<int> items(instance.item_ids.size());
     std::iota(items.begin(), items.end(), 0);
@@ -102,6 +117,9 @@ std::vector<int> build_items_by_snake_rank(const ProblemInstance& instance) {
     return items;
 }
 
+// Bitmask van de locaties die door een order nodig zijn.
+// START en END worden niet in het masker gezet: die worden apart bij elke route
+// aan het begin en einde toegevoegd.
 std::vector<std::uint64_t> build_order_mask(
     const ProblemInstance& instance,
     int order_index,
@@ -118,6 +136,8 @@ std::vector<std::uint64_t> build_order_mask(
     return mask;
 }
 
+// Voor local search is een lijst per order handiger dan alleen een bitmask,
+// omdat een order snel uit item_counts verwijderd en toegevoegd moet worden.
 std::vector<std::vector<int>> build_order_items_by_snake_rank(const ProblemInstance& instance) {
     std::vector<std::vector<int>> order_items(instance.orders.size());
     for (std::size_t order_index = 0; order_index < instance.orders.size(); ++order_index) {
@@ -147,6 +167,7 @@ double route_cost_for_mask(
     double cost = 0.0;
     int previous = instance.start_index;
     bool has_items = false;
+    // Score van een route: bezoek elke unieke locatie eenmaal in snake-volgorde.
     for (const int item : items_by_snake_rank) {
         if (!mask_contains(mask, item)) {
             continue;
@@ -169,6 +190,8 @@ double route_cost_for_counts(
     double cost = 0.0;
     int previous = instance.start_index;
     bool has_items = false;
+    // Zelfde berekening als route_cost_for_mask, maar op basis van item_counts.
+    // Dit wordt gebruikt tijdens moves waar orders tijdelijk verschuiven.
     for (const int item : items_by_snake_rank) {
         if (item_counts[static_cast<std::size_t>(item)] == 0U) {
             continue;
@@ -194,6 +217,8 @@ void update_search_batch_stats(
 
     int previous = instance.start_index;
     bool has_items = false;
+    // Werk kost en snake-span tegelijk bij, zodat routes later op center
+    // gesorteerd kunnen worden voor lokale neighbourhoods.
     for (const int item : items_by_snake_rank) {
         if (batch.item_counts[static_cast<std::size_t>(item)] == 0U) {
             continue;
@@ -219,6 +244,8 @@ double merged_route_cost(
     double cost = 0.0;
     int previous = instance.start_index;
     bool has_items = false;
+    // Bereken de kost van de union van twee routes zonder eerst een nieuwe
+    // vector van items op te bouwen.
     for (const int item : items_by_snake_rank) {
         const std::size_t item_index = static_cast<std::size_t>(item);
         const std::uint64_t bit = std::uint64_t{1} << (item_index % 64U);
@@ -343,6 +370,7 @@ LocalAction find_best_pair_action(
     LocalAction best;
     const double current_cost = left.cost + right.cost;
 
+    // Test alle order-swaps tussen twee routes.
     for (std::size_t left_pos = 0; left_pos < left.batch.order_indices.size(); ++left_pos) {
         for (std::size_t right_pos = 0; right_pos < right.batch.order_indices.size(); ++right_pos) {
             const double candidate_cost = simulated_swap_cost(
@@ -357,6 +385,7 @@ LocalAction find_best_pair_action(
     if (!right.batch.order_indices.empty() &&
         right.batch.order_indices.size() < instance.nmax &&
         !left.batch.order_indices.empty()) {
+        // Test relocaties van links naar rechts, alleen als de capaciteit dat toelaat.
         for (std::size_t left_pos = 0; left_pos < left.batch.order_indices.size(); ++left_pos) {
             const double candidate_cost = simulated_move_cost(
                 instance, items_by_snake_rank, order_items_by_snake_rank, left, right, left_pos);
@@ -370,6 +399,7 @@ LocalAction find_best_pair_action(
     if (!left.batch.order_indices.empty() &&
         left.batch.order_indices.size() < instance.nmax &&
         !right.batch.order_indices.empty()) {
+        // Test relocaties van rechts naar links.
         for (std::size_t right_pos = 0; right_pos < right.batch.order_indices.size(); ++right_pos) {
             const double candidate_cost = simulated_move_cost(
                 instance, items_by_snake_rank, order_items_by_snake_rank, right, left, right_pos);
@@ -390,6 +420,9 @@ void apply_local_action(
     SearchBatch& left,
     SearchBatch& right,
     const LocalAction& action) {
+    // Pas exact dezelfde wijziging toe die eerder gesimuleerd werd en werk daarna
+    // de routekosten opnieuw bij. De functie accepteert geen verslechteringen;
+    // die filtering gebeurt in find_best_pair_action/improve_nearby_pairs.
     if (action.type == LocalActionType::swap_orders) {
         const int left_order = left.batch.order_indices[action.left_pos];
         const int right_order = right.batch.order_indices[action.right_pos];
@@ -484,6 +517,8 @@ void polish_rebuilt_pair(
     const std::vector<std::vector<int>>& order_items_by_snake_rank,
     SearchBatch& left,
     SearchBatch& right) {
+    // Na een volledige rebuild kunnen er nog kleine pairwise verbeteringen openstaan.
+    // Deze polish voert de beste swap/relocate uit zolang de pair-kost daalt.
     while (!left.batch.order_indices.empty() && !right.batch.order_indices.empty()) {
         const LocalAction action =
             find_best_pair_action(instance, items_by_snake_rank, order_items_by_snake_rank, left, right);
@@ -505,6 +540,8 @@ void consider_rebuilt_partition(
     double& best_cost,
     SearchBatch& best_left,
     SearchBatch& best_right) {
+    // Evalueer een kandidaatverdeling van dezelfde orders over twee routes.
+    // Alleen haalbare verdelingen met een strikt lagere kost vervangen de beste kandidaat.
     if (left_orders.empty() || right_orders.empty()) {
         return;
     }
@@ -543,6 +580,8 @@ void consider_sorted_split(
     double& best_cost,
     SearchBatch& best_left,
     SearchBatch& best_right) {
+    // Snelle deterministische kandidaat: de orders zijn al gesorteerd door de caller
+    // en worden hier in twee haalbare routes geknipt.
     const std::size_t target_left = std::min<std::size_t>(
         instance.nmax,
         std::max<std::size_t>(1U, combined_orders.size() / 2U));
@@ -575,6 +614,8 @@ void consider_greedy_seed_rebuild(
     double& best_cost,
     SearchBatch& best_left,
     SearchBatch& best_right) {
+    // Bouw twee routes opnieuw op vanuit twee seed-orders aan de uitersten van de
+    // snake-center. Overige orders gaan telkens naar de route met de laagste extra kost.
     if (combined_orders.size() <= 1U) {
         return;
     }
@@ -659,6 +700,8 @@ void consider_regret_seed_rebuild(
     double& best_cost,
     SearchBatch& best_left,
     SearchBatch& best_right) {
+    // Regret-greedy plaatst eerst orders waarvoor het verschil tussen de beste
+    // en tweede beste route groot is. Zo blijven moeilijke orders niet tot het einde.
     if (combined_orders.size() <= 1U) {
         return;
     }
@@ -763,6 +806,8 @@ bool rebuild_pair_if_better(
     const std::vector<std::vector<int>>& order_items_by_snake_rank,
     SearchBatch& left,
     SearchBatch& right) {
+    // Sterkere neighbourhood dan een swap: combineer twee routes en verdeel
+    // alle orders opnieuw. We accepteren alleen als de totale kost daalt.
     if (left.batch.wave_id != right.batch.wave_id) {
         return false;
     }
@@ -879,6 +924,8 @@ void polish_rebuilt_triple(
     const std::vector<int>& items_by_snake_rank,
     const std::vector<std::vector<int>>& order_items_by_snake_rank,
     std::array<SearchBatch, 3>& routes) {
+    // Na een triple-rebuild kunnen nog kleine pairwise verbeteringen openstaan.
+    // Daarom polijsten we de drie routeparen tot geen enkel paar nog verbetert.
     bool improved = true;
     while (improved) {
         improved = false;
@@ -918,6 +965,8 @@ void consider_rebuilt_triple_partition(
     double current_cost,
     double& best_cost,
     std::array<SearchBatch, 3>& best_routes) {
+    // Evalueer een volledige verdeling over drie routes.
+    // Elke route moet niet-leeg blijven en binnen de capaciteit vallen.
     for (const std::vector<int>& orders : order_groups) {
         if (orders.empty() || orders.size() > instance.nmax) {
             return;
@@ -953,6 +1002,8 @@ void consider_sorted_triple_split(
     double current_cost,
     double& best_cost,
     std::array<SearchBatch, 3>& best_routes) {
+    // Goedkope triple-kandidaat: sorteer vooraf op center/span en split in drie
+    // ongeveer gebalanceerde groepen.
     const std::array<std::size_t, 3> sizes = balanced_three_sizes(combined_orders.size(), instance.nmax);
     if (sizes[0] + sizes[1] + sizes[2] != combined_orders.size()) {
         return;
@@ -1016,6 +1067,8 @@ void consider_three_seed_rebuild(
     double current_cost,
     double& best_cost,
     std::array<SearchBatch, 3>& best_routes) {
+    // Drie-route variant van de seed rebuild. Met regret_ordering=true wordt
+    // telkens de meest kritieke order eerst geplaatst; anders volgt een vaste volgorde.
     if (combined_orders.size() < 3U || combined_orders.size() > 3U * instance.nmax) {
         return;
     }
@@ -1139,6 +1192,8 @@ bool rebuild_triple_if_better(
     SearchBatch& first,
     SearchBatch& second,
     SearchBatch& third) {
+    // Triple rebuild kan verbeteringen vinden die geen enkel routepaar afzonderlijk
+    // kan bereiken. Dit was een van de belangrijkste late scoreverbeteringen.
     if (first.batch.wave_id != second.batch.wave_id || first.batch.wave_id != third.batch.wave_id) {
         return false;
     }
@@ -1205,6 +1260,8 @@ bool rebuild_triple_if_better(
 }
 
 void remove_empty_search_batches(std::vector<SearchBatch>& batches) {
+    // Na relocaties of route-eliminatie kunnen routes leeg worden.
+    // Lege routes worden niet naar de submission geschreven.
     batches.erase(
         std::remove_if(batches.begin(), batches.end(), [](const SearchBatch& batch) {
             return batch.batch.order_indices.empty();
@@ -1218,6 +1275,7 @@ double simulated_add_cost(
     const std::vector<std::vector<int>>& order_items_by_snake_rank,
     TrialDestination& destination,
     int order_index) {
+    // Simuleer de kost van een order toevoegen zonder de destination definitief te wijzigen.
     const std::vector<int>& items = order_items_by_snake_rank[static_cast<std::size_t>(order_index)];
     apply_order_count_delta(destination.item_counts, items, 1);
     const double new_cost = route_cost_for_counts(instance, items_by_snake_rank, destination.item_counts);
@@ -1232,6 +1290,8 @@ std::vector<DestinationChoice> ranked_destination_choices(
     EliminationState& state,
     int order_index,
     int max_choices) {
+    // Sorteer mogelijke bestemmingen voor een order op incrementele kost.
+    // max_choices beperkt de branching factor van de beam search.
     std::vector<DestinationChoice> choices;
     for (std::size_t destination_index = 0; destination_index < state.destinations.size(); ++destination_index) {
         TrialDestination& destination = state.destinations[destination_index];
@@ -1261,6 +1321,7 @@ void assign_order_to_destination(
     EliminationState& state,
     int order_index,
     const DestinationChoice& choice) {
+    // Pas een gekozen beam-stap toe op een gekopieerde eliminatiestate.
     TrialDestination& destination = state.destinations[choice.destination_index];
     apply_order_count_delta(
         destination.item_counts,
@@ -1291,6 +1352,8 @@ double initial_destination_regret(
     const std::vector<std::vector<int>>& order_items_by_snake_rank,
     const std::vector<TrialDestination>& destinations,
     int order_index) {
+    // Regret voor de startsortering van route-eliminatie:
+    // orders met weinig goede bestemmingen worden vroeger verwerkt.
     double best = 0.0;
     double second_best = 0.0;
     bool has_best = false;
@@ -1337,6 +1400,8 @@ std::vector<std::vector<int>> build_source_orderings(
     const std::vector<TrialDestination>& destinations,
     const std::vector<int>& source_orders,
     int ordering_trials) {
+    // Route-eliminatie is gevoelig voor de ordervolgorde waarin orders worden geplaatst.
+    // Daarom testen we meerdere deterministische volgordes en kiezen we de beste.
     std::vector<std::vector<int>> orderings;
     std::vector<int> ordering = source_orders;
 
@@ -1392,6 +1457,9 @@ bool run_elimination_beam_for_ordering(
     int beam_width,
     int candidates_per_order,
     EliminationState& best_state) {
+    // Beam search probeert alle orders uit een bronroute in andere routes te plaatsen.
+    // Alleen gedeeltelijke oplossingen die nog goedkoper kunnen zijn dan de bronroute
+    // worden bijgehouden.
     std::vector<EliminationState> states;
     states.push_back({destinations, 0.0});
     for (const int order_index : source_orders) {
@@ -1447,6 +1515,9 @@ bool build_elimination_plan(
     int candidates_per_order,
     int ordering_trials,
     EliminationPlan& plan) {
+    // Bouw het beste plan om een specifieke bronroute te verwijderen.
+    // Als de vrije capaciteit onvoldoende is of de beste herverdeling duurder is,
+    // wordt de route niet verwijderd.
     const SearchBatch& source = batches[source_index];
     if (source.batch.order_indices.empty() ||
         source.batch.order_indices.size() > static_cast<std::size_t>(max_source_batch_size)) {
@@ -1524,6 +1595,7 @@ void apply_elimination_plan(
     const std::vector<int>& items_by_snake_rank,
     std::vector<SearchBatch>& batches,
     const EliminationPlan& plan) {
+    // Schrijf de gekozen herverdeling terug naar de echte search_batches.
     for (const TrialDestination& destination : plan.destinations) {
         if (destination.assigned_orders.empty()) {
             continue;
@@ -1552,6 +1624,8 @@ std::size_t eliminate_routes(
     int beam_width,
     int candidates_per_order,
     int ordering_trials) {
+    // Zoek per pass het beste route-eliminatieplan. Kleine routes worden eerst
+    // bekeken omdat die het vaakst volledig in vrije capaciteit passen.
     if (passes <= 0 || max_source_batch_size <= 0) {
         return 0;
     }
@@ -1609,6 +1683,9 @@ std::size_t improve_nearby_pairs(
     std::vector<SearchBatch>& search_batches,
     int passes,
     int neighbor_window) {
+    // Eenvoudige local search: sorteer routes op snake-center en probeer alleen
+    // nabije routes. Binnen een paar worden swaps en relocaties herhaald tot
+    // geen verbetering meer bestaat.
     if (passes <= 0 || neighbor_window <= 0 || search_batches.size() < 2U) {
         return 0;
     }
@@ -1657,6 +1734,8 @@ std::size_t rebuild_nearby_pairs(
     std::vector<SearchBatch>& search_batches,
     int passes,
     int neighbor_window) {
+    // Pair rebuild bekijkt dezelfde lokale routeparen, maar verdeelt hun orders
+    // volledig opnieuw in plaats van alleen een order te wisselen/verplaatsen.
     if (passes <= 0 || neighbor_window <= 0 || search_batches.size() < 2U) {
         return 0;
     }
@@ -1699,6 +1778,9 @@ std::size_t rebuild_nearby_triples(
     int passes,
     int neighbor_window,
     int combination_window) {
+    // Triple rebuild is duurder, dus hij blijft lokaal begrensd.
+    // Eerst worden vaste gap-patronen getest; daarna extra lokale combinaties
+    // binnen combination_window.
     if (passes <= 0 || neighbor_window <= 0 || search_batches.size() < 3U) {
         return 0;
     }
@@ -1790,10 +1872,19 @@ std::size_t improve_with_local_search(
     int post_pair_triple_rebuild_passes,
     int post_pair_triple_rebuild_neighbor_window,
     int post_pair_triple_rebuild_combination_window,
+    int post_second_triple_pair_rebuild_passes,
+    int post_second_triple_pair_rebuild_neighbor_window,
     int final_local_search_passes) {
+    // Volledige post-processing pipeline na de savings-greedy:
+    // 1. lichte pair-local-search;
+    // 2. route-eliminatie;
+    // 3. pair rebuild;
+    // 4. triple rebuild;
+    // 5. extra tail-rondes omdat een grotere rebuild nieuwe pair-kansen opent;
+    // 6. finale lichte local search.
     if (passes <= 0 && route_elimination_passes <= 0 && pair_rebuild_passes <= 0 &&
         triple_rebuild_passes <= 0 && post_triple_pair_rebuild_passes <= 0 &&
-        post_pair_triple_rebuild_passes <= 0) {
+        post_pair_triple_rebuild_passes <= 0 && post_second_triple_pair_rebuild_passes <= 0) {
         return 0;
     }
 
@@ -1873,7 +1964,21 @@ std::size_t improve_with_local_search(
         improvement_count += post_pair_triple_rebuilt_count;
     }
 
-    if (rebuilt_count + triple_rebuilt_count + post_triple_rebuilt_count + post_pair_triple_rebuilt_count > 0U) {
+    std::size_t post_second_triple_pair_rebuilt_count = 0;
+    if (post_pair_triple_rebuilt_count > 0U) {
+        post_second_triple_pair_rebuilt_count = rebuild_nearby_pairs(
+            instance,
+            items_by_snake_rank,
+            order_items_by_snake_rank,
+            search_batches,
+            post_second_triple_pair_rebuild_passes,
+            post_second_triple_pair_rebuild_neighbor_window);
+        improvement_count += post_second_triple_pair_rebuilt_count;
+    }
+
+    if (rebuilt_count + triple_rebuilt_count + post_triple_rebuilt_count + post_pair_triple_rebuilt_count +
+            post_second_triple_pair_rebuilt_count >
+        0U) {
         improvement_count += improve_nearby_pairs(
             instance,
             items_by_snake_rank,
@@ -1898,6 +2003,8 @@ void push_merge_candidate(
     std::size_t left_id,
     std::size_t right_id,
     std::priority_queue<MergeCandidate, std::vector<MergeCandidate>, MergeCandidateLess>& candidates) {
+    // Voeg alleen haalbare merges met positieve saving toe.
+    // Kandidaten worden lazy gevalideerd wanneer ze uit de queue komen.
     const ActiveBatch& left = batches[left_id];
     const ActiveBatch& right = batches[right_id];
     if (!left.active || !right.active) {
@@ -1917,6 +2024,8 @@ void push_merge_candidate(
 }
 
 bool is_current_candidate(const std::vector<ActiveBatch>& batches, const MergeCandidate& candidate) {
+    // Lazy invalidation: na een merge blijven oude kandidaten in de priority queue,
+    // maar hun opgeslagen routeversies komen dan niet meer overeen.
     if (candidate.left_id >= batches.size() || candidate.right_id >= batches.size()) {
         return false;
     }
@@ -1934,6 +2043,8 @@ WaveSolveResult solve_wave_greedy(
     const BatchEvaluator& evaluator,
     int wave_index,
     const GreedyConfig& config) {
+    // Hoofdsolver voor een wave. De wave-grens wordt nooit overschreden:
+    // alle batches die hier ontstaan krijgen dezelfde wave_id.
     const auto started = std::chrono::steady_clock::now();
     const Wave& wave = instance.waves.at(static_cast<std::size_t>(wave_index));
     const std::size_t mask_words = (instance.item_ids.size() + 63U) / 64U;
@@ -1941,6 +2052,7 @@ WaveSolveResult solve_wave_greedy(
 
     std::vector<ActiveBatch> batches;
     batches.reserve(wave.order_indices.size());
+    // Startpunt van savings-greedy: elke order is een afzonderlijke route.
     for (const int order_index : wave.order_indices) {
         Batch batch;
         batch.wave_id = wave.id;
@@ -1953,6 +2065,7 @@ WaveSolveResult solve_wave_greedy(
     }
 
     std::priority_queue<MergeCandidate, std::vector<MergeCandidate>, MergeCandidateLess> candidates;
+    // Initialiseer alle mogelijke positieve paarmerges.
     for (std::size_t left = 0; left < batches.size(); ++left) {
         for (std::size_t right = left + 1U; right < batches.size(); ++right) {
             push_merge_candidate(instance, items_by_snake_rank, batches, left, right, candidates);
@@ -1961,6 +2074,7 @@ WaveSolveResult solve_wave_greedy(
 
     std::size_t active_count = batches.size();
     std::size_t merge_count = 0;
+    // Neem telkens de beste nog actuele saving uit de priority queue.
     while (!candidates.empty()) {
         const MergeCandidate candidate = candidates.top();
         candidates.pop();
@@ -2006,7 +2120,11 @@ WaveSolveResult solve_wave_greedy(
         (config.pair_rebuild_passes > 0 && config.pair_rebuild_neighbor_window > 0) ||
         (config.triple_rebuild_passes > 0 && config.triple_rebuild_neighbor_window > 0) ||
         (config.post_triple_pair_rebuild_passes > 0 && config.post_triple_pair_rebuild_neighbor_window > 0) ||
-        (config.post_pair_triple_rebuild_passes > 0 && config.post_pair_triple_rebuild_neighbor_window > 0)) {
+        (config.post_pair_triple_rebuild_passes > 0 && config.post_pair_triple_rebuild_neighbor_window > 0) ||
+        (config.post_second_triple_pair_rebuild_passes > 0 &&
+         config.post_second_triple_pair_rebuild_neighbor_window > 0)) {
+        // De duurdere search-representatie wordt alleen gebouwd als minstens een
+        // post-processingfase in de configuratie actief is.
         const std::vector<std::vector<int>> order_items_by_snake_rank = build_order_items_by_snake_rank(instance);
         local_improvements = improve_with_local_search(
             instance,
@@ -2031,6 +2149,8 @@ WaveSolveResult solve_wave_greedy(
             config.post_pair_triple_rebuild_passes,
             config.post_pair_triple_rebuild_neighbor_window,
             config.post_pair_triple_rebuild_combination_window,
+            config.post_second_triple_pair_rebuild_passes,
+            config.post_second_triple_pair_rebuild_neighbor_window,
             config.final_local_search_passes);
     }
 
@@ -2038,6 +2158,8 @@ WaveSolveResult solve_wave_greedy(
     result.batches = std::move(result_batches);
     result.objective = evaluator.wave_cost(wave_index, result.batches);
     result.metadata["construction"] = "savings_merge";
+    // Metadata komt niet in de Kaggle-CSV, maar maakt experimenten en paperanalyse
+    // reproduceerbaar.
     result.metadata["greedy_choice"] = "largest_positive_pairwise_saving";
     result.metadata["config_id"] = config.config_id;
     result.metadata["merge_updates"] = "lazy_priority_queue";
@@ -2068,6 +2190,10 @@ WaveSolveResult solve_wave_greedy(
         std::to_string(config.post_pair_triple_rebuild_neighbor_window);
     result.metadata["post_pair_triple_rebuild_combination_window"] =
         std::to_string(config.post_pair_triple_rebuild_combination_window);
+    result.metadata["post_second_triple_pair_rebuild_passes"] =
+        std::to_string(config.post_second_triple_pair_rebuild_passes);
+    result.metadata["post_second_triple_pair_rebuild_neighbor_window"] =
+        std::to_string(config.post_second_triple_pair_rebuild_neighbor_window);
     result.metadata["final_local_search_passes"] = std::to_string(config.final_local_search_passes);
     result.metadata["local_improvements"] = std::to_string(local_improvements);
 

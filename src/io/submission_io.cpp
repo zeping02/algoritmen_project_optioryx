@@ -15,6 +15,9 @@ namespace optioryx {
 
 namespace {
 
+// Maak stabiele, leesbare LIST_ID's per wave.
+// De exacte naam is niet belangrijk voor de score, zolang dezelfde LIST_ID
+// dezelfde picklijst aanduidt en geen waves mengt.
 std::string make_list_id(const std::string& wave_id, int list_index) {
     std::ostringstream stream;
     stream << wave_id << "-ALG-L" << std::setw(3) << std::setfill('0') << list_index;
@@ -47,6 +50,8 @@ std::size_t require_column(const std::vector<std::string>& header, const std::st
 }  // namespace
 
 std::vector<SubmissionRow> build_submission_rows(const ProblemInstance& instance, const Solution& solution) {
+    // Bouw pas een CSV nadat de interne oplossing geldig is.
+    // Zo voorkomen we dat een bug in een solver stilzwijgend een ongeldige submission schrijft.
     BatchEvaluator evaluator(instance);
     const std::vector<std::string> errors = evaluator.validate_solution(solution);
     if (!errors.empty()) {
@@ -54,6 +59,7 @@ std::vector<SubmissionRow> build_submission_rows(const ProblemInstance& instance
     }
 
     std::vector<std::string> list_id_by_order(instance.orders.size());
+    // Zet batch-indices om naar LIST_ID's per order.
     for (const WaveSolution& wave_solution : solution.wave_solutions) {
         for (std::size_t batch_index = 0; batch_index < wave_solution.batches.size(); ++batch_index) {
             const std::string list_id = make_list_id(wave_solution.wave_id, static_cast<int>(batch_index));
@@ -76,6 +82,7 @@ std::vector<SubmissionRow> build_submission_rows(const ProblemInstance& instance
 }
 
 void write_submission_csv(const std::filesystem::path& path, const ProblemInstance& instance, const Solution& solution) {
+    // Kaggle verwacht exact deze drie kolommen.
     ensure_parent_directory(path);
     const std::vector<SubmissionRow> rows = build_submission_rows(instance, solution);
 
@@ -91,6 +98,7 @@ void write_submission_csv(const std::filesystem::path& path, const ProblemInstan
 }
 
 std::vector<SubmissionRow> load_submission_csv(const std::filesystem::path& path) {
+    // Lees een submission terug in voor lokale validatie en scoring.
     std::ifstream input(path);
     if (!input) {
         throw std::runtime_error("Unable to open submission CSV: " + path.string());
@@ -122,6 +130,12 @@ std::vector<SubmissionRow> load_submission_csv(const std::filesystem::path& path
 }
 
 std::vector<std::string> validate_submission_rows(const ProblemInstance& instance, const std::vector<SubmissionRow>& rows) {
+    // Controleer alle harde constraints van de opdracht:
+    // - bekende WAVE_ID/ORDER_ID;
+    // - juiste wave per order;
+    // - elke order exact een keer;
+    // - LIST_ID mengt geen waves;
+    // - maximaal nmax orders per lijst.
     std::vector<std::string> errors;
     std::unordered_map<std::string, int> assignments_by_order;
     std::unordered_map<std::string, std::string> wave_by_list;
@@ -188,6 +202,8 @@ std::vector<std::string> validate_submission_rows(const ProblemInstance& instanc
 }
 
 double score_submission_rows(const ProblemInstance& instance, const std::vector<SubmissionRow>& rows) {
+    // Score een CSV onafhankelijk van de solver. Dit is dezelfde lokale score
+    // die in het verslag en de benchmarktabellen gebruikt wordt.
     const std::vector<std::string> errors = validate_submission_rows(instance, rows);
     if (!errors.empty()) {
         throw std::runtime_error("Cannot score an invalid submission");

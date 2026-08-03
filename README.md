@@ -91,7 +91,7 @@ build_release/optioryx_cli solve --solver greedy --input data --output build_rel
 build_release/optioryx_cli validate-submission --input data --submission build_release/greedy_final.csv
 ```
 
-Latest local Release measurement for this final config: valid submission, score around `4.99368e+06`, 517 routes.
+Latest local Release measurement for this final config: valid submission, score around `4.94153e+06`, 517 routes.
 
 Summarize a submission for the paper:
 
@@ -134,7 +134,7 @@ local_search_passes=2
 local_search_neighbor_window=12
 ```
 
-Use `configs/greedy_competition_fast.cfg` for the original fast savings baseline without local search, `configs/greedy_competition_local.cfg` for a balanced run, `configs/greedy_competition_strong.cfg`/`ultra`/`deep` for progressively stronger runs, `configs/greedy_competition_beam_eliminate.cfg` for the best pre-rebuild score, and `configs/greedy_competition_final.cfg` for the best measured competition score so far.
+Use `configs/greedy_competition_fast.cfg` for the original fast savings baseline without local search, `configs/greedy_competition_local.cfg` for a balanced run, `configs/greedy_competition_strong.cfg`/`ultra`/`deep` for progressively stronger runs, `configs/greedy_competition_beam_eliminate.cfg` for the best pre-rebuild score, and `configs/greedy_competition_final.cfg` for the best measured quality-oriented competition score so far.
 
 ## Verification
 

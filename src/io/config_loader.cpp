@@ -28,6 +28,9 @@ std::string lowercase(std::string value) {
 }  // namespace
 
 ConfigMap load_config(const std::filesystem::path& path) {
+    // Simpel key=value-formaat voor experimenten.
+    // Regels mogen comments bevatten na '#', zodat configbestanden zelf ook
+    // toelichting kunnen bevatten.
     std::ifstream input(path);
     if (!input) {
         throw std::runtime_error("Unable to open config file: " + path.string());
@@ -59,6 +62,8 @@ ConfigMap load_config(const std::filesystem::path& path) {
 }
 
 std::string config_string(const ConfigMap& config, const std::string& key, const std::string& fallback) {
+    // Typed accessors met fallback houden main.cpp leesbaar en maken ontbrekende
+    // configwaarden expliciet.
     const auto it = config.find(key);
     return it == config.end() ? fallback : it->second;
 }

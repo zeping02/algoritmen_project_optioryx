@@ -14,11 +14,16 @@ namespace optioryx {
 
 namespace {
 
+// Een chromosoom is een permutatie van orders.
+// De decoder zet die permutatie achteraf om naar geldige batches, zodat crossover
+// en mutation nooit rechtstreeks met LIST_ID's of capaciteit hoeven te werken.
 struct Chromosome {
     std::vector<int> permutation;
     DecodeResult decoded;
 };
 
+// Gebruik de greedy-oplossing als sterke warm-start in de populatie.
+// De overige individuen zijn shuffles, zodat er nog diversiteit is.
 std::vector<int> greedy_seed_permutation(const ProblemInstance& instance, const BatchEvaluator& evaluator, int wave_index) {
     const WaveSolveResult greedy = solve_wave_greedy(instance, evaluator, wave_index, GreedyConfig{});
     std::vector<int> permutation;
@@ -33,6 +38,7 @@ Chromosome make_chromosome(
     const BatchEvaluator& evaluator,
     int wave_index,
     const std::vector<int>& permutation) {
+    // Elke nieuwe permutatie wordt meteen gedecodeerd en gescoord.
     Chromosome chromosome;
     chromosome.permutation = permutation;
     chromosome.decoded = decode_permutation_to_batches(instance, evaluator, wave_index, chromosome.permutation);
@@ -40,6 +46,8 @@ Chromosome make_chromosome(
 }
 
 int tournament_pick(const std::vector<Chromosome>& population, int tournament_size, std::mt19937_64& rng) {
+    // Tournament selection kiest meerdere willekeurige kandidaten en neemt de beste.
+    // Dit geeft selectiedruk zonder dat alleen de absolute top mag reproduceren.
     std::uniform_int_distribution<int> pick(0, static_cast<int>(population.size() - 1U));
     int best_index = pick(rng);
     for (int draw = 1; draw < tournament_size; ++draw) {
@@ -53,6 +61,8 @@ int tournament_pick(const std::vector<Chromosome>& population, int tournament_si
 }
 
 std::vector<int> order_crossover(const std::vector<int>& left, const std::vector<int>& right, std::mt19937_64& rng) {
+    // Order crossover bewaart een segment van de eerste ouder en vult de rest aan
+    // volgens de volgorde van de tweede ouder. Zo blijft elke order exact een keer aanwezig.
     if (left.empty()) {
         return {};
     }
@@ -86,6 +96,8 @@ std::vector<int> order_crossover(const std::vector<int>& left, const std::vector
 }
 
 void mutate_permutation(std::vector<int>& permutation, double insertion_rate, std::mt19937_64& rng) {
+    // Mutatie wisselt twee orders of verplaatst een order naar een andere positie.
+    // Insertion is vaak nuttiger dan pure swap omdat batching sterk afhangt van lokale volgorde.
     if (permutation.size() < 2U) {
         return;
     }
@@ -112,6 +124,8 @@ void mutate_permutation(std::vector<int>& permutation, double insertion_rate, st
 }
 
 double population_diversity(const std::vector<Chromosome>& population) {
+    // Eenvoudige diversiteitsmaat: gemiddelde fractie posities waarin twee permutaties verschillen.
+    // Wordt alleen voor analyse/convergentie gebruikt.
     if (population.size() < 2U || population.front().permutation.empty()) {
         return 0.0;
     }
@@ -142,6 +156,9 @@ DecodeResult decode_permutation_to_batches(
     const BatchEvaluator& evaluator,
     int wave_index,
     const std::vector<int>& permutation) {
+    // Dynamic programming decoder:
+    // dp[end] = laagste kost om de eerste end orders uit de permutatie in batches te splitsen.
+    // Elke batch is een aaneengesloten segment van de permutatie en heeft maximaal nmax orders.
     const Wave& wave = instance.waves.at(static_cast<std::size_t>(wave_index));
     const std::size_t n = permutation.size();
     const double infinity = std::numeric_limits<double>::infinity();
@@ -193,6 +210,8 @@ WaveSolveResult solve_wave_genetic(
     int wave_index,
     const GeneticConfig& config,
     std::mt19937_64& rng) {
+    // Genetisch algoritme per wave. Het algoritme zoekt in de ruimte van orderpermutaties;
+    // de DP-decoder garandeert daarna een geldige batching voor die permutatie.
     const auto started = std::chrono::steady_clock::now();
     const Wave& wave = instance.waves.at(static_cast<std::size_t>(wave_index));
 
@@ -228,6 +247,8 @@ WaveSolveResult solve_wave_genetic(
         population_size);
 
     for (int generation = 1; generation <= config.generations; ++generation) {
+        // Elitisme bewaart de beste individuen ongewijzigd. De rest van de nieuwe populatie
+        // ontstaat via tournament selection, order crossover en optionele mutatie.
         std::sort(population.begin(), population.end(), by_objective);
 
         std::vector<Chromosome> next_population;

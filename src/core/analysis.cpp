@@ -8,6 +8,9 @@ namespace optioryx {
 
 namespace {
 
+// Jaccard-similariteit meet hoeveel picklocaties twee orders delen.
+// Dit is geen onderdeel van de score zelf, maar helpt bij analyse:
+// waves met veel overlap zijn meestal interessanter voor batching.
 double jaccard_similarity(const Order& left, const Order& right) {
     std::unordered_set<int> left_items(left.items.begin(), left.items.end());
     std::unordered_set<int> right_items(right.items.begin(), right.items.end());
@@ -40,6 +43,11 @@ WaveMetrics compute_wave_metrics(const ProblemInstance& instance, const BatchEva
     std::vector<double> spans;
     spans.reserve(wave.order_indices.size());
 
+    // Bereken twee verklarende kenmerken:
+    // - gemiddelde pairwise overlap tussen orders;
+    // - spreiding van de snake-span per order.
+    // Die waarden worden gebruikt in benchmark-CSV's om te zien welke waves
+    // moeilijk zijn voor de verschillende algoritmes.
     for (std::size_t left = 0; left < wave.order_indices.size(); ++left) {
         spans.push_back(static_cast<double>(evaluator.order_span_width(wave.order_indices[left])));
         for (std::size_t right = left + 1; right < wave.order_indices.size(); ++right) {

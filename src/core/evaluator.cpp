@@ -10,6 +10,8 @@ namespace optioryx {
 
 namespace {
 
+// Veel berekeningen hangen alleen af van de verzameling orders in een batch,
+// niet van hun volgorde. Daarom sorteren en dedupliceren we op centrale plaatsen.
 std::vector<int> sort_and_deduplicate(const std::vector<int>& values) {
     std::vector<int> result = values;
     std::sort(result.begin(), result.end());
@@ -26,6 +28,8 @@ BatchEvaluator::BatchEvaluator(const ProblemInstance& instance)
       order_item_masks_(instance.orders.size(), std::vector<std::uint64_t>(mask_words_, 0U)),
       order_items_by_snake_rank_(instance.orders.size()),
       cache_(instance.waves.size()) {
+    // Voor scoring moet elke batch in de vaste snake-volgorde worden doorlopen.
+    // Deze lijst voorkomt dat we die volgorde bij elke routekost opnieuw moeten sorteren.
     std::iota(items_by_snake_rank_.begin(), items_by_snake_rank_.end(), 0);
     std::sort(items_by_snake_rank_.begin(), items_by_snake_rank_.end(), [&](const int left, const int right) {
         return instance_.snake_rank.at(static_cast<std::size_t>(left)) <
@@ -33,6 +37,9 @@ BatchEvaluator::BatchEvaluator(const ProblemInstance& instance)
     });
 
     for (std::size_t order_index = 0; order_index < instance_.orders.size(); ++order_index) {
+        // Per order bewaren we twee vormen:
+        // - een gesorteerde lijst van unieke items voor span-berekeningen;
+        // - een bitmask voor snelle union van items wanneer meerdere orders een batch vormen.
         std::vector<int> unique_items = sort_and_deduplicate(instance_.orders[order_index].items);
         std::sort(unique_items.begin(), unique_items.end(), [&](const int left, const int right) {
             return instance_.snake_rank.at(static_cast<std::size_t>(left)) <
@@ -54,6 +61,8 @@ std::string BatchEvaluator::make_key(const std::vector<int>& order_indices) cons
     std::vector<int> canonical = sort_and_deduplicate(order_indices);
     std::string key;
     key.resize(canonical.size() * sizeof(int));
+    // De key is een compacte binaire representatie van de gesorteerde orderindices.
+    // Dat is sneller en kleiner dan telkens een tekstuele "1,7,19"-string bouwen.
     for (std::size_t index = 0; index < canonical.size(); ++index) {
         const int value = canonical[index];
         const auto* bytes = reinterpret_cast<const char*>(&value);
@@ -69,6 +78,8 @@ BatchStats BatchEvaluator::compute_stats(int wave_index, const std::vector<int>&
 
     const std::vector<int> canonical_orders = sort_and_deduplicate(order_indices);
     std::vector<std::uint64_t> item_mask(mask_words_, 0U);
+    // Union van alle picklocaties in de batch. Als twee orders dezelfde locatie
+    // nodig hebben, wordt die locatie maar een keer gepickt en dus maar een keer gescoord.
     for (const int order_index : canonical_orders) {
         const auto& order_mask = order_item_masks_.at(static_cast<std::size_t>(order_index));
         for (std::size_t word = 0; word < mask_words_; ++word) {
@@ -79,6 +90,8 @@ BatchStats BatchEvaluator::compute_stats(int wave_index, const std::vector<int>&
     BatchStats stats;
     int previous = instance_.start_index;
     bool has_items = false;
+    // Score exact zoals de opdracht verwacht: START -> unieke locaties in
+    // snake-volgorde -> END. Tegelijk vullen we extra statistieken voor analyse.
     for (const int item : items_by_snake_rank_) {
         const std::size_t item_index = static_cast<std::size_t>(item);
         const bool present = (item_mask[item_index / 64U] & (std::uint64_t{1} << (item_index % 64U))) != 0U;
@@ -111,6 +124,8 @@ BatchStats BatchEvaluator::batch_stats(int wave_index, const std::vector<int>& o
         return found->second;
     }
 
+    // Local search vraagt vaak herhaaldelijk dezelfde batchkost op.
+    // Caching maakt vooral pair/triple rebuilds veel goedkoper.
     BatchStats stats = compute_stats(wave_index, order_indices);
     wave_cache.emplace(key, stats);
     return stats;
@@ -155,6 +170,8 @@ std::vector<std::string> BatchEvaluator::validate_solution(const Solution& solut
     std::vector<std::string> errors;
     std::vector<int> assignments(instance_.orders.size(), 0);
 
+    // Controleer eerst elke batch lokaal: bestaande wave, juiste wave-id,
+    // capaciteit en alleen orders die bij die wave horen.
     for (const WaveSolution& wave_solution : solution.wave_solutions) {
         const auto wave_it = instance_.wave_index_by_id.find(wave_solution.wave_id);
         if (wave_it == instance_.wave_index_by_id.end()) {
@@ -187,6 +204,7 @@ std::vector<std::string> BatchEvaluator::validate_solution(const Solution& solut
         }
     }
 
+    // Daarna de globale constraint: elke order moet exact een keer voorkomen.
     for (std::size_t order_index = 0; order_index < assignments.size(); ++order_index) {
         if (assignments[order_index] != 1) {
             errors.push_back(

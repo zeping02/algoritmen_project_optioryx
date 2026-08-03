@@ -261,3 +261,53 @@ The final configuration is more runtime-heavy but gives the best measured local 
 
 ## Link With Paper
 Use this decision to explain the final interleaved local-search schedule: pair rebuild, triple rebuild, pair polish, then second triple polish.
+
+# Decision 12
+
+## Context
+The second triple phase still used a sparse arithmetic-gap scan over nearby routes: `(i, i+1, i+2)`, `(i, i+2, i+4)`, and similar patterns. This left many locally close three-route combinations untested.
+
+## Link with bedrijfsfeedback
+The feedback emphasizes route overlap and snake-route spread. Missing local route triples means the solver can leave overlapping orders in suboptimal batches even though a nearby three-route repartitioning would shorten the total pick path.
+
+## Options
+- Keep the sparse arithmetic-gap triple scan because it is faster.
+- Replace it with an exhaustive all-route triple search.
+- Add a bounded local combination window as an optional extension.
+
+## Chosen Solution
+Add `triple_rebuild_combination_window` and `post_pair_triple_rebuild_combination_window`. The final quality-oriented config selects window 11.
+
+## Reason
+The bounded combination window gives a much richer deterministic neighbourhood without the explosive cost of checking all triples globally. Every candidate is still accepted only when the rebuilt three routes strictly reduce total cost.
+
+## Consequences
+The best measured score improved from `4.99368e+06` to `4.94495e+06`, with 517 routes and a valid submission. Runtime increased to about 2383 seconds, so this is a quality-oriented offline configuration.
+
+## Link With Paper
+Use this decision to explain the final trade-off: larger neighbourhoods substantially improve solution quality, but runtime becomes the main limitation. The benchmark table documents windows 4 through 11.
+
+# Decision 13
+
+## Context
+After the second combinatorial triple phase, the solver only applied swap/relocate local search. Earlier experiments showed that larger triple moves can reopen useful two-route rebuild opportunities.
+
+## Link with bedrijfsfeedback
+This targets the feedback about richer neighbourhoods and better overlap/snake-spread grouping while keeping feasibility constraints strict.
+
+## Options
+- Stop after the second combinatorial triple phase and final swap/relocate polish.
+- Increase the triple-combination window further.
+- Add a bounded pair rebuild after the final triple phase.
+
+## Chosen Solution
+Add `post_second_triple_pair_rebuild_passes` and `post_second_triple_pair_rebuild_neighbor_window`. The final quality-oriented config selects three passes with window 40.
+
+## Reason
+The new phase directly tests whether the last large three-route repartitioning creates two-route rebuild opportunities. It is cheaper than immediately increasing the already expensive triple-combination window and remains deterministic with strict improvement acceptance.
+
+## Consequences
+The best measured score improved from `4.94495e+06` to `4.94153e+06`. A fourth pass did not improve the score, so three passes are selected.
+
+## Link With Paper
+Use this decision to explain the final interleaved schedule: broad triple moves improve route composition, then tail pair rebuilds polish the two-route structure they expose.

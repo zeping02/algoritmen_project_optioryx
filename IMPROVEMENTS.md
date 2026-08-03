@@ -28,6 +28,8 @@
 - A bounded three-route rebuild step was added after pair rebuild. It rebuilds three snake-nearby routes with sorted split, seeded greedy assignment, and seeded regret assignment, then keeps the change only if the three-route total cost strictly decreases.
 - Pair rebuild can optionally run again after triple rebuild. This catches two-route improvements opened by larger three-route moves.
 - Triple rebuild can optionally run again after post-triple pair polish. This creates a bounded pair/triple cycle and tests whether small refinements reopen useful three-route moves.
+- Triple rebuild can optionally test all local three-route combinations inside a small center-sorted window, in addition to the older arithmetic-gap triples. This expands the deterministic neighbourhood while keeping strict improvement acceptance.
+- Pair rebuild can optionally run after the final second-triple phase. This catches two-route rebuild improvements opened by the last large three-route repartitioning step.
 - A final local-search polish can run after route rebuilds to catch improvements opened by the larger pair reconstruction moves.
 
 ## Useful Competition Commands
@@ -91,12 +93,25 @@ Measured on the included competition data in a Release build:
 - `greedy_competition_final_second_triple`: score around `4.99572e+06`, about 692 seconds.
 - `greedy_competition_final_second_triple2`: score around `4.99368e+06`, about 704 seconds.
 - `greedy_competition_final_second_triple3`: score around `4.99368e+06`, no score gain over two second-triple passes.
+- `greedy_competition_final_combo_triple`: score around `4.99104e+06`, about 708 seconds, using local triple-combination window 4.
+- `greedy_competition_final_combo_triple_wide`: score around `4.97641e+06`, about 938 seconds, using local triple-combination window 5.
+- `greedy_competition_final_combo_triple_wider`: score around `4.97376e+06`, about 1095 seconds, using local triple-combination window 6.
+- `greedy_competition_final_combo_triple_ultra`: score around `4.97093e+06`, about 1256 seconds, using local triple-combination window 7.
+- `greedy_competition_final_combo_triple_ultra8`: score around `4.96238e+06`, about 1541 seconds, using local triple-combination window 8.
+- `greedy_competition_final_combo_triple_ultra9`: score around `4.95201e+06`, about 1803 seconds, using local triple-combination window 9.
+- `greedy_competition_final_combo_triple_ultra10`: score around `4.94891e+06`, about 2045 seconds, using local triple-combination window 10.
+- `greedy_competition_final_combo_triple_ultra11`: score around `4.94495e+06`, about 2383 seconds.
+- `greedy_competition_final_tail_pair`: score around `4.94229e+06`, about 2454 seconds, one tail pair-rebuild pass after the second triple phase.
+- `greedy_competition_final_tail_pair2`: score around `4.94162e+06`, about 2489 seconds, two tail pair-rebuild passes.
+- `greedy_competition_final_tail_pair3`: score around `4.94153e+06`, about 2523 seconds, best measured quality-oriented score so far.
+- `greedy_competition_final_tail_pair4`: score around `4.94153e+06`, no gain over three tail pair passes.
 
 The exact runtime depends on machine load, but the strong config is clearly better than the Pulse Pick reference score mentioned in `MetaAnalyse.pdf`.
 
 ## Remaining Limitations
 
 - The exact initial savings phase still considers many candidate pairs, so runtime is not yet at the 5 second production reference.
-- The best-scoring final config is intentionally quality-oriented and takes about 11 minutes locally. For a faster paper/competition comparison, the one-pass or five-pass rebuild configs are useful trade-off points.
+- The best-scoring final config is intentionally quality-oriented and takes about 42 minutes locally. For a faster paper/competition comparison, the one-pass, five-pass rebuild, or second-triple configs are useful trade-off points.
+- Larger triple-combination windows than 11 may still improve score, but they were not yet measured because each extra window step is a long compute experiment.
 - Simulated annealing and the genetic algorithm currently benefit mainly from the improved greedy warm-start; their random search needs more efficient delta evaluation before very long runs become attractive.
 - `src/main.cpp` still combines CLI parsing, solver construction, and benchmarking. Splitting it into smaller CLI/benchmark/solver-factory modules would improve maintainability.

@@ -7,6 +7,7 @@ namespace optioryx {
 
 namespace {
 
+// Minimale JSON-escaping voor strings die in analyse-output terechtkomen.
 std::string escape_json(const std::string& value) {
     std::string escaped;
     escaped.reserve(value.size());
@@ -54,6 +55,8 @@ void write_text_file(const std::filesystem::path& path, const std::string& conte
 }
 
 void write_solution_json(const std::filesystem::path& path, const ProblemInstance& instance, const Solution& solution) {
+    // JSON-output is bedoeld voor debugging en analyse, niet voor Kaggle.
+    // Daarom bevat hij ook metadata, batches en convergentiepunten.
     ensure_parent_directory(path);
     std::ofstream output(path);
     if (!output) {
@@ -137,6 +140,8 @@ void write_solution_json(const std::filesystem::path& path, const ProblemInstanc
 }
 
 void write_benchmark_runs_csv(const std::filesystem::path& path, const std::vector<BenchmarkRecord>& records) {
+    // Platte CSV-output maakt het gemakkelijk om resultaten later in Python,
+    // spreadsheets of LaTeX-tabellen te gebruiken.
     ensure_parent_directory(path);
     std::ofstream output(path);
     if (!output) {
@@ -158,6 +163,7 @@ void write_benchmark_runs_csv(const std::filesystem::path& path, const std::vect
 }
 
 void write_convergence_csv(const std::filesystem::path& path, const std::vector<ConvergenceRecord>& records) {
+    // Convergentiegegevens ondersteunen grafieken voor SA/GA en benchmarkanalyse.
     ensure_parent_directory(path);
     std::ofstream output(path);
     if (!output) {

@@ -23,12 +23,16 @@
 namespace optioryx {
 namespace {
 
+// Een benchmarkconfiguratie: solvernaam, key-value config en de seeds waarmee
+// stochastic solvers herhaald worden.
 struct BenchmarkSpec {
     std::string solver;
     ConfigMap config;
     std::vector<std::uint64_t> seeds;
 };
 
+// Kleine command-line helpers. De CLI gebruikt expliciete opties zoals
+// --input en --solver zodat experimenten reproduceerbaar in scripts kunnen staan.
 std::optional<std::string> find_option(const std::vector<std::string>& args, const std::string& name) {
     for (std::size_t index = 0; index + 1U < args.size(); ++index) {
         if (args[index] == name) {
@@ -47,6 +51,7 @@ std::string require_option(const std::vector<std::string>& args, const std::stri
 }
 
 bool matches_solver(const std::string& requested, const std::string& canonical) {
+    // Enkele korte aliassen blijven ondersteund voor sneller experimenteren.
     if (requested == canonical) {
         return true;
     }
@@ -75,6 +80,8 @@ Solution solve_instance(
     const std::string& solver_name,
     const ConfigMap& config,
     std::uint64_t seed) {
+    // Los elke wave apart op. Dat is correct omdat de opdracht verbiedt om orders
+    // uit verschillende waves in dezelfde picklijst te mengen.
     const auto started = std::chrono::steady_clock::now();
     BatchEvaluator evaluator(instance);
     Solution solution;
@@ -87,6 +94,7 @@ Solution solve_instance(
         WaveSolveResult result;
 
         if (matches_solver(solver_name, "greedy")) {
+            // Alle greedy-parameters komen uit het configbestand met veilige defaults.
             GreedyConfig greedy_config;
             greedy_config.config_id = config_string(config, "config_id", "greedy_default");
             greedy_config.local_search_passes = config_int(config, "local_search_passes", 1);
@@ -120,10 +128,17 @@ Solution solve_instance(
                 config,
                 "post_pair_triple_rebuild_combination_window",
                 greedy_config.triple_rebuild_combination_window);
+            greedy_config.post_second_triple_pair_rebuild_passes =
+                config_int(config, "post_second_triple_pair_rebuild_passes", 0);
+            greedy_config.post_second_triple_pair_rebuild_neighbor_window = config_int(
+                config,
+                "post_second_triple_pair_rebuild_neighbor_window",
+                greedy_config.post_triple_pair_rebuild_neighbor_window);
             greedy_config.final_local_search_passes = config_int(config, "final_local_search_passes", 0);
             solution.config_id = greedy_config.config_id;
             result = solve_wave_greedy(instance, evaluator, static_cast<int>(wave_index), greedy_config);
         } else if (matches_solver(solver_name, "simulated_annealing")) {
+            // SA en GA gebruiken dezelfde evaluator, zodat scores eerlijk vergelijkbaar zijn.
             SimulatedAnnealingConfig sa_config;
             sa_config.config_id = config_string(config, "config_id", "sa_default");
             sa_config.start_strategy = parse_start_strategy(config_string(config, "start_strategy", "greedy"));
@@ -162,6 +177,7 @@ Solution solve_instance(
         solution.objective += result.objective;
     }
 
+    // Validatie gebeurt na het samenvoegen van alle wave-oplossingen.
     solution.validation_errors = evaluator.validate_solution(solution);
     solution.feasible = solution.validation_errors.empty();
     const auto finished = std::chrono::steady_clock::now();
@@ -170,6 +186,8 @@ Solution solve_instance(
 }
 
 std::vector<BenchmarkSpec> build_benchmark_suite(const std::string& suite_name) {
+    // De smoke-suite is kort en bedoeld voor snelle regressietests.
+    // De assignment-suite vergelijkt meerdere configuraties/seeds voor analyse.
     auto make_seeds = [](int count) {
         std::vector<std::uint64_t> seeds;
         seeds.reserve(static_cast<std::size_t>(count));
@@ -232,6 +250,8 @@ std::vector<BenchmarkSpec> build_benchmark_suite(const std::string& suite_name) 
 void write_summary(
     const std::filesystem::path& out_dir,
     const std::vector<BenchmarkRecord>& records) {
+    // Compacte samenvatting per solver/config; de gedetailleerde wave-records
+    // worden elders naar runs.csv geschreven.
     std::ofstream output(out_dir / "summary.txt");
     if (!output) {
         throw std::runtime_error("Unable to write summary.txt");
@@ -261,6 +281,7 @@ bool is_submission_output(const std::filesystem::path& path) {
 }
 
 int run_solve_mode(const std::vector<std::string>& args) {
+    // Produceert ofwel een Kaggle-compatible CSV, ofwel een JSON met extra metadata.
     const std::filesystem::path input_path = require_option(args, "--input");
     const std::filesystem::path output_path = require_option(args, "--output");
     const std::string solver = require_option(args, "--solver");
@@ -291,6 +312,7 @@ int run_solve_mode(const std::vector<std::string>& args) {
 }
 
 int run_dump_convergence_mode(const std::vector<std::string>& args) {
+    // Schrijft de convergentiepunten van iteratieve algoritmes naar CSV voor grafieken.
     const std::filesystem::path input_path = require_option(args, "--input");
     const std::filesystem::path output_path = require_option(args, "--output");
     const std::string solver = require_option(args, "--solver");
@@ -317,6 +339,7 @@ int run_dump_convergence_mode(const std::vector<std::string>& args) {
 }
 
 int run_validate_submission_mode(const std::vector<std::string>& args) {
+    // Controleert een bestaande submission onafhankelijk van de solver die ze maakte.
     const std::filesystem::path input_path = require_option(args, "--input");
     const std::filesystem::path submission_path = require_option(args, "--submission");
 
@@ -339,6 +362,8 @@ int run_validate_submission_mode(const std::vector<std::string>& args) {
 }
 
 int run_benchmark_mode(const std::vector<std::string>& args) {
+    // Draait een suite van solvers/configs en schrijft zowel ruwe runs als
+    // convergentiedata weg voor analyse en visualisatie.
     const std::filesystem::path input_path = require_option(args, "--input");
     const std::filesystem::path out_dir = require_option(args, "--out-dir");
     const std::string suite_name = find_option(args, "--suite").value_or("assignment");
