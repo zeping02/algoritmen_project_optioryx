@@ -1,0 +1,242 @@
+\section{Metaheuristieke detailresultaten}
+\label{app:meta}
+\vspace{2pt}
+
+\begingroup
+\small
+\setlength{\tabcolsep}{3.1pt}
+\setlength{\intextsep}{9pt plus 1pt minus 1pt}
+\setlength{\belowcaptionskip}{4pt}
+\renewcommand{\arraystretch}{1.03}
+
+\begin{table}[H]
+\centering
+\caption{Volledig $2\times2\times2$-SA-experiment ($n=10$ volledige-instance-seeds
+per configuratie). SD is de sample-SD; runtime sommeert de twaalf wave-tijden.}
+\label{tab:app-sa}
+\begin{tabular}{@{}lllrrr@{}}
+\toprule
+\textbf{Start} & \textbf{Koeling} & \textbf{Buurt} &
+\textbf{$\bar D\pm$SD} & \textbf{beste $D$} & \textbf{$\bar t\pm$SD (s)} \\
+\midrule
+greedy & geometrisch & relocate & $5\,308\,303\pm458$ & $5\,307\,359$ & $10,680\pm0,154$ \\
+greedy & Lundy--Mees & relocate & $5\,308\,154\pm441$ & $5\,307\,423$ & $10,249\pm0,486$ \\
+greedy & geometrisch & swap & $5\,307\,697\pm527$ & $5\,306\,678$ & $10,786\pm0,206$ \\
+greedy & Lundy--Mees & swap & $5\,307\,592\pm450$ & $5\,306\,974$ & $10,821\pm1,824$ \\
+willekeurig & geometrisch & relocate & $27\,843\,236\pm261\,869$ & $27\,441\,513$ & $0,138\pm0,006$ \\
+willekeurig & Lundy--Mees & relocate & $27\,806\,497\pm146\,951$ & $27\,499\,854$ & $0,128\pm0,008$ \\
+willekeurig & geometrisch & swap & $31\,836\,247\pm248\,343$ & $31\,398\,732$ & $0,168\pm0,020$ \\
+willekeurig & Lundy--Mees & swap & $31\,809\,250\pm251\,171$ & $31\,479\,069$ & $0,155\pm0,025$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Volledige gekoppelde GA-OFAT-studie ($n=10$). $\Delta D$ en $\Delta t$
+zijn variant minus basis; $h_{95}$ is de halve 95\%-BI-breedte. Basis:
+$D=5\,308\,536\pm132$ SD en $t=20,963\pm0,658$ s.}
+\label{tab:app-ga}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Variant} & \textbf{$\Delta D\pm h_{95}$} & \textbf{$\Delta t$} &
+\textbf{einddiversiteit} \\
+\midrule
+basis (pop. 12, gen. 20) & --- & --- & $0,109$ \\
+populatie 6 & $+48\pm132$ & $-26,32\%$ & $0,159$ \\
+populatie 24 & $-243\pm234$ & $+55,25\%$ & $0,104$ \\
+10 generaties & $+81\pm94$ & $-15,21\%$ & $0,139$ \\
+40 generaties & $-54\pm176$ & $+21,29\%$ & $0,101$ \\
+mutatiekans 0,05 & $+48\pm132$ & $-2,86\%$ & $0,022$ \\
+mutatiekans 0,40 & $-39\pm154$ & $+0,61\%$ & $0,221$ \\
+elitisme 0 & $+49\pm130$ & $+17,31\%$ & $0,313$ \\
+elitisme 0,20 & $-13\pm176$ & $-5,76\%$ & $0,088$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Gekoppelde SA-hoofdeffecten en interacties ($n=10$). Hoofdeffecten
+zijn LM--Geo, swap--relocate en willekeurig--greedy; interacties zijn
+difference-of-differences.}
+\label{tab:app-sa-effects}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{contrast} & \textbf{$\Delta D\pm h_{95}$} & \textbf{$\Delta t$ (ms)} \\
+\midrule
+koeling & $-15\,997\pm32\,133$ & $-104,95$ \\
+buurt & $+1\,998\,649\pm93\,519$ & $+183,86$ \\
+start & $+24\,515\,871\pm129\,074$ & $-10\,486,82$ \\
+koeling $\times$ buurt & $+4\,894\pm65\,445$ & $+231,32$ \\
+koeling $\times$ start & $-31\,741\pm64\,095$ & $+186,94$ \\
+buurt $\times$ start & $+3\,998\,465\pm186\,928$ & $-310,45$ \\
+koeling $\times$ buurt $\times$ start & $+9\,698\pm131\,066$ & $-469,82$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\endgroup
+
+\clearpage
+\section{Wave-, convergentie- en schaalresultaten}
+\label{app:matched}
+\vspace{2pt}
+
+\begingroup
+\small
+\setlength{\tabcolsep}{3.0pt}
+\setlength{\intextsep}{9pt plus 1pt minus 1pt}
+\setlength{\belowcaptionskip}{4pt}
+\renewcommand{\arraystretch}{1.01}
+
+\begin{table}[H]
+\centering
+\caption{Gemiddelde afstandswinst tegenover dezelfde deterministische
+LS1/venster-8-start ($n=10$). Intervallen zijn tweezijdige Student-$t$-95\%-BI's;
+0 betekent identiek binnen $10^{-6}$.}
+\label{tab:app-waves}
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+\textbf{wave} & \textbf{orders} & \textbf{$D_{\mathrm{greedy}}$} &
+\textbf{SA-winst [95\%-BI]} & \textbf{GA-winst [95\%-BI]} \\
+\midrule
+01 & $1\,041$ & $499\,465,52$ & 0 & 0 \\
+02 & $1\,076$ & $700\,602,58$ & 0 & 0 \\
+03 & $1\,219$ & $503\,211,28$ & 0 & 0 \\
+04 & 800 & $473\,711,20$ & 0 & 0 \\
+05 & 909 & $447\,667,43$ & 0 & 0 \\
+06 & $1\,076$ & $611\,353,39$ & 0 & 0 \\
+07 & 974 & $688\,081,91$ & $2,24\;[-2,83;\,7,31]$ & 0 \\
+08 & 945 & $356\,066,12$ & 0 & 0 \\
+09 & $1\,148$ & $218\,606,45$ & 0 & 0 \\
+10 & 858 & $684\,489,14$ & $21,20\;[-10,78;\,53,18]$ & $23,40\;[-29,54;\,76,35]$ \\
+11 & 50 & $27\,218,73$ & 0 & 0 \\
+12 & 150 & $98\,142,79$ & 0 & $57,43\;[-29,74;\,144,61]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Solvertijd in ms: mediaan [Q1--Q3] over negen metingen per methode en
+$n$. De fits zijn beschrijvend voor 50--800 orders.}
+\label{tab:app-scaling}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+\textbf{$n$} & \textbf{greedy} & \textbf{SA} & \textbf{GA} \\
+\midrule
+50 & $3,35\;[2,77\text{--}4,37]$ & $3,41\;[3,01\text{--}4,55]$ & $36,89\;[36,25\text{--}43,36]$ \\
+100 & $13,62\;[12,43\text{--}13,78]$ & $13,12\;[12,04\text{--}14,19]$ & $96,37\;[93,44\text{--}102,32]$ \\
+200 & $44,42\;[43,76\text{--}47,29]$ & $47,88\;[45,86\text{--}49,01]$ & $198,81\;[197,50\text{--}213,21]$ \\
+400 & $176,23\;[167,54\text{--}185,57]$ & $185,61\;[167,97\text{--}217,48]$ & $526,87\;[511,75\text{--}542,56]$ \\
+800 & $648,16\;[638,19\text{--}683,76]$ & $638,49\;[625,24\text{--}688,03]$ & $1\,442,14\;[1\,415,73\text{--}1\,523,46]$ \\
+\midrule
+$b$ & $1,888$ & $1,892$ & $1,303$ \\
+$R^2$ & $0,9995$ & $0,9998$ & $0,9972$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Alle stappen waarop het gemiddelde best-so-far daalt. Extra winst is
+tegenover de vorige stap; cumulatieve winst en BI zijn tegenover de
+gemeenschappelijke start $D_0=5\,308\,616,53$.}
+\label{tab:app-convergence}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{methode} & \textbf{stap} & \textbf{seeds beter} &
+\textbf{extra gem. winst} & \textbf{cumulatief [95\%-BI]} \\
+\midrule
+SA & 55 & $1/10$ & $10,85$ & $10,85\;[-13,69;\,35,38]$ \\
+SA & 79 & $2/10$ & $12,03$ & $22,87\;[-7,86;\,53,61]$ \\
+SA & 120 & $1/10$ & $0,56$ & $23,44\;[-8,10;\,54,97]$ \\
+GA & 9 & $1/10$ & $23,40$ & $23,40\;[-29,54;\,76,35]$ \\
+GA & 13 & $1/10$ & $25,79$ & $49,19\;[-25,10;\,123,48]$ \\
+GA & 18 & $1/10$ & $31,65$ & $80,84\;[-13,37;\,175,04]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\endgroup
+
+\clearpage
+\section{Heuristiek- en controle-resultaten}
+\label{app:heuristics}
+\vspace{2pt}
+
+\begingroup
+\small
+\setlength{\tabcolsep}{3.2pt}
+\setlength{\intextsep}{9pt plus 1pt minus 1pt}
+\setlength{\belowcaptionskip}{4pt}
+\renewcommand{\arraystretch}{1.03}
+
+\begin{table}[H]
+\centering
+\caption{Alle acht deterministische seed-and-selectionconfiguraties. $\Delta D$
+is de procentuele meerafstand tegenover matched greedy; iedere tijd is één
+volledige-instancewaarneming.}
+\label{tab:app-seed}
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+\textbf{seedregel} & \textbf{selection rule} & \textbf{$D$} &
+\textbf{$\Delta D$} & \textbf{tijd (s)} \\
+\midrule
+grootste span & maximale locatieoverlap & $7\,485\,444$ & $+41,006\%$ & $5,411$ \\
+grootste span & minimale spanuitbreiding & $6\,759\,161$ & $+27,324\%$ & $5,416$ \\
+grootste span & minimale incrementele kost & $6\,566\,051$ & $+23,687\%$ & $5,505$ \\
+grootste span & tweestaps-lookahead ($K=8$) & $6\,491\,675$ & $+22,286\%$ & $31,970$ \\
+kleinste span & maximale locatieoverlap & $7\,722\,909$ & $+45,479\%$ & $5,577$ \\
+kleinste span & minimale spanuitbreiding & $6\,836\,623$ & $+28,784\%$ & $5,507$ \\
+kleinste span & minimale incrementele kost & $5\,487\,174$ & $+3,364\%$ & $5,368$ \\
+kleinste span & tweestaps-lookahead ($K=8$) & $5\,436\,249$ & $+2,404\%$ & $33,101$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Geselecteerde mijlpalen uit de afzonderlijke greedy-tuningreeks. Elke
+rij is één haalbare run; runtimes zijn niet gekoppeld en dienen alleen als
+orde-van-grootte.}
+\label{tab:app-greedy}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{toegevoegde fase / variant} & \textbf{$D$} & \textbf{routes} & \textbf{tijd (s)} \\
+\midrule
+savings-baseline & $5\,511\,080$ & 534 & 20 \\
+pairwise local search & $5\,100\,290$ & 534 & 81 \\
+beam route-eliminatie & $5\,066\,010$ & 517 & 135 \\
+vijf pair-rebuilds + polish & $5\,018\,490$ & 517 & 724 \\
+acht regret-pair-rebuilds & $5\,002\,250$ & 517 & 487 \\
+drie triple-rebuilds & $4\,996\,960$ & 517 & 565 \\
+combinatievenster 8 & $4\,962\,380$ & 517 & $1\,541$ \\
+drie tail-pairpasses & $4\,941\,530$ & 517 & $2\,523$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Uitvoeringsaudit van de canonieke studies. De eerste vier suites vormen
+de 200 volledige-instance-runs; scaling gebruikt W000003-subsets.}
+\label{tab:app-audit}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{studie} & \textbf{configuraties} & \textbf{runs} &
+\textbf{haalbaar} & \textbf{statistische eenheid} \\
+\midrule
+SA-factorieel & 8 & 80 & 80 & volledige instantie/seed \\
+GA-sensitiviteit & 9 & 90 & 90 & volledige instantie/seed \\
+seed-factorieel & 8 & 8 & 8 & volledige instantie/config. \\
+matched vergelijking & 4 & 22 & 22 & volledige instantie/seed \\
+\midrule
+totaal volledige instantie & 29 & 200 & 200 & --- \\
+gecontroleerde scaling & 3 & 135 & 135 & subset/reeks/seed \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\endgroup

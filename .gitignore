@@ -7,3 +7,5 @@ build_*/
 *.a
 *.lib
 *.ninja_lock
+__pycache__/
+*.py[cod]
