@@ -72,6 +72,9 @@ SeedRule parse_seed_rule(const std::string& value) {
     if (normalized == "largest_snake_span" || normalized == "span") {
         return SeedRule::largest_snake_span;
     }
+    if (normalized == "smallest_snake_span" || normalized == "minimum_snake_span" || normalized == "smallest_span") {
+        return SeedRule::smallest_snake_span;
+    }
     throw std::runtime_error("Unknown seed rule: " + value);
 }
 
@@ -85,6 +88,12 @@ SelectionRule parse_selection_rule(const std::string& value) {
     }
     if (normalized == "hybrid_score" || normalized == "hybrid") {
         return SelectionRule::hybrid_score;
+    }
+    if (normalized == "maximum_location_overlap" || normalized == "location_overlap" || normalized == "maximum_overlap") {
+        return SelectionRule::maximum_location_overlap;
+    }
+    if (normalized == "bounded_two_step_lookahead" || normalized == "two_step_lookahead" || normalized == "lookahead") {
+        return SelectionRule::bounded_two_step_lookahead;
     }
     throw std::runtime_error("Unknown selection rule: " + value);
 }
@@ -130,6 +139,8 @@ std::string to_string(SeedRule value) {
             return "highest_standalone_cost";
         case SeedRule::largest_snake_span:
             return "largest_snake_span";
+        case SeedRule::smallest_snake_span:
+            return "smallest_snake_span";
     }
     return "unknown";
 }
@@ -142,6 +153,10 @@ std::string to_string(SelectionRule value) {
             return "minimum_span_expansion";
         case SelectionRule::hybrid_score:
             return "hybrid_score";
+        case SelectionRule::maximum_location_overlap:
+            return "maximum_location_overlap";
+        case SelectionRule::bounded_two_step_lookahead:
+            return "bounded_two_step_lookahead";
     }
     return "unknown";
 }

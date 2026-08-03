@@ -11,6 +11,7 @@ struct SeedSelectionConfig {
     std::string config_id = "seed_selection_default";
     SeedRule seed_rule = SeedRule::highest_standalone_cost;
     SelectionRule selection_rule = SelectionRule::minimum_incremental_cost;
+    int lookahead_width = 8;
 };
 
 WaveSolveResult solve_wave_seed_selection(

@@ -1,0 +1,43 @@
+{
+  "artifacts": [
+    "sa_config_summary.csv",
+    "sa_main_effects.csv",
+    "sa_interactions.csv",
+    "sa_effects.png",
+    "sa_effects.pdf",
+    "analysis_protocol.json"
+  ],
+  "confidence_interval": "two_sided_95_percent_student_t; NA_when_n_less_than_2",
+  "details": {
+    "effect_estimation": "paired_seed_marginal_contrasts",
+    "factor_levels": {
+      "cooling": [
+        "geometric",
+        "lundy_mees"
+      ],
+      "neighborhood": [
+        "relocate",
+        "swap"
+      ],
+      "start_strategy": [
+        "greedy",
+        "randomized"
+      ]
+    },
+    "interaction_sign": "alternative_minus_reference_difference_of_differences",
+    "reference_levels": {
+      "cooling": "geometric",
+      "neighborhood": "relocate",
+      "start_strategy": "greedy"
+    }
+  },
+  "dispersion": "sample_standard_deviation_ddof_1",
+  "inputs": {
+    "convergence.csv": "103df4a9f620bea5fa4c39496cbf460b3b0813495b7bbaaca2ee71c66cc49980",
+    "runs.csv": "e4df6128b45c91c5e5eaab564a3e6a80a25798bd56d200b436ce7d617d40ddde",
+    "suite_manifest.csv": "cae4ef9b4bf43766edf20ce27dcbf244370ae18ee497216e4aee35de213b66b2"
+  },
+  "statistical_unit": "complete_instance_per_solver_config_seed",
+  "suite_type": "sa",
+  "wave_aggregation": "sum_objective_and_runtime_before_seed_statistics"
+}

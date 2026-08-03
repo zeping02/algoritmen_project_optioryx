@@ -18,6 +18,7 @@ add_library(
     src/io/instance_loader.cpp
     src/io/submission_io.cpp
     src/io/config_loader.cpp
+    src/util/format.cpp
     src/util/output.cpp
     src/algorithms/greedy_solver.cpp
     src/algorithms/simulated_annealing_solver.cpp
@@ -56,5 +57,17 @@ if(BUILD_TESTING)
                 --workdir ${CMAKE_BINARY_DIR}/smoke
         )
         set_tests_properties(benchmark_smoke PROPERTIES WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+        add_test(
+            NAME result_statistics
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_result_statistics.py
+        )
+        set_tests_properties(result_statistics PROPERTIES WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+        add_test(
+            NAME experiment_suite_analysis
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/test_experiment_suite_analysis.py
+        )
+        set_tests_properties(experiment_suite_analysis PROPERTIES WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     endif()
 endif()

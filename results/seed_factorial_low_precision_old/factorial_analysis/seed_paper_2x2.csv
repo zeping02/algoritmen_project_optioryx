@@ -1,0 +1,5 @@
+config_id,seed_rule,selection_rule,objective_n,objective_mean,objective_std,objective_ci95,objective_best,runtime_ms_n,runtime_ms_mean,runtime_ms_std,runtime_ms_ci95,runtime_ms_best
+seed_seed-largest_snake_span_select-maximum_location_overlap,largest_snake_span,maximum_location_overlap,1,7485448.9,,,7485448.9,1,7326.6543,,,7326.6543
+seed_seed-largest_snake_span_select-minimum_span_expansion,largest_snake_span,minimum_span_expansion,1,6759160.7,,,6759160.7,1,7376.9654,,,7376.9654
+seed_seed-smallest_snake_span_select-maximum_location_overlap,smallest_snake_span,maximum_location_overlap,1,7722909.9,,,7722909.9,1,7915.4574,,,7915.4574
+seed_seed-smallest_snake_span_select-minimum_span_expansion,smallest_snake_span,minimum_span_expansion,1,6836623.0,,,6836623.0,1,7572.2321,,,7572.2321

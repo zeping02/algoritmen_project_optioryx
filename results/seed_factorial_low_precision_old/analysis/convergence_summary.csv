@@ -1,0 +1,1 @@
+solver,config_id,step,mean_best_objective,std_best_objective,ci95_best_objective,mean_current_objective,std_current_objective,ci95_current_objective,mean_control_value,std_control_value,ci95_control_value,seed_count,wave_count

@@ -1,0 +1,5 @@
+solver,config_id,runs,mean_objective,std_objective,best_objective,worst_objective,mean_runtime_ms,std_runtime_ms,feasible_runs
+genetic,ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08,10,5.30854e+06,131.689,5.3083e+06,5.30862e+06,37928.7,471.308,10
+greedy,greedy_fast_ls-0_win-0_elim-0_pair-0_triple-0_final-0,1,5.51108e+06,nan,5.51108e+06,5.51108e+06,8863.39,nan,1
+seed_selection,seed_seed-largest_snake_span_select-bounded_two_step_lookahead_width-8,1,6.49168e+06,nan,6.49168e+06,6.49168e+06,48682.4,nan,1
+simulated_annealing,sa_cool-geometric_move-relocate_start-greedy_iter-120_t0-60_tf-0p05_alpha-0p9426276099699734_beta-0p1665277777777778,10,5.30859e+06,44.0805,5.30851e+06,5.30862e+06,10592.8,108.378,10

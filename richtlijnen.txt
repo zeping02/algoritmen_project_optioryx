@@ -1,0 +1,27 @@
+Projectindiening
+De deadline voor het project nadert. Nog enkele verduidelijkingen bij de indiening:
+
+Hoe moet de code ingediend worden?
+Jullie krijgen een persoonlijke repo binnen de organisatie Algoritmen2026-Project. Toegankelijk via jullie UGent adres. Jullie laden de code daar op. 
+
+Hoe moet de code gedocumenteerd worden?
+
+De documentatie in de code is ter ondersteuning van het verslag (en niet omgekeerd). Dus zorg dat alle gevraagde zaken in de opdracht in je verslag worden beantwoord. De quotering gebeurt hoofdzakelijk op basis van het verslag. De documentatie dient dus enkel om het werk van de verbeteraars te vergemakkelijken. Zij zullen diagonaal door de code gaan, en bij onduidelijkheden in het verslag wat dieper graven in de code.
+
+Je hoeft geen codeerstandaarden te volgen (bv. elk argument verduidelijken). Variabelen met een betekenisvolle naam hoeven geen verdere verduidelijking. Ook de basisprincipes van de geziene algoritmen hoef je niet te verduidelijken. We verwachten vooral documentatie over de keuzes die je gemaakt hebt (bv. specifieke optimalisaties) Bij de heuristiek verwachten we logischerwijs het meeste documentatie, omdat daar het meeste creatieve vrijheid was.
+
+Documentatie in de code mag gerust in bulletvorm.
+
+
+
+Beste studenten,
+
+We kregen ondertussen enkele vragen i.v.m. de paginalimiet. We verwachten weliswaar niet dat het verslag uitleg bevat over het bedrijf Optioryx, of dat het principe van simulated annealing wordt uitgelegd. Vermeld enkel de zelf ontworpen zaken, bv welke mutatiestrategie je koos, en welke heuristiek je ontwierp.
+
+Vijf pagina's is inderdaad uitdagend, zeker als er enkele grafieken worden toegevoegd.
+Daarom laten we toe dat er maximum 3 pagina's appendix aan het verslag komen. Deze pagina's mogen ondersteunende grafieken en tabellen bevatten met een (beknopte!) caption. 
+Let wel: de belangrijkste grafieken en tabellen, die bijvoorbeeld de beste variant van elk algoritme met elkaar vergelijken, moeten in de hoofdtekst komen. Het verslag mag ook niet een droge opsomming zijn van gedaan werk, maar moet lezen als een samenvatting van de studie die je gedaan hebt en de inzichten die je daaruit haalde.
+
+Deze appendix is uiteraard optioneel. Wie reeds toewerkte naar 5 pagina's, mag dit zo houden.
+
+Veel succes met de laatste loodjes.

@@ -35,6 +35,7 @@ enum class CoolingSchedule {
 enum class SeedRule {
     highest_standalone_cost,
     largest_snake_span,
+    smallest_snake_span,
 };
 
 // Regel om de volgende order aan een seed-batch toe te voegen.
@@ -42,6 +43,8 @@ enum class SelectionRule {
     minimum_incremental_cost,
     minimum_span_expansion,
     hybrid_score,
+    maximum_location_overlap,
+    bounded_two_step_lookahead,
 };
 
 // Uniform resultaat dat alle wave-solvers teruggeven.

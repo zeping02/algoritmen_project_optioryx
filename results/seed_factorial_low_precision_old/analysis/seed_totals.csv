@@ -1,0 +1,9 @@
+solver,config_id,seed,total_objective,total_runtime_ms,wave_count
+seed_selection,seed_seed-largest_snake_span_select-bounded_two_step_lookahead_width-8,0,6491674.4,47242.4517,12
+seed_selection,seed_seed-largest_snake_span_select-maximum_location_overlap,0,7485448.9,7326.6543,12
+seed_selection,seed_seed-largest_snake_span_select-minimum_incremental_cost,0,6566048.4,7624.8713,12
+seed_selection,seed_seed-largest_snake_span_select-minimum_span_expansion,0,6759160.7,7376.9654,12
+seed_selection,seed_seed-smallest_snake_span_select-bounded_two_step_lookahead_width-8,0,5436247.6,47961.9609,12
+seed_selection,seed_seed-smallest_snake_span_select-maximum_location_overlap,0,7722909.9,7915.4574,12
+seed_selection,seed_seed-smallest_snake_span_select-minimum_incremental_cost,0,5487174.5,7563.5568,12
+seed_selection,seed_seed-smallest_snake_span_select-minimum_span_expansion,0,6836623.0,7572.2321,12

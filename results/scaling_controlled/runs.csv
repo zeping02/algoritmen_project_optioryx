@@ -1,0 +1,1081 @@
+schedule_index,run_started_utc,wave_id,total_orders_in_wave,n_orders,repeat_index,subset_seed,subset_id,experiment_label,solver,declared_config_id,observed_config_id,config_path,config_sha256,solver_seed,status,return_code,timed_out,feasible,objective,solver_runtime_ms,wall_process_ms,runtime_parse_source,reported_order_count,reported_wave_ids,static_materialization,command_json,parse_error,stdout,stderr
+1,2026-08-03T13:47:13.648+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,206015.83648,187.4012,471.5765999862924,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000001.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 206016
+Runtime ms: 187.401
+Feasible: yes
+",
+2,2026-08-03T13:47:14.130+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,36536.5437,48.7027,348.44700002577156,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000002.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 36536.5
+Runtime ms: 48.7027
+Feasible: yes
+",
+3,2026-08-03T13:47:14.487+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,124685.55855,299.9857,575.4468999803066,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000003.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 124686
+Runtime ms: 299.986
+Feasible: yes
+",
+4,2026-08-03T13:47:15.072+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,205174.68123000002,152.4021,429.4671999523416,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000004.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 205175
+Runtime ms: 152.402
+Feasible: yes
+",
+5,2026-08-03T13:47:15.511+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,124685.55855,274.4926,547.0120999962091,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000005.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 124686
+Runtime ms: 274.493
+Feasible: yes
+",
+6,2026-08-03T13:47:16.066+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,46430.49729,2.3281,289.1327999532223,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000006.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 46430.5
+Runtime ms: 2.3281
+Feasible: yes
+",
+7,2026-08-03T13:47:16.363+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,69982.10361,9.0385,267.84870005212724,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000007.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 69982.1
+Runtime ms: 9.0385
+Feasible: yes
+",
+8,2026-08-03T13:47:16.639+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,49533.5172,1.541,257.20990006811917,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000008.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 49533.5
+Runtime ms: 1.541
+Feasible: yes
+",
+9,2026-08-03T13:47:16.899+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,512891.58752000006,494.3305,772.041599964723,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000009.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 512892
+Runtime ms: 494.33
+Feasible: yes
+",
+10,2026-08-03T13:47:17.687+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,74100.86895,9.1243,274.4937000097707,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000010.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 74100.9
+Runtime ms: 9.1243
+Feasible: yes
+",
+11,2026-08-03T13:47:17.971+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,78924.98911999998,5.8564,266.42740005627275,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000011.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 78925
+Runtime ms: 5.8564
+Feasible: yes
+",
+12,2026-08-03T13:47:18.245+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,205174.68123000002,160.6897,426.573499920778,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000012.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 205175
+Runtime ms: 160.69
+Feasible: yes
+",
+13,2026-08-03T13:47:18.679+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,157421.90151,24.9954,295.51440000068396,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000013.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 157422
+Runtime ms: 24.9954
+Feasible: yes
+",
+14,2026-08-03T13:47:18.983+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,46430.49729,2.583,260.2556999772787,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000014.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 46430.5
+Runtime ms: 2.583
+Feasible: yes
+",
+15,2026-08-03T13:47:19.253+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,63226.81012,8.9159,258.60439997632056,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000015.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 63226.8
+Runtime ms: 8.9159
+Feasible: yes
+",
+16,2026-08-03T13:47:19.521+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,116091.86144999998,295.7105,557.0026000496,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000016.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 116092
+Runtime ms: 295.711
+Feasible: yes
+",
+17,2026-08-03T13:47:20.087+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,38891.73621,60.2704,315.8843000419438,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000017.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 38891.7
+Runtime ms: 60.2704
+Feasible: yes
+",
+18,2026-08-03T13:47:20.410+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,161034.40302,27.9353,340.9774999599904,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000018.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 161034
+Runtime ms: 27.9353
+Feasible: yes
+",
+19,2026-08-03T13:47:20.766+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,364599.52960999997,834.7025,1150.4218999762088,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000019.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 364600
+Runtime ms: 834.702
+Feasible: yes
+",
+20,2026-08-03T13:47:21.930+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,49533.5172,1.7318,379.68700006604195,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000020.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 49533.5
+Runtime ms: 1.7318
+Feasible: yes
+",
+21,2026-08-03T13:47:22.319+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,161034.40302,26.9261,322.5863999687135,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000021.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 161034
+Runtime ms: 26.9261
+Feasible: yes
+",
+22,2026-08-03T13:47:22.651+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,364599.52960999997,807.0195,1079.9908000044525,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000022.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 364600
+Runtime ms: 807.019
+Feasible: yes
+",
+23,2026-08-03T13:47:23.731+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,70284.18414,231.113,664.6775000263005,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000023.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 70284.2
+Runtime ms: 231.113
+Feasible: yes
+",
+24,2026-08-03T13:47:24.414+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,510053.05204000004,565.1091,872.1648999489844,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000024.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 510053
+Runtime ms: 565.109
+Feasible: yes
+",
+25,2026-08-03T13:47:25.280+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,74100.86895,9.049,259.6714999526739,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000025.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 74100.9
+Runtime ms: 9.049
+Feasible: yes
+",
+26,2026-08-03T13:47:25.561+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,198853.39330999998,698.5386,964.694399968721,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000026.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 198853
+Runtime ms: 698.539
+Feasible: yes
+",
+27,2026-08-03T13:47:26.534+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,205174.68123000002,156.0797,398.7887999974191,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000027.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 205175
+Runtime ms: 156.08
+Feasible: yes
+",
+28,2026-08-03T13:47:26.942+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,362247.8515999998,722.9153,1000.1807999797165,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000028.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 362248
+Runtime ms: 722.915
+Feasible: yes
+",
+29,2026-08-03T13:47:27.952+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,142018.58524,24.1567,293.18569996394217,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000029.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 142019
+Runtime ms: 24.1567
+Feasible: yes
+",
+30,2026-08-03T13:47:28.254+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,206015.83648,159.8404,427.238899981603,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000030.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 206016
+Runtime ms: 159.84
+Feasible: yes
+",
+31,2026-08-03T13:47:28.681+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,36536.5437,44.7509,314.4449999090284,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000031.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 36536.5
+Runtime ms: 44.7509
+Feasible: yes
+",
+32,2026-08-03T13:47:29.013+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,74100.86895,9.187,278.3263000892475,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000032.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 74100.9
+Runtime ms: 9.187
+Feasible: yes
+",
+33,2026-08-03T13:47:29.300+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,36595.05500000001,2.4909,263.91799992416054,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000033.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 36595.1
+Runtime ms: 2.4909
+Feasible: yes
+",
+34,2026-08-03T13:47:29.573+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,345855.51127999986,1869.8239,2210.9249000204727,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000034.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 345856
+Runtime ms: 1869.82
+Feasible: yes
+",
+35,2026-08-03T13:47:31.792+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,362247.8515999998,701.1062,946.2604000000283,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000035.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 362248
+Runtime ms: 701.106
+Feasible: yes
+",
+36,2026-08-03T13:47:32.748+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,65927.53212,134.566,398.8583000609651,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000036.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 65927.5
+Runtime ms: 134.566
+Feasible: yes
+",
+37,2026-08-03T13:47:33.156+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,205174.68123000002,163.9286,422.0121999969706,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000037.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 205175
+Runtime ms: 163.929
+Feasible: yes
+",
+38,2026-08-03T13:47:33.586+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,364453.53674999997,759.0112,1015.6333000632003,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000038.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 364454
+Runtime ms: 759.011
+Feasible: yes
+",
+39,2026-08-03T13:47:34.613+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,112244.78583,36.3677,279.91179993841797,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000039.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 112245
+Runtime ms: 36.3677
+Feasible: yes
+",
+40,2026-08-03T13:47:34.909+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,123480.87672,39.8876,305.3656999254599,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000040.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 123481
+Runtime ms: 39.8876
+Feasible: yes
+",
+41,2026-08-03T13:47:35.227+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,49533.5172,1.4371,253.93900007475168,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000041.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 49533.5
+Runtime ms: 1.4371
+Feasible: yes
+",
+42,2026-08-03T13:47:35.489+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,510466.77882999985,523.3575,777.1035999758169,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000042.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 510467
+Runtime ms: 523.357
+Feasible: yes
+",
+43,2026-08-03T13:47:36.274+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,36595.05500000001,2.545,252.40349990781397,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000043.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 36595.1
+Runtime ms: 2.545
+Feasible: yes
+",
+44,2026-08-03T13:47:36.535+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,112169.29882,37.0744,287.65180008485913,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000044.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 112169
+Runtime ms: 37.0744
+Feasible: yes
+",
+45,2026-08-03T13:47:36.831+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,364498.77910999994,626.2715,885.1078000152484,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000045.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 364499
+Runtime ms: 626.271
+Feasible: yes
+",
+46,2026-08-03T13:47:37.713+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,204353.46086999995,126.6692,333.68819998577237,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000046.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 204353
+Runtime ms: 126.669
+Feasible: yes
+",
+47,2026-08-03T13:47:38.061+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,510053.05204000004,388.54,588.3601999375969,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000047.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 510053
+Runtime ms: 388.54
+Feasible: yes
+",
+48,2026-08-03T13:47:38.654+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,36727.00929,1.738,194.5930999936536,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000048.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 36727
+Runtime ms: 1.738
+Feasible: yes
+",
+49,2026-08-03T13:47:38.864+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,61306.477080000004,105.3964,320.5502999480814,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000049.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 61306.5
+Runtime ms: 105.396
+Feasible: yes
+",
+50,2026-08-03T13:47:39.179+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,81413.77729,4.6109,203.02079990506172,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000050.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 81413.8
+Runtime ms: 4.6109
+Feasible: yes
+",
+51,2026-08-03T13:47:39.398+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,70284.18414,121.041,363.94309997558594,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000051.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 70284.2
+Runtime ms: 121.041
+Feasible: yes
+",
+52,2026-08-03T13:47:39.765+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,142018.58524,19.9138,238.5161001002416,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000052.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 142019
+Runtime ms: 19.9138
+Feasible: yes
+",
+53,2026-08-03T13:47:40.012+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,345855.51127999986,1349.8642,1570.842800079845,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000053.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 345856
+Runtime ms: 1349.86
+Feasible: yes
+",
+54,2026-08-03T13:47:41.594+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,63293.157230000004,6.8227,201.1820999905467,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000054.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 63293.2
+Runtime ms: 6.8227
+Feasible: yes
+",
+55,2026-08-03T13:47:41.796+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,194971.66794,530.8697,747.8945000329986,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000055.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 194972
+Runtime ms: 530.87
+Feasible: yes
+",
+56,2026-08-03T13:47:42.547+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,39678.06882,2.0535,191.62230007350445,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000056.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 39678.1
+Runtime ms: 2.0535
+Feasible: yes
+",
+57,2026-08-03T13:47:42.744+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,357467.06716999994,559.0422,761.689499951899,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000057.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 357467
+Runtime ms: 559.042
+Feasible: yes
+",
+58,2026-08-03T13:47:43.512+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,276254.16355,79.2042,274.3383999913931,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000058.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 276254
+Runtime ms: 79.2042
+Feasible: yes
+",
+59,2026-08-03T13:47:43.802+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,107189.95001,218.5653,427.33060009777546,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000059.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 107190
+Runtime ms: 218.565
+Feasible: yes
+",
+60,2026-08-03T13:47:44.228+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,78924.98911999998,4.5815,200.4616999765858,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000060.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 78925
+Runtime ms: 4.5815
+Feasible: yes
+",
+61,2026-08-03T13:47:44.444+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,38888.42697,36.7667,239.80089998804033,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000061.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 38888.4
+Runtime ms: 36.7667
+Feasible: yes
+",
+62,2026-08-03T13:47:44.676+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,199470.56251,518.8593,735.3655000915751,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000062.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 199471
+Runtime ms: 518.859
+Feasible: yes
+",
+63,2026-08-03T13:47:45.428+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,46430.49729,1.7388,189.47019998449832,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000063.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 46430.5
+Runtime ms: 1.7388
+Feasible: yes
+",
+64,2026-08-03T13:47:45.628+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,199470.56251,500.382,712.8894999623299,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000064.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 199471
+Runtime ms: 500.382
+Feasible: yes
+",
+65,2026-08-03T13:47:46.345+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,357467.06716999994,650.1531,844.7988999541849,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000065.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 357467
+Runtime ms: 650.153
+Feasible: yes
+",
+66,2026-08-03T13:47:47.194+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,78924.98911999998,4.9261,216.47530002519488,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000066.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 78925
+Runtime ms: 4.9261
+Feasible: yes
+",
+67,2026-08-03T13:47:47.411+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,39678.06882,1.848,209.79679992888123,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000067.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 39678.1
+Runtime ms: 1.848
+Feasible: yes
+",
+68,2026-08-03T13:47:47.628+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,357467.06716999994,609.5173,862.9976999945939,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000068.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 357467
+Runtime ms: 609.517
+Feasible: yes
+",
+69,2026-08-03T13:47:48.511+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,198853.39330999998,513.6946,722.5907000247389,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000069.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 198853
+Runtime ms: 513.695
+Feasible: yes
+",
+70,2026-08-03T13:47:49.231+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,512891.58752000006,383.2807,579.2457000352442,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000070.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 512892
+Runtime ms: 383.281
+Feasible: yes
+",
+71,2026-08-03T13:47:49.827+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,74100.86895,7.1038,203.17579992115498,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000071.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 74100.9
+Runtime ms: 7.1038
+Feasible: yes
+",
+72,2026-08-03T13:47:50.028+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,81878.49698,4.9381,212.0104000205174,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000072.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 81878.5
+Runtime ms: 4.9381
+Feasible: yes
+",
+73,2026-08-03T13:47:50.247+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,50420.86283,1.415,249.15180006064475,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000073.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 50420.9
+Runtime ms: 1.415
+Feasible: yes
+",
+74,2026-08-03T13:47:50.510+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,66921.63115,116.2092,353.2258999766782,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000074.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 66921.6
+Runtime ms: 116.209
+Feasible: yes
+",
+75,2026-08-03T13:47:50.876+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,107189.95001,247.9361,581.8835999816656,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000075.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 107190
+Runtime ms: 247.936
+Feasible: yes
+",
+76,2026-08-03T13:47:51.460+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,353820.03955999995,2376.2816,2592.958900029771,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000076.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 353820
+Runtime ms: 2376.28
+Feasible: yes
+",
+77,2026-08-03T13:47:54.068+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,510466.77882999985,405.4241,624.3988999631256,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000077.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 510467
+Runtime ms: 405.424
+Feasible: yes
+",
+78,2026-08-03T13:47:54.690+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,157421.90151,19.674,214.9064999539405,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000078.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 157422
+Runtime ms: 19.674
+Feasible: yes
+",
+79,2026-08-03T13:47:54.911+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,510466.77882999985,398.1788,618.5334000037983,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000079.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 510467
+Runtime ms: 398.179
+Feasible: yes
+",
+80,2026-08-03T13:47:55.547+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,127336.16409000002,30.2374,236.515500000678,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000080.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 127336
+Runtime ms: 30.2374
+Feasible: yes
+",
+81,2026-08-03T13:47:55.779+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,63017.48257000001,7.7098,210.01690009143203,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000081.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 63017.5
+Runtime ms: 7.7098
+Feasible: yes
+",
+82,2026-08-03T13:47:56.008+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,46430.49729,2.1437,215.72410000953823,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000082.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 46430.5
+Runtime ms: 2.1437
+Feasible: yes
+",
+83,2026-08-03T13:47:56.227+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,50420.86283,1.3219,216.29359992220998,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000083.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 50420.9
+Runtime ms: 1.3219
+Feasible: yes
+",
+84,2026-08-03T13:47:56.442+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,206015.83648,144.2853,359.94309990201145,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000084.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 206016
+Runtime ms: 144.285
+Feasible: yes
+",
+85,2026-08-03T13:47:56.810+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,112244.78583,73.4393,519.5936999516562,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000085.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 112245
+Runtime ms: 73.4393
+Feasible: yes
+",
+86,2026-08-03T13:47:57.353+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,127336.16409000002,48.0711,415.1022000005469,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000086.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 127336
+Runtime ms: 48.0711
+Feasible: yes
+",
+87,2026-08-03T13:47:57.779+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,357467.06716999994,730.9707,1077.1114999661222,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000087.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 357467
+Runtime ms: 730.971
+Feasible: yes
+",
+88,2026-08-03T13:47:58.867+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,199470.56251,683.8094,939.6478999406099,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000088.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 199471
+Runtime ms: 683.809
+Feasible: yes
+",
+89,2026-08-03T13:47:59.814+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,351808.1944199999,1815.547,2061.2186000216752,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000089.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 351808
+Runtime ms: 1815.55
+Feasible: yes
+",
+90,2026-08-03T13:48:01.881+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,36536.5437,61.9844,330.30569995753467,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000090.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 36536.5
+Runtime ms: 61.9844
+Feasible: yes
+",
+91,2026-08-03T13:48:02.229+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,36727.00929,2.0633,256.13069999963045,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000091.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 36727
+Runtime ms: 2.0633
+Feasible: yes
+",
+92,2026-08-03T13:48:02.492+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,69982.10361,8.2403,233.56810002587736,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000092.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 69982.1
+Runtime ms: 8.2403
+Feasible: yes
+",
+93,2026-08-03T13:48:02.734+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,353820.03955999995,1589.675,1813.5407000081614,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000093.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 353820
+Runtime ms: 1589.67
+Feasible: yes
+",
+94,2026-08-03T13:48:04.554+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,42854.181339999996,1.259,204.49330005794764,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000094.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 42854.2
+Runtime ms: 1.259
+Feasible: yes
+",
+95,2026-08-03T13:48:04.765+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,69982.10361,10.4671,319.0758000127971,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000095.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 69982.1
+Runtime ms: 10.4671
+Feasible: yes
+",
+96,2026-08-03T13:48:05.093+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,364599.52960999997,670.206,932.5436999788508,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000096.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 364600
+Runtime ms: 670.206
+Feasible: yes
+",
+97,2026-08-03T13:48:06.033+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,42993.83992,37.7618,252.20989994704723,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000097.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 42993.8
+Runtime ms: 37.7618
+Feasible: yes
+",
+98,2026-08-03T13:48:06.291+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,357467.06716999994,581.0861,794.5616999641061,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000098.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 357467
+Runtime ms: 581.086
+Feasible: yes
+",
+99,2026-08-03T13:48:07.094+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,74100.86895,7.2761,198.23619991075248,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000099.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 74100.9
+Runtime ms: 7.2761
+Feasible: yes
+",
+100,2026-08-03T13:48:07.300+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,351808.1944199999,1451.3983,1657.882299972698,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000100.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 351808
+Runtime ms: 1451.4
+Feasible: yes
+",
+101,2026-08-03T13:48:08.964+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,204353.46086999995,126.4708,335.839300067164,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000101.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 204353
+Runtime ms: 126.471
+Feasible: yes
+",
+102,2026-08-03T13:48:09.309+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,276254.16355,81.9126,302.6566000189632,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000102.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 276254
+Runtime ms: 81.9126
+Feasible: yes
+",
+103,2026-08-03T13:48:09.617+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,50420.86283,1.4181,215.43179999571294,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000103.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 50420.9
+Runtime ms: 1.4181
+Feasible: yes
+",
+104,2026-08-03T13:48:09.829+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,157421.90151,20.3823,249.66860003769398,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000104.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 157422
+Runtime ms: 20.3823
+Feasible: yes
+",
+105,2026-08-03T13:48:10.097+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,161034.40302,19.6441,235.1358000887558,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000105.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 161034
+Runtime ms: 19.6441
+Feasible: yes
+",
+106,2026-08-03T13:48:10.339+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,276254.16355,85.2494,311.71469995751977,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000106.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 276254
+Runtime ms: 85.2494
+Feasible: yes
+",
+107,2026-08-03T13:48:10.657+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,112244.78583,33.4545,248.9752999972552,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000107.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 112245
+Runtime ms: 33.4545
+Feasible: yes
+",
+108,2026-08-03T13:48:10.910+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,81413.77729,5.1088,229.60810002405196,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000108.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 81413.8
+Runtime ms: 5.1088
+Feasible: yes
+",
+109,2026-08-03T13:48:11.143+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,81878.49698,5.0402,240.5494999838993,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000109.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 81878.5
+Runtime ms: 5.0402
+Feasible: yes
+",
+110,2026-08-03T13:48:11.396+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,345855.51127999986,1516.6261,1754.210300045088,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000110.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 345856
+Runtime ms: 1516.63
+Feasible: yes
+",
+111,2026-08-03T13:48:13.160+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,206015.83648,124.4593,317.7309000166133,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000111.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 206016
+Runtime ms: 124.459
+Feasible: yes
+",
+112,2026-08-03T13:48:13.500+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,353820.03955999995,1410.5895,1661.0724000493065,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000112.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 353820
+Runtime ms: 1410.59
+Feasible: yes
+",
+113,2026-08-03T13:48:15.166+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,204353.46086999995,126.8415,328.71989998966455,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000113.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 204353
+Runtime ms: 126.841
+Feasible: yes
+",
+114,2026-08-03T13:48:15.502+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,61308.534609999995,105.2991,318.31400003284216,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000114.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 61308.5
+Runtime ms: 105.299
+Feasible: yes
+",
+115,2026-08-03T13:48:15.828+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,74100.86895,8.2408,233.53470000438392,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000115.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 74100.9
+Runtime ms: 8.2408
+Feasible: yes
+",
+116,2026-08-03T13:48:16.061+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,36727.00929,2.3178,229.01100001763552,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000116.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 36727
+Runtime ms: 2.3178
+Feasible: yes
+",
+117,2026-08-03T13:48:16.308+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,206015.83648,148.3094,380.78249990940094,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000117.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 206016
+Runtime ms: 148.309
+Feasible: yes
+",
+118,2026-08-03T13:48:16.692+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,107189.95001,247.524,473.11929997522384,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000118.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 107190
+Runtime ms: 247.524
+Feasible: yes
+",
+119,2026-08-03T13:48:17.178+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,116091.86144999998,242.9863,452.0442000357434,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000119.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 116092
+Runtime ms: 242.986
+Feasible: yes
+",
+120,2026-08-03T13:48:17.637+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,42854.181339999996,1.2831,218.1198000907898,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000120.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 42854.2
+Runtime ms: 1.2831
+Feasible: yes
+",
+121,2026-08-03T13:48:17.861+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,69982.10361,7.9179,241.6553000221029,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000121.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 69982.1
+Runtime ms: 7.9179
+Feasible: yes
+",
+122,2026-08-03T13:48:18.111+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,81878.49698,5.6406,235.86080002132803,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000122.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 81878.5
+Runtime ms: 5.6406
+Feasible: yes
+",
+123,2026-08-03T13:48:18.354+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,362247.8515999998,607.1555,836.1223000101745,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000123.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 362248
+Runtime ms: 607.155
+Feasible: yes
+",
+124,2026-08-03T13:48:19.197+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,267747.52134,106.4278,328.55750003363937,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000124.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 267748
+Runtime ms: 106.428
+Feasible: yes
+",
+125,2026-08-03T13:48:19.527+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,351808.1944199999,1651.9877,1902.916100108996,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000125.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 351808
+Runtime ms: 1651.99
+Feasible: yes
+",
+126,2026-08-03T13:48:21.448+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,112244.78583,32.478,239.64110005181283,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000126.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 112245
+Runtime ms: 32.478
+Feasible: yes
+",
+127,2026-08-03T13:48:21.697+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,81413.77729,4.8987,231.69730009976774,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000127.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 81413.8
+Runtime ms: 4.8987
+Feasible: yes
+",
+128,2026-08-03T13:48:21.934+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,206015.83648,132.6935,353.01889991387725,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000128.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 206016
+Runtime ms: 132.694
+Feasible: yes
+",
+129,2026-08-03T13:48:22.296+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,63293.157230000004,10.7254,291.6045000310987,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000129.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 63293.2
+Runtime ms: 10.7254
+Feasible: yes
+",
+130,2026-08-03T13:48:22.594+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,277296.40426000004,92.166,357.4595999671146,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000130.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 277296
+Runtime ms: 92.166
+Feasible: yes
+",
+131,2026-08-03T13:48:22.962+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,116066.24452,215.2313,447.98099994659424,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000131.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 116066
+Runtime ms: 215.231
+Feasible: yes
+",
+132,2026-08-03T13:48:23.416+00:00,W000003,1219,800,0,20260803,63c5afad521b2c81,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,364599.52960999997,583.3317,794.1156999440864,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000132.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 364600
+Runtime ms: 583.332
+Feasible: yes
+",
+133,2026-08-03T13:48:24.217+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,42993.83992,45.2393,242.48219991568476,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000133.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 42993.8
+Runtime ms: 45.2393
+Feasible: yes
+",
+134,2026-08-03T13:48:24.466+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,63293.157230000004,7.3237,218.03250000812113,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000134.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 63293.2
+Runtime ms: 7.3237
+Feasible: yes
+",
+135,2026-08-03T13:48:24.692+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,123480.87672,31.7763,248.76950006000698,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000135.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 123481
+Runtime ms: 31.7763
+Feasible: yes
+",
+136,2026-08-03T13:48:24.947+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,357467.06716999994,622.5094,842.5838999683037,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000136.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 357467
+Runtime ms: 622.509
+Feasible: yes
+",
+137,2026-08-03T13:48:25.797+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,42993.83992,39.2866,246.67530006263405,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000137.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 42993.8
+Runtime ms: 39.2866
+Feasible: yes
+",
+138,2026-08-03T13:48:26.050+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,39678.06882,2.1494,208.55159999337047,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000138.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 39678.1
+Runtime ms: 2.1494
+Feasible: yes
+",
+139,2026-08-03T13:48:26.265+00:00,W000003,1219,100,2,20260805,227d2e43f3bda03e,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,70284.18414,125.019,358.538799919188,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000139.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 70284.2
+Runtime ms: 125.019
+Feasible: yes
+",
+140,2026-08-03T13:48:26.627+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,267747.52134,90.0243,328.265400021337,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000140.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 267748
+Runtime ms: 90.0243
+Feasible: yes
+",
+141,2026-08-03T13:48:26.966+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,69982.10361,8.7012,252.44449998717755,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000141.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 69982.1
+Runtime ms: 8.7012
+Feasible: yes
+",
+142,2026-08-03T13:48:27.226+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,204353.46086999995,136.9569,366.25560000538826,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000142.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 204353
+Runtime ms: 136.957
+Feasible: yes
+",
+143,2026-08-03T13:48:27.600+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,39678.06882,1.8808,211.94870001636446,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000143.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 39678.1
+Runtime ms: 1.8808
+Feasible: yes
+",
+144,2026-08-03T13:48:27.819+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,277296.40426000004,85.0584,308.7254000129178,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000144.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 277296
+Runtime ms: 85.0584
+Feasible: yes
+",
+145,2026-08-03T13:48:28.135+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,1,success,0,False,True,61308.534609999995,106.8923,324.5799000142142,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000145.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 61308.5
+Runtime ms: 106.892
+Feasible: yes
+",
+146,2026-08-03T13:48:28.466+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,267747.52134,97.4841,362.0441999519244,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000146.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 267748
+Runtime ms: 97.4841
+Feasible: yes
+",
+147,2026-08-03T13:48:28.836+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,42854.181339999996,1.4761,251.8158999737352,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000147.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 42854.2
+Runtime ms: 1.4761
+Feasible: yes
+",
+148,2026-08-03T13:48:29.092+00:00,W000003,1219,800,1,20260804,71354dbf1faed671,seed_default,seed_selection,seed_default,seed_selection_default,,,0,success,0,False,True,510053.05204000004,405.6044,645.8994999993593,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000148.json"", ""--seed"", ""0""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 510053
+Runtime ms: 405.604
+Feasible: yes
+",
+149,2026-08-03T13:48:29.748+00:00,W000003,1219,100,1,20260804,d1b5dd1157602b58,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,63017.48257000001,7.6544,211.16319997236133,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000149.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 63017.5
+Runtime ms: 7.6544
+Feasible: yes
+",
+150,2026-08-03T13:48:29.967+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,194971.66794,596.6501,855.2578999660909,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000150.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 194972
+Runtime ms: 596.65
+Feasible: yes
+",
+151,2026-08-03T13:48:30.824+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,194971.66794,555.4668,788.8791000004858,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000151.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 194972
+Runtime ms: 555.467
+Feasible: yes
+",
+152,2026-08-03T13:48:31.631+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,124685.55855,257.0289,461.5265999455005,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000152.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 124686
+Runtime ms: 257.029
+Feasible: yes
+",
+153,2026-08-03T13:48:32.093+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,46430.49729,2.1245,213.94609997514635,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000153.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 46430.5
+Runtime ms: 2.1245
+Feasible: yes
+",
+154,2026-08-03T13:48:32.309+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,123480.87672,33.8096,263.2974999723956,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000154.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 123481
+Runtime ms: 33.8096
+Feasible: yes
+",
+155,2026-08-03T13:48:32.592+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,127336.16409000002,34.0555,262.6143000088632,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000155.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 127336
+Runtime ms: 34.0555
+Feasible: yes
+",
+156,2026-08-03T13:48:32.865+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,198787.45245999997,549.0503,781.3131000148132,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000156.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 198787
+Runtime ms: 549.05
+Feasible: yes
+",
+157,2026-08-03T13:48:33.642+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,39678.06882,1.8132,208.17870006430894,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000157.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 39678.1
+Runtime ms: 1.8132
+Feasible: yes
+",
+158,2026-08-03T13:48:33.868+00:00,W000003,1219,50,2,20260805,e9a2856a2c1b41b4,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,46430.49729,2.22,220.5868000164628,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000158.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 46430.5
+Runtime ms: 2.22
+Feasible: yes
+",
+159,2026-08-03T13:48:34.097+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,205174.68123000002,132.4131,350.6391999544576,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000159.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 205175
+Runtime ms: 132.413
+Feasible: yes
+",
+160,2026-08-03T13:48:34.456+00:00,W000003,1219,400,2,20260805,628f2e2b0383bebd,seed_default,seed_selection,seed_default,seed_selection_default,,,1,success,0,False,True,277296.40426000004,91.5142,329.70559992827475,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000160.json"", ""--seed"", ""1""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 277296
+Runtime ms: 91.5142
+Feasible: yes
+",
+161,2026-08-03T13:48:34.792+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,2,success,0,False,True,38759.76425,40.632,263.91510001849383,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000161.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 38759.8
+Runtime ms: 40.632
+Feasible: yes
+",
+162,2026-08-03T13:48:35.066+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,69982.10361,7.7668,235.77200004365295,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000162.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 69982.1
+Runtime ms: 7.7668
+Feasible: yes
+",
+163,2026-08-03T13:48:35.308+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,512891.58752000006,450.7859,725.9782999753952,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000163.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 512892
+Runtime ms: 450.786
+Feasible: yes
+",
+164,2026-08-03T13:48:36.044+00:00,W000003,1219,400,1,20260804,4cae2b4bf04f2e61,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,205174.68123000002,151.048,372.47539998497814,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000164.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 205175
+Runtime ms: 151.048
+Feasible: yes
+",
+165,2026-08-03T13:48:36.424+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,127336.16409000002,35.0081,273.91530002932996,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000165.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 127336
+Runtime ms: 35.0081
+Feasible: yes
+",
+166,2026-08-03T13:48:36.705+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,127336.16409000002,36.3444,294.9481999967247,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000166.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 127336
+Runtime ms: 36.3444
+Feasible: yes
+",
+167,2026-08-03T13:48:37.008+00:00,W000003,1219,100,0,20260803,e2268b7cb43ce695,ga_fast,genetic,ga_competition_fast,ga_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\ga_competition_fast.cfg,d57c7494975ac73ba8de2cabc1080f8dc0d5c709e46aba5196dd3bc745c74b2d,0,success,0,False,True,66921.63115,128.0704,397.5782999768853,solution_json,100,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""genetic"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000100"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000167.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\ga_competition_fast.cfg""]",,"Solver: genetic
+Config: ga_competition_fast
+Objective: 66921.6
+Runtime ms: 128.07
+Feasible: yes
+",
+168,2026-08-03T13:48:37.407+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,123480.87672,32.0176,258.3656999049708,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000168.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 123481
+Runtime ms: 32.0176
+Feasible: yes
+",
+169,2026-08-03T13:48:37.680+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,123480.87672,38.4117,255.69729995913804,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000169.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 123481
+Runtime ms: 38.4117
+Feasible: yes
+",
+170,2026-08-03T13:48:37.944+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,204353.46086999995,135.2428,365.20300002302974,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000170.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 204353
+Runtime ms: 135.243
+Feasible: yes
+",
+171,2026-08-03T13:48:38.316+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,112244.78583,30.4462,238.4169000433758,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000171.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 112245
+Runtime ms: 30.4462
+Feasible: yes
+",
+172,2026-08-03T13:48:38.562+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,1,success,0,False,True,362247.8515999998,605.1427,831.390899955295,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000172.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 362248
+Runtime ms: 605.143
+Feasible: yes
+",
+173,2026-08-03T13:48:39.390+00:00,W000003,1219,200,0,20260803,68075bfd10f46e6a,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,2,success,0,False,True,123480.87672,30.2534,227.59100003167987,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000173.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 123481
+Runtime ms: 30.2534
+Feasible: yes
+",
+174,2026-08-03T13:48:39.635+00:00,W000003,1219,50,0,20260803,ca718fb1cedb4573,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,39678.06882,2.263,208.24710000306368,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000174.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 39678.1
+Runtime ms: 2.263
+Feasible: yes
+",
+175,2026-08-03T13:48:39.850+00:00,W000003,1219,200,1,20260804,9dec9e49f0d1e231,seed_default,seed_selection,seed_default,seed_selection_default,,,2,success,0,False,True,142018.58524,20.7991,245.97639997955412,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""seed_selection"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000175.json"", ""--seed"", ""2""]",,"Solver: seed_selection
+Config: seed_selection_default
+Objective: 142019
+Runtime ms: 20.7991
+Feasible: yes
+",
+176,2026-08-03T13:48:40.090+00:00,W000003,1219,200,2,20260805,b1db5e55fa49201b,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,0,success,0,False,True,127336.16409000002,34.2807,274.0809000097215,solution_json,200,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000200"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000176.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 127336
+Runtime ms: 34.2807
+Feasible: yes
+",
+177,2026-08-03T13:48:40.384+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,sa_fast,simulated_annealing,sa_competition_fast_matched_greedy,sa_competition_fast_matched_greedy,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\sa_competition_fast.cfg,9c9977c88ade4cb903a7c478f589157c861789c92b1a01a69efcac36694330d1,2,success,0,False,True,362247.8515999998,632.1509,861.9263001019135,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""simulated_annealing"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000177.json"", ""--seed"", ""2"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\sa_competition_fast.cfg""]",,"Solver: simulated_annealing
+Config: sa_competition_fast_matched_greedy
+Objective: 362248
+Runtime ms: 632.151
+Feasible: yes
+",
+178,2026-08-03T13:48:41.256+00:00,W000003,1219,800,2,20260805,a0db06ea28b8263d,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,362247.8515999998,548.9998,844.223799998872,solution_json,800,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_002\\n_000800"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000178.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 362248
+Runtime ms: 549
+Feasible: yes
+",
+179,2026-08-03T13:48:42.106+00:00,W000003,1219,400,0,20260803,b5fd214e870d7972,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,0,success,0,False,True,204353.46086999995,124.9851,302.415500045754,solution_json,400,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_000\\n_000400"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000179.json"", ""--seed"", ""0"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 204353
+Runtime ms: 124.985
+Feasible: yes
+",
+180,2026-08-03T13:48:42.405+00:00,W000003,1219,50,1,20260804,e0e2547eaeafea75,greedy_fast,greedy,greedy_competition_fast,greedy_competition_fast,C:\Users\zepin\temp\algoritmen_project_optioryx\configs\greedy_competition_fast.cfg,dea4a7958474c68f75e0a4b3722dba096d56cd5b78f3a01ddded3c0e7ef9c328,1,success,0,False,True,36727.00929,1.5856,182.141000055708,solution_json,50,W000003,hardlink,"[""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_release\\optioryx_cli.exe"", ""solve"", ""--solver"", ""greedy"", ""--input"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\repeat_001\\n_000050"", ""--output"", ""C:\\Users\\zepin\\AppData\\Local\\Temp\\optioryx_scaling_utbq5784\\solutions\\run_000180.json"", ""--seed"", ""1"", ""--config"", ""C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\greedy_competition_fast.cfg""]",,"Solver: greedy
+Config: greedy_competition_fast
+Objective: 36727
+Runtime ms: 1.5856
+Feasible: yes
+",

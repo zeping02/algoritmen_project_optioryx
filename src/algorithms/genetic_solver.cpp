@@ -1,8 +1,11 @@
 #include "optioryx/algorithms/genetic_solver.hpp"
 
+#include "optioryx/util/format.hpp"
+
 #include <algorithm>
 #include <chrono>
 #include <cmath>
+#include <cstdint>
 #include <limits>
 #include <numeric>
 #include <stdexcept>
@@ -19,13 +22,47 @@ namespace {
 // en mutation nooit rechtstreeks met LIST_ID's of capaciteit hoeven te werken.
 struct Chromosome {
     std::vector<int> permutation;
-    DecodeResult decoded;
+    double objective = 0.0;
+};
+
+// Deze buffers worden voor alle fitnessberekeningen binnen een wave hergebruikt.
+// De gewone publieke decoder bouwt ook de uiteindelijke batches op; tijdens de
+// evolutie heeft een chromosoom alleen zijn objective nodig.
+struct DecodeWorkspace {
+    std::vector<double> dp;
+    std::vector<int> batch_orders;
+};
+
+// Generatiestempels maken membershiptests bij order crossover O(1), zonder de
+// markering voor elke nieuwe child volledig te moeten wissen.
+struct CrossoverWorkspace {
+    explicit CrossoverWorkspace(const std::size_t order_count) : marks(order_count, 0U) {}
+
+    std::uint32_t next_stamp() {
+        if (stamp == std::numeric_limits<std::uint32_t>::max()) {
+            std::fill(marks.begin(), marks.end(), 0U);
+            stamp = 1U;
+        } else {
+            ++stamp;
+        }
+        return stamp;
+    }
+
+    std::vector<std::uint32_t> marks;
+    std::uint32_t stamp = 0U;
 };
 
 // Gebruik de greedy-oplossing als sterke warm-start in de populatie.
 // De overige individuen zijn shuffles, zodat er nog diversiteit is.
-std::vector<int> greedy_seed_permutation(const ProblemInstance& instance, const BatchEvaluator& evaluator, int wave_index) {
-    const WaveSolveResult greedy = solve_wave_greedy(instance, evaluator, wave_index, GreedyConfig{});
+std::vector<int> greedy_seed_permutation(
+    const ProblemInstance& instance,
+    const BatchEvaluator& evaluator,
+    int wave_index,
+    const GeneticConfig& config) {
+    GreedyConfig start_config;
+    start_config.local_search_passes = config.greedy_start_local_search_passes;
+    start_config.local_search_neighbor_window = config.greedy_start_local_search_neighbor_window;
+    const WaveSolveResult greedy = solve_wave_greedy(instance, evaluator, wave_index, start_config);
     std::vector<int> permutation;
     for (const Batch& batch : greedy.batches) {
         permutation.insert(permutation.end(), batch.order_indices.begin(), batch.order_indices.end());
@@ -33,15 +70,51 @@ std::vector<int> greedy_seed_permutation(const ProblemInstance& instance, const 
     return permutation;
 }
 
+double decode_permutation_objective(
+    const ProblemInstance& instance,
+    const BatchEvaluator& evaluator,
+    int wave_index,
+    const std::vector<int>& permutation,
+    DecodeWorkspace& workspace) {
+    const std::size_t n = permutation.size();
+    const double infinity = std::numeric_limits<double>::infinity();
+    workspace.dp.assign(n + 1U, infinity);
+    workspace.dp[0] = 0.0;
+    workspace.batch_orders.reserve(instance.nmax);
+
+    for (std::size_t end = 1; end <= n; ++end) {
+        const std::size_t max_batch_size = std::min<std::size_t>(instance.nmax, end);
+        workspace.batch_orders.clear();
+        for (std::size_t batch_size = 1; batch_size <= max_batch_size; ++batch_size) {
+            const std::size_t start = end - batch_size;
+            const int added_order = permutation[start];
+            workspace.batch_orders.insert(
+                std::lower_bound(workspace.batch_orders.begin(), workspace.batch_orders.end(), added_order),
+                added_order);
+            const double candidate =
+                workspace.dp[start] + evaluator.batch_cost_sorted_unique(wave_index, workspace.batch_orders);
+            if (candidate < workspace.dp[end]) {
+                workspace.dp[end] = candidate;
+            }
+        }
+    }
+    if (n > 0U && workspace.dp[n] == infinity) {
+        throw std::runtime_error("Failed to decode permutation into batches");
+    }
+    return workspace.dp[n];
+}
+
 Chromosome make_chromosome(
     const ProblemInstance& instance,
     const BatchEvaluator& evaluator,
     int wave_index,
-    const std::vector<int>& permutation) {
-    // Elke nieuwe permutatie wordt meteen gedecodeerd en gescoord.
+    std::vector<int> permutation,
+    DecodeWorkspace& workspace) {
+    // Elke nieuwe permutatie wordt meteen gescoord; batchconstructie gebeurt
+    // eenmaal voor de uiteindelijke winnaar.
     Chromosome chromosome;
-    chromosome.permutation = permutation;
-    chromosome.decoded = decode_permutation_to_batches(instance, evaluator, wave_index, chromosome.permutation);
+    chromosome.objective = decode_permutation_objective(instance, evaluator, wave_index, permutation, workspace);
+    chromosome.permutation = std::move(permutation);
     return chromosome;
 }
 
@@ -52,15 +125,19 @@ int tournament_pick(const std::vector<Chromosome>& population, int tournament_si
     int best_index = pick(rng);
     for (int draw = 1; draw < tournament_size; ++draw) {
         const int contender = pick(rng);
-        if (population[static_cast<std::size_t>(contender)].decoded.objective <
-            population[static_cast<std::size_t>(best_index)].decoded.objective) {
+        if (population[static_cast<std::size_t>(contender)].objective <
+            population[static_cast<std::size_t>(best_index)].objective) {
             best_index = contender;
         }
     }
     return best_index;
 }
 
-std::vector<int> order_crossover(const std::vector<int>& left, const std::vector<int>& right, std::mt19937_64& rng) {
+std::vector<int> order_crossover(
+    const std::vector<int>& left,
+    const std::vector<int>& right,
+    std::mt19937_64& rng,
+    CrossoverWorkspace& workspace) {
     // Order crossover bewaart een segment van de eerste ouder en vult de rest aan
     // volgens de volgorde van de tweede ouder. Zo blijft elke order exact een keer aanwezig.
     if (left.empty()) {
@@ -77,18 +154,21 @@ std::vector<int> order_crossover(const std::vector<int>& left, const std::vector
         std::swap(first, second);
     }
 
+    const std::uint32_t stamp = workspace.next_stamp();
     std::vector<int> child(left.size(), -1);
     for (std::size_t index = first; index <= second; ++index) {
         child[index] = left[index];
+        workspace.marks.at(static_cast<std::size_t>(left[index])) = stamp;
     }
 
     std::size_t insert_pos = (second + 1U) % left.size();
     for (std::size_t offset = 0; offset < right.size(); ++offset) {
         const int candidate = right[(second + 1U + offset) % right.size()];
-        if (std::find(child.begin(), child.end(), candidate) != child.end()) {
+        if (workspace.marks.at(static_cast<std::size_t>(candidate)) == stamp) {
             continue;
         }
         child[insert_pos] = candidate;
+        workspace.marks[static_cast<std::size_t>(candidate)] = stamp;
         insert_pos = (insert_pos + 1U) % child.size();
     }
 
@@ -218,33 +298,51 @@ WaveSolveResult solve_wave_genetic(
     const int population_size = std::max(2, config.population_size);
     std::vector<Chromosome> population;
     population.reserve(static_cast<std::size_t>(population_size));
+    DecodeWorkspace decode_workspace;
+    CrossoverWorkspace crossover_workspace(instance.orders.size());
 
-    population.push_back(make_chromosome(instance, evaluator, wave_index, greedy_seed_permutation(instance, evaluator, wave_index)));
+    population.push_back(make_chromosome(
+        instance,
+        evaluator,
+        wave_index,
+        greedy_seed_permutation(instance, evaluator, wave_index, config),
+        decode_workspace));
 
     std::vector<int> base_permutation = wave.order_indices;
     while (static_cast<int>(population.size()) < population_size) {
         std::shuffle(base_permutation.begin(), base_permutation.end(), rng);
-        population.push_back(make_chromosome(instance, evaluator, wave_index, base_permutation));
+        population.push_back(make_chromosome(instance, evaluator, wave_index, base_permutation, decode_workspace));
     }
 
     auto by_objective = [](const Chromosome& left, const Chromosome& right) {
-        return left.decoded.objective < right.decoded.objective;
+        return left.objective < right.objective;
     };
 
     WaveSolveResult result;
+    result.metadata["greedy_start_local_search_passes"] =
+        std::to_string(config.greedy_start_local_search_passes);
+    result.metadata["greedy_start_local_search_neighbor_window"] =
+        std::to_string(config.greedy_start_local_search_neighbor_window);
     result.metadata["population_size"] = std::to_string(population_size);
     result.metadata["generations"] = std::to_string(config.generations);
-    result.metadata["mutation_rate"] = std::to_string(config.mutation_rate);
+    result.metadata["tournament_size"] = std::to_string(std::max(2, config.tournament_size));
+    result.metadata["mutation_rate"] = format_double(config.mutation_rate);
+    result.metadata["insertion_rate"] = format_double(config.insertion_rate);
+    result.metadata["elitism_fraction"] = format_double(config.elitism_fraction);
+    result.metadata["representation"] = "order_permutation";
+    result.metadata["crossover"] = "order_crossover";
+    result.metadata["fitness"] = "decoded_total_route_cost";
     result.metadata["config_id"] = config.config_id;
 
     Chromosome best = *std::min_element(population.begin(), population.end(), by_objective);
-    result.convergence.push_back({0, best.decoded.objective, best.decoded.objective, population_diversity(population)});
+    result.convergence.push_back({0, best.objective, best.objective, population_diversity(population)});
 
     std::uniform_real_distribution<double> probability(0.0, 1.0);
     const int elitism_count = std::clamp(
         static_cast<int>(std::round(static_cast<double>(population_size) * config.elitism_fraction)),
-        1,
+        0,
         population_size);
+    result.metadata["elitism_count"] = std::to_string(elitism_count);
 
     for (int generation = 1; generation <= config.generations; ++generation) {
         // Elitisme bewaart de beste individuen ongewijzigd. De rest van de nieuwe populatie
@@ -264,26 +362,29 @@ WaveSolveResult solve_wave_genetic(
             std::vector<int> child_permutation = order_crossover(
                 population[static_cast<std::size_t>(left_index)].permutation,
                 population[static_cast<std::size_t>(right_index)].permutation,
-                rng);
+                rng,
+                crossover_workspace);
 
             if (probability(rng) < config.mutation_rate) {
                 mutate_permutation(child_permutation, config.insertion_rate, rng);
             }
 
-            next_population.push_back(make_chromosome(instance, evaluator, wave_index, child_permutation));
+            next_population.push_back(
+                make_chromosome(instance, evaluator, wave_index, std::move(child_permutation), decode_workspace));
         }
 
         population = std::move(next_population);
-        const Chromosome generation_best = *std::min_element(population.begin(), population.end(), by_objective);
-        if (generation_best.decoded.objective < best.decoded.objective) {
-            best = generation_best;
+        const auto generation_best = std::min_element(population.begin(), population.end(), by_objective);
+        if (generation_best->objective < best.objective) {
+            best = *generation_best;
         }
         result.convergence.push_back(
-            {generation, best.decoded.objective, generation_best.decoded.objective, population_diversity(population)});
+            {generation, best.objective, generation_best->objective, population_diversity(population)});
     }
 
-    result.batches = best.decoded.batches;
-    result.objective = best.decoded.objective;
+    DecodeResult decoded_best = decode_permutation_to_batches(instance, evaluator, wave_index, best.permutation);
+    result.batches = std::move(decoded_best.batches);
+    result.objective = best.objective;
     const auto finished = std::chrono::steady_clock::now();
     result.runtime_ms = std::chrono::duration<double, std::milli>(finished - started).count();
     return result;

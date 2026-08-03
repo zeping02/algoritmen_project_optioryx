@@ -11,6 +11,10 @@ namespace optioryx {
 struct SimulatedAnnealingConfig {
     std::string config_id = "sa_default";
     StartSolutionStrategy start_strategy = StartSolutionStrategy::greedy;
+    // De greedy warm-start is zelf configureerbaar. Expliciete waarden voorkomen
+    // dat een SA-vergelijking ongemerkt een sterkere greedy gebruikt dan haar baseline.
+    int greedy_start_local_search_passes = 1;
+    int greedy_start_local_search_neighbor_window = 8;
     NeighborhoodStrategy neighborhood = NeighborhoodStrategy::relocate;
     CoolingSchedule cooling = CoolingSchedule::geometric;
     int iterations = 400;

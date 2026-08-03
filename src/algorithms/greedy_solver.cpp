@@ -814,6 +814,8 @@ bool rebuild_pair_if_better(
 
     std::vector<int> combined_orders = left.batch.order_indices;
     combined_orders.insert(combined_orders.end(), right.batch.order_indices.begin(), right.batch.order_indices.end());
+    // Als alles in één route past, hoort de verbetering bij merge/route-eliminatie;
+    // pair-rebuild zoekt bewust alleen echte herverdelingen over twee routes.
     if (combined_orders.size() <= instance.nmax || combined_orders.size() > 2U * instance.nmax) {
         return false;
     }
@@ -1002,8 +1004,8 @@ void consider_sorted_triple_split(
     double current_cost,
     double& best_cost,
     std::array<SearchBatch, 3>& best_routes) {
-    // Goedkope triple-kandidaat: sorteer vooraf op center/span en split in drie
-    // ongeveer gebalanceerde groepen.
+    // Goedkope triple-kandidaat: splits de vooraf op snake-center gesorteerde
+    // orderreeks in drie ongeveer gebalanceerde groepen.
     const std::array<std::size_t, 3> sizes = balanced_three_sizes(combined_orders.size(), instance.nmax);
     if (sizes[0] + sizes[1] + sizes[2] != combined_orders.size()) {
         return;

@@ -1,0 +1,5 @@
+solver,config_id,mean_objective,std_objective,best_objective,mean_runtime_ms,std_runtime_ms,best_runtime_ms,seed_count,min_wave_count,max_wave_count,objective_ci95,runtime_ci95_ms,runs
+genetic,ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08,5308535.690915,131.6886452345271,5308300.05359,21953.46656,1940.4922745805954,20227.5271,10,12,12,94.197836980779,1388.0481086115594,10
+simulated_annealing,sa_c-geometric_n-relocate_start-greedy-ls-0-win-0_i-120_t0-60_tf-0p05_a-0p9426276099699734_b-0p1665277777777778,5510985.131436,134.69890551914852,5510691.214159999,9733.667089999999,979.6062953741002,9218.4328,10,12,12,96.35109785650208,700.7194428392564,10
+greedy,greedy_fast_ls-0_win-0_elim-0_pair-0_triple-0_final-0,5511075.89031,,5511075.89031,9214.1737,,9214.1737,1,12,12,,,1
+seed_selection,seed_seed-largest_snake_span_select-bounded_two_step_lookahead_width-8,6491675.00947,,6491675.00947,35138.2891,,35138.2891,1,12,12,,,1

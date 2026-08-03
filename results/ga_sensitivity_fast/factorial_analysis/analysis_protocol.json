@@ -1,0 +1,25 @@
+{
+  "artifacts": [
+    "ga_paired_seed_deltas.csv",
+    "ga_sensitivity_summary.csv",
+    "ga_sensitivity.png",
+    "ga_sensitivity.pdf",
+    "analysis_protocol.json"
+  ],
+  "confidence_interval": "two_sided_95_percent_student_t; NA_when_n_less_than_2",
+  "details": {
+    "baseline_config_id": "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08",
+    "delta_sign": "variant_minus_baseline",
+    "final_diversity_aggregation": "mean_of_final_wave_diversities_per_seed",
+    "pairing_key": "seed"
+  },
+  "dispersion": "sample_standard_deviation_ddof_1",
+  "inputs": {
+    "convergence.csv": "b172059e8f69a022e88e4d5431a1fe15c8608963bd70c7a859bb017ef5c4aa6d",
+    "runs.csv": "074d02d33faba9e78bf9996e9a3700693405237f1fc3f3931be0e2de0c97e490",
+    "suite_manifest.csv": "c834474b0e6703198928f4912aa306609c9fa2cfd5cd066578cbf0fbd9161bda"
+  },
+  "statistical_unit": "complete_instance_per_solver_config_seed",
+  "suite_type": "ga",
+  "wave_aggregation": "sum_objective_and_runtime_before_seed_statistics"
+}

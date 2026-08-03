@@ -1,0 +1,3 @@
+solver,wave_config_points,corr_overlap_gain,corr_span_gain
+genetic,12,-0.4377135430831248,0.6110674314759283
+simulated_annealing,12,-0.43976447459312784,0.6071089069533553

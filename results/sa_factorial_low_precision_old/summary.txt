@@ -1,0 +1,9 @@
+solver,config_id,runs,mean_objective,std_objective,best_objective,worst_objective,mean_runtime_ms,std_runtime_ms,feasible_runs
+simulated_annealing,sa_c-geometric_n-relocate_start-greedy-ls-1-win-8_i-400_t0-60_tf-0p05_a-0p9824309750689336_b-0p0499583333333333,10,5.3083e+06,458.055,5.30736e+06,5.30862e+06,10331.1,93.3848,10
+simulated_annealing,sa_c-geometric_n-relocate_start-randomized_i-400_t0-60_tf-0p05_a-0p9824309750689336_b-0p0499583333333333,10,2.78432e+07,261869,2.74415e+07,2.82151e+07,141.639,6.27768,10
+simulated_annealing,sa_c-geometric_n-swap_start-greedy-ls-1-win-8_i-400_t0-60_tf-0p05_a-0p9824309750689336_b-0p0499583333333333,10,5.3077e+06,527.281,5.30668e+06,5.30833e+06,10406.9,248.496,10
+simulated_annealing,sa_c-geometric_n-swap_start-randomized_i-400_t0-60_tf-0p05_a-0p9824309750689336_b-0p0499583333333333,10,3.18362e+07,248343,3.13987e+07,3.21684e+07,152.98,11.8954,10
+simulated_annealing,sa_c-lundy_mees_n-relocate_start-greedy-ls-1-win-8_i-400_t0-60_tf-0p05_a-0p9824309750689336_b-0p0499583333333333,10,5.30815e+06,441.113,5.30742e+06,5.30862e+06,10440.8,373.097,10
+simulated_annealing,sa_c-lundy_mees_n-relocate_start-randomized_i-400_t0-60_tf-0p05_a-0p9824309750689336_b-0p0499583333333333,10,2.78065e+07,146951,2.74999e+07,2.80444e+07,147.598,16.0952,10
+simulated_annealing,sa_c-lundy_mees_n-swap_start-greedy-ls-1-win-8_i-400_t0-60_tf-0p05_a-0p9824309750689336_b-0p0499583333333333,10,5.30759e+06,450.249,5.30697e+06,5.30833e+06,10675.4,560.195,10
+simulated_annealing,sa_c-lundy_mees_n-swap_start-randomized_i-400_t0-60_tf-0p05_a-0p9824309750689336_b-0p0499583333333333,10,3.18093e+07,251171,3.14791e+07,3.22479e+07,147.017,8.31218,10

@@ -1,0 +1,29 @@
+{
+  "artifacts": [
+    "seed_paper_2x2.csv",
+    "seed_custom_ablation.csv",
+    "seed_factorial.png",
+    "seed_factorial.pdf",
+    "analysis_protocol.json"
+  ],
+  "confidence_interval": "two_sided_95_percent_student_t; NA_when_n_less_than_2",
+  "details": {
+    "custom_rule": "bounded_two_step_lookahead",
+    "delta_sign": "custom_minus_immediate",
+    "immediate_ablation_rule": "minimum_incremental_cost",
+    "paper_selection_rules": [
+      "maximum_location_overlap",
+      "minimum_span_expansion"
+    ],
+    "uncertainty_for_single_seed": "NA"
+  },
+  "dispersion": "sample_standard_deviation_ddof_1",
+  "inputs": {
+    "convergence.csv": "0fde9416d55400067d5c921f179527061926c5cca8a7c446af295e58753c892b",
+    "runs.csv": "c8569d4e4106bd04d438f4c68199c0180b098b214cc094de258cfa8e3ff65b9f",
+    "suite_manifest.csv": "94f83f112234245461c89967f5c59fcd5dbb78acf34bcb83ffe7a62cb9867b82"
+  },
+  "statistical_unit": "complete_instance_per_solver_config_seed",
+  "suite_type": "seed",
+  "wave_aggregation": "sum_objective_and_runtime_before_seed_statistics"
+}

@@ -1,0 +1,1 @@
+solver,config_id,wave_id,objective,std_objective,best_objective,runtime_ms,std_runtime_ms,best_runtime_ms,seed_count,overlap_density,span_dispersion,objective_ci95,runtime_ci95_ms,greedy_config_id,greedy_objective,relative_gain_vs_greedy,relative_gain_std,relative_gain_ci95

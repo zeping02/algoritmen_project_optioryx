@@ -1,0 +1,9 @@
+solver,config_id,mean_objective,std_objective,best_objective,mean_runtime_ms,std_runtime_ms,best_runtime_ms,seed_count,min_wave_count,max_wave_count,objective_ci95,runtime_ci95_ms,runs
+seed_selection,seed_seed-smallest_snake_span_select-bounded_two_step_lookahead_width-8,5436247.6,,5436247.6,47961.9609,,47961.9609,1,12,12,,,1
+seed_selection,seed_seed-smallest_snake_span_select-minimum_incremental_cost,5487174.5,,5487174.5,7563.5568,,7563.5568,1,12,12,,,1
+seed_selection,seed_seed-largest_snake_span_select-bounded_two_step_lookahead_width-8,6491674.4,,6491674.4,47242.4517,,47242.4517,1,12,12,,,1
+seed_selection,seed_seed-largest_snake_span_select-minimum_incremental_cost,6566048.4,,6566048.4,7624.8713,,7624.8713,1,12,12,,,1
+seed_selection,seed_seed-largest_snake_span_select-minimum_span_expansion,6759160.7,,6759160.7,7376.9654,,7376.9654,1,12,12,,,1
+seed_selection,seed_seed-smallest_snake_span_select-minimum_span_expansion,6836623.0,,6836623.0,7572.2321,,7572.2321,1,12,12,,,1
+seed_selection,seed_seed-largest_snake_span_select-maximum_location_overlap,7485448.9,,7485448.9,7326.6543,,7326.6543,1,12,12,,,1
+seed_selection,seed_seed-smallest_snake_span_select-maximum_location_overlap,7722909.9,,7722909.9,7915.4574,,7915.4574,1,12,12,,,1

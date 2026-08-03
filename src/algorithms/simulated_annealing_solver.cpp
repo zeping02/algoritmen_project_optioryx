@@ -1,6 +1,9 @@
 #include "optioryx/algorithms/simulated_annealing_solver.hpp"
 
+#include "optioryx/util/format.hpp"
+
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <cmath>
 #include <limits>
@@ -15,6 +18,30 @@ namespace {
 // Simulated annealing werkt op een eenvoudigere representatie:
 // een vector van batches, waarbij elke batch een vector orderindices is.
 using BatchList = std::vector<std::vector<int>>;
+
+// Een move wijzigt hoogstens twee batches. We bewaren daarom de som van de
+// oude kosten en de indices die na de move opnieuw moeten worden geevalueerd.
+// De indices verwijzen naar de batchlijst nadat eventuele insert/erase-acties
+// zijn uitgevoerd.
+struct NeighborMoveResult {
+    bool applied = false;
+    double previous_affected_cost = 0.0;
+    std::array<std::size_t, 2> changed_batch_indices{};
+    std::size_t changed_batch_count = 0U;
+    std::size_t erased_batch_index = std::numeric_limits<std::size_t>::max();
+    bool appended_batch = false;
+};
+
+NeighborMoveResult one_changed_batch(double previous_cost, std::size_t batch_index) {
+    return {true, previous_cost, {batch_index, 0U}, 1U};
+}
+
+NeighborMoveResult two_changed_batches(
+    double previous_cost,
+    std::size_t first_batch_index,
+    std::size_t second_batch_index) {
+    return {true, previous_cost, {first_batch_index, second_batch_index}, 2U};
+}
 
 BatchList to_batch_list(const std::vector<Batch>& batches) {
     BatchList batch_list;
@@ -37,11 +64,23 @@ std::vector<Batch> to_batches(const std::string& wave_id, const BatchList& batch
     return batches;
 }
 
-double evaluate_batch_list(const BatchEvaluator& evaluator, int wave_index, const BatchList& batch_list) {
+double evaluate_batch_list(
+    const BatchEvaluator& evaluator,
+    int wave_index,
+    const BatchList& batch_list,
+    std::vector<double>* batch_costs = nullptr) {
     // Objective van een tijdelijke SA-oplossing zonder eerst Batch-objecten te bouwen.
     double objective = 0.0;
+    if (batch_costs != nullptr) {
+        batch_costs->clear();
+        batch_costs->reserve(batch_list.size());
+    }
     for (const std::vector<int>& batch : batch_list) {
-        objective += evaluator.batch_cost(wave_index, batch);
+        const double cost = evaluator.batch_cost(wave_index, batch);
+        objective += cost;
+        if (batch_costs != nullptr) {
+            batch_costs->push_back(cost);
+        }
     }
     return objective;
 }
@@ -75,11 +114,15 @@ BatchList build_randomized_start(const ProblemInstance& instance, int wave_index
     return batch_list;
 }
 
-bool apply_relocate_move(const ProblemInstance& instance, BatchList& batch_list, std::mt19937_64& rng) {
+NeighborMoveResult apply_relocate_move(
+    const ProblemInstance& instance,
+    BatchList& batch_list,
+    const std::vector<double>& batch_costs,
+    std::mt19937_64& rng) {
     // Relocate verplaatst een order naar een andere bestaande batch of, als zinvol,
     // naar een nieuwe batch. Capaciteit wordt hierbij behouden.
     if (batch_list.empty()) {
-        return false;
+        return {};
     }
 
     std::vector<std::size_t> source_candidates;
@@ -89,7 +132,7 @@ bool apply_relocate_move(const ProblemInstance& instance, BatchList& batch_list,
         }
     }
     if (source_candidates.empty()) {
-        return false;
+        return {};
     }
 
     std::uniform_int_distribution<std::size_t> pick_source(0, source_candidates.size() - 1U);
@@ -104,7 +147,7 @@ bool apply_relocate_move(const ProblemInstance& instance, BatchList& batch_list,
 
     const bool can_create_new = batch_list[source_index].size() > 1U;
     if (destination_candidates.empty() && !can_create_new) {
-        return false;
+        return {};
     }
 
     std::uniform_int_distribution<std::size_t> pick_order(0, batch_list[source_index].size() - 1U);
@@ -119,23 +162,39 @@ bool apply_relocate_move(const ProblemInstance& instance, BatchList& batch_list,
 
     std::uniform_int_distribution<std::size_t> pick_destination(0, all_destinations.size() - 1U);
     const std::size_t destination = all_destinations[pick_destination(rng)];
+    NeighborMoveResult result;
+    result.applied = true;
+    result.previous_affected_cost = batch_costs[source_index];
     if (destination == batch_list.size()) {
         batch_list.push_back({moved_order});
+        result.appended_batch = true;
     } else {
+        result.previous_affected_cost += batch_costs[destination];
         batch_list[destination].push_back(moved_order);
     }
 
     if (batch_list[source_index].empty()) {
         batch_list.erase(batch_list.begin() + static_cast<std::ptrdiff_t>(source_index));
+        result.erased_batch_index = source_index;
+        // Een lege bron kan alleen naar een bestaande batch verhuizen. Door het
+        // wissen schuift de bestemming eventueel een positie naar links.
+        result.changed_batch_indices[0] = destination > source_index ? destination - 1U : destination;
+        result.changed_batch_count = 1U;
+    } else {
+        result.changed_batch_indices = {source_index, destination};
+        result.changed_batch_count = 2U;
     }
 
-    return true;
+    return result;
 }
 
-bool apply_swap_move(BatchList& batch_list, std::mt19937_64& rng) {
+NeighborMoveResult apply_swap_move(
+    BatchList& batch_list,
+    const std::vector<double>& batch_costs,
+    std::mt19937_64& rng) {
     // Swap wisselt twee orders tussen twee niet-lege batches.
     if (batch_list.size() < 2U) {
-        return false;
+        return {};
     }
 
     std::vector<std::size_t> non_empty_batches;
@@ -145,7 +204,7 @@ bool apply_swap_move(BatchList& batch_list, std::mt19937_64& rng) {
         }
     }
     if (non_empty_batches.size() < 2U) {
-        return false;
+        return {};
     }
 
     std::uniform_int_distribution<std::size_t> pick_batch(0, non_empty_batches.size() - 1U);
@@ -160,14 +219,21 @@ bool apply_swap_move(BatchList& batch_list, std::mt19937_64& rng) {
     const std::size_t first_pos = pick_first_order(rng);
     const std::size_t second_pos = pick_second_order(rng);
     std::swap(batch_list[first_batch][first_pos], batch_list[second_batch][second_pos]);
-    return true;
+    return two_changed_batches(
+        batch_costs[first_batch] + batch_costs[second_batch],
+        first_batch,
+        second_batch);
 }
 
-bool apply_merge_split_move(const ProblemInstance& instance, BatchList& batch_list, std::mt19937_64& rng) {
+NeighborMoveResult apply_merge_split_move(
+    const ProblemInstance& instance,
+    BatchList& batch_list,
+    const std::vector<double>& batch_costs,
+    std::mt19937_64& rng) {
     // Merge-split combineert twee batches en splitst ze opnieuw.
     // Dit is een grotere move dan relocate/swap en kan lokale structuren doorbreken.
     if (batch_list.size() < 2U) {
-        return false;
+        return {};
     }
 
     std::uniform_int_distribution<std::size_t> pick_batch(0, batch_list.size() - 1U);
@@ -183,64 +249,70 @@ bool apply_merge_split_move(const ProblemInstance& instance, BatchList& batch_li
     std::vector<int> combined_orders = batch_list[first_batch];
     combined_orders.insert(combined_orders.end(), batch_list[second_batch].begin(), batch_list[second_batch].end());
     if (combined_orders.size() < 2U) {
-        return false;
+        return {};
     }
     std::shuffle(combined_orders.begin(), combined_orders.end(), rng);
+
+    const double previous_affected_cost = batch_costs[first_batch] + batch_costs[second_batch];
 
     if (combined_orders.size() <= instance.nmax) {
         batch_list[first_batch] = std::move(combined_orders);
         batch_list.erase(batch_list.begin() + static_cast<std::ptrdiff_t>(second_batch));
-        return true;
+        NeighborMoveResult result = one_changed_batch(previous_affected_cost, first_batch);
+        result.erased_batch_index = second_batch;
+        return result;
     }
 
     const std::size_t min_first_size = combined_orders.size() - instance.nmax;
     const std::size_t max_first_size = std::min(instance.nmax, combined_orders.size() - 1U);
     if (min_first_size > max_first_size) {
-        return false;
+        return {};
     }
 
     std::uniform_int_distribution<std::size_t> pick_split(min_first_size, max_first_size);
     const std::size_t first_size = pick_split(rng);
     batch_list[first_batch].assign(combined_orders.begin(), combined_orders.begin() + static_cast<std::ptrdiff_t>(first_size));
     batch_list[second_batch].assign(combined_orders.begin() + static_cast<std::ptrdiff_t>(first_size), combined_orders.end());
-    return true;
+    return two_changed_batches(previous_affected_cost, first_batch, second_batch);
 }
 
-bool apply_neighbor_move(
+NeighborMoveResult apply_neighbor_move(
     const ProblemInstance& instance,
     NeighborhoodStrategy neighborhood,
     BatchList& batch_list,
+    const std::vector<double>& batch_costs,
     std::mt19937_64& rng) {
     // Bij "mixed" proberen we verschillende move-types. Als de willekeurig gekozen
     // move niet toepasbaar is, vallen we terug op een andere haalbare move.
     if (neighborhood == NeighborhoodStrategy::relocate) {
-        return apply_relocate_move(instance, batch_list, rng);
+        return apply_relocate_move(instance, batch_list, batch_costs, rng);
     }
     if (neighborhood == NeighborhoodStrategy::swap) {
-        return apply_swap_move(batch_list, rng);
+        return apply_swap_move(batch_list, batch_costs, rng);
     }
     if (neighborhood == NeighborhoodStrategy::merge_split) {
-        return apply_merge_split_move(instance, batch_list, rng);
+        return apply_merge_split_move(instance, batch_list, batch_costs, rng);
     }
 
     std::uniform_int_distribution<int> pick(0, 2);
     const int selected = pick(rng);
-    if (selected == 0 && apply_relocate_move(instance, batch_list, rng)) {
-        return true;
+    NeighborMoveResult result;
+    if (selected == 0 && (result = apply_relocate_move(instance, batch_list, batch_costs, rng)).applied) {
+        return result;
     }
-    if (selected == 1 && apply_swap_move(batch_list, rng)) {
-        return true;
+    if (selected == 1 && (result = apply_swap_move(batch_list, batch_costs, rng)).applied) {
+        return result;
     }
-    if (selected == 2 && apply_merge_split_move(instance, batch_list, rng)) {
-        return true;
+    if (selected == 2 && (result = apply_merge_split_move(instance, batch_list, batch_costs, rng)).applied) {
+        return result;
     }
-    if (apply_relocate_move(instance, batch_list, rng)) {
-        return true;
+    if ((result = apply_relocate_move(instance, batch_list, batch_costs, rng)).applied) {
+        return result;
     }
-    if (apply_swap_move(batch_list, rng)) {
-        return true;
+    if ((result = apply_swap_move(batch_list, batch_costs, rng)).applied) {
+        return result;
     }
-    return apply_merge_split_move(instance, batch_list, rng);
+    return apply_merge_split_move(instance, batch_list, batch_costs, rng);
 }
 
 double update_temperature(double temperature, const SimulatedAnnealingConfig& config) {
@@ -268,12 +340,19 @@ WaveSolveResult solve_wave_simulated_annealing(
 
     BatchList current_batches;
     if (config.start_strategy == StartSolutionStrategy::greedy) {
-        current_batches = to_batch_list(solve_wave_greedy(instance, evaluator, wave_index, GreedyConfig{}).batches);
+        GreedyConfig start_config;
+        start_config.config_id =
+            "sa_greedy_start_ls-" + std::to_string(config.greedy_start_local_search_passes) +
+            "_win-" + std::to_string(config.greedy_start_local_search_neighbor_window);
+        start_config.local_search_passes = config.greedy_start_local_search_passes;
+        start_config.local_search_neighbor_window = config.greedy_start_local_search_neighbor_window;
+        current_batches = to_batch_list(solve_wave_greedy(instance, evaluator, wave_index, start_config).batches);
     } else {
         current_batches = build_randomized_start(instance, wave_index, rng);
     }
 
-    double current_objective = evaluate_batch_list(evaluator, wave_index, current_batches);
+    std::vector<double> current_batch_costs;
+    double current_objective = evaluate_batch_list(evaluator, wave_index, current_batches, &current_batch_costs);
     BatchList best_batches = current_batches;
     double best_objective = current_objective;
 
@@ -282,26 +361,57 @@ WaveSolveResult solve_wave_simulated_annealing(
 
     WaveSolveResult result;
     result.metadata["start_strategy"] = to_string(config.start_strategy);
+    result.metadata["greedy_start_local_search_passes"] =
+        std::to_string(config.greedy_start_local_search_passes);
+    result.metadata["greedy_start_local_search_neighbor_window"] =
+        std::to_string(config.greedy_start_local_search_neighbor_window);
     result.metadata["neighborhood"] = to_string(config.neighborhood);
     result.metadata["cooling"] = to_string(config.cooling);
+    result.metadata["iterations"] = std::to_string(config.iterations);
+    result.metadata["initial_temperature"] = format_double(config.initial_temperature);
+    result.metadata["final_temperature"] = format_double(config.final_temperature);
+    result.metadata["geometric_alpha"] = format_double(config.geometric_alpha);
+    result.metadata["lundy_beta"] = format_double(config.lundy_beta);
     result.metadata["config_id"] = config.config_id;
 
     result.convergence.push_back({0, best_objective, current_objective, temperature});
     for (int iteration = 1; iteration <= config.iterations; ++iteration) {
         BatchList candidate_batches = current_batches;
-        if (!apply_neighbor_move(instance, config.neighborhood, candidate_batches, rng)) {
+        const NeighborMoveResult move =
+            apply_neighbor_move(instance, config.neighborhood, candidate_batches, current_batch_costs, rng);
+        if (!move.applied) {
             result.convergence.push_back({iteration, best_objective, current_objective, temperature});
             temperature = update_temperature(temperature, config);
             continue;
         }
 
-        const double candidate_objective = evaluate_batch_list(evaluator, wave_index, candidate_batches);
-        const double delta = candidate_objective - current_objective;
+        // Alleen de een of twee batches die werkelijk veranderden worden opnieuw
+        // gescoord. Alle ongewijzigde bijdragen vallen exact weg in de delta.
+        double new_affected_cost = 0.0;
+        std::array<double, 2> changed_batch_costs{};
+        for (std::size_t changed_index = 0U; changed_index < move.changed_batch_count; ++changed_index) {
+            const std::size_t batch_index = move.changed_batch_indices[changed_index];
+            const double cost = evaluator.batch_cost(wave_index, candidate_batches[batch_index]);
+            changed_batch_costs[changed_index] = cost;
+            new_affected_cost += cost;
+        }
+        const double delta = new_affected_cost - move.previous_affected_cost;
+        const double candidate_objective = current_objective + delta;
         // Metropolis-acceptatie: slechtere oplossingen kunnen tijdelijk worden aanvaard
         // om uit lokale optima te ontsnappen.
         const bool accept = delta <= 0.0 || probability(rng) < std::exp(-delta / std::max(temperature, 1e-9));
         if (accept) {
             current_batches = std::move(candidate_batches);
+            if (move.erased_batch_index != std::numeric_limits<std::size_t>::max()) {
+                current_batch_costs.erase(
+                    current_batch_costs.begin() + static_cast<std::ptrdiff_t>(move.erased_batch_index));
+            }
+            if (move.appended_batch) {
+                current_batch_costs.push_back(0.0);
+            }
+            for (std::size_t changed_index = 0U; changed_index < move.changed_batch_count; ++changed_index) {
+                current_batch_costs[move.changed_batch_indices[changed_index]] = changed_batch_costs[changed_index];
+            }
             current_objective = candidate_objective;
         }
         if (current_objective < best_objective) {

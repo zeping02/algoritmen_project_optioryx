@@ -1,5 +1,7 @@
 #include "optioryx/util/output.hpp"
 
+#include "optioryx/util/format.hpp"
+
 #include <fstream>
 #include <stdexcept>
 
@@ -62,6 +64,7 @@ void write_solution_json(const std::filesystem::path& path, const ProblemInstanc
     if (!output) {
         throw std::runtime_error("Unable to write solution JSON: " + path.string());
     }
+    configure_lossless_floating_output(output);
 
     output << "{\n";
     output << "  \"instance\": \"" << escape_json(instance.name) << "\",\n";
@@ -147,6 +150,7 @@ void write_benchmark_runs_csv(const std::filesystem::path& path, const std::vect
     if (!output) {
         throw std::runtime_error("Unable to write benchmark CSV: " + path.string());
     }
+    configure_lossless_floating_output(output);
 
     output << "solver,config_id,wave_id,seed,order_count,objective,runtime_ms,overlap_density,span_dispersion\n";
     for (const BenchmarkRecord& record : records) {
@@ -169,6 +173,7 @@ void write_convergence_csv(const std::filesystem::path& path, const std::vector<
     if (!output) {
         throw std::runtime_error("Unable to write convergence CSV: " + path.string());
     }
+    configure_lossless_floating_output(output);
 
     output << "solver,config_id,wave_id,seed,step,best_objective,current_objective,control_value\n";
     for (const ConvergenceRecord& record : records) {

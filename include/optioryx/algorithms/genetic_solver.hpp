@@ -11,6 +11,10 @@ namespace optioryx {
 
 struct GeneticConfig {
     std::string config_id = "ga_default";
+    // Maak de greedy-populatieseed expliciet, zodat GA nooit ongemerkt tegen
+    // een zwakkere of sterkere greedy-baseline wordt vergeleken.
+    int greedy_start_local_search_passes = 1;
+    int greedy_start_local_search_neighbor_window = 8;
     int population_size = 40;
     int generations = 120;
     int tournament_size = 3;

@@ -1,6 +1,7 @@
 #include "optioryx/core/evaluator.hpp"
 
 #include <algorithm>
+#include <bit>
 #include <cstdint>
 #include <limits>
 #include <numeric>
@@ -21,12 +22,14 @@ std::vector<int> sort_and_deduplicate(const std::vector<int>& values) {
 
 }  // namespace
 
-BatchEvaluator::BatchEvaluator(const ProblemInstance& instance)
+BatchEvaluator::BatchEvaluator(const ProblemInstance& instance, const std::size_t cache_entry_limit)
     : instance_(instance),
       mask_words_((instance.item_ids.size() + 63U) / 64U),
       items_by_snake_rank_(instance.item_ids.size()),
       order_item_masks_(instance.orders.size(), std::vector<std::uint64_t>(mask_words_, 0U)),
       order_items_by_snake_rank_(instance.orders.size()),
+      item_mask_scratch_(mask_words_, 0U),
+      cache_entry_limit_(cache_entry_limit),
       cache_(instance.waves.size()) {
     // Voor scoring moet elke batch in de vaste snake-volgorde worden doorlopen.
     // Deze lijst voorkomt dat we die volgorde bij elke routekost opnieuw moeten sorteren.
@@ -35,6 +38,10 @@ BatchEvaluator::BatchEvaluator(const ProblemInstance& instance)
         return instance_.snake_rank.at(static_cast<std::size_t>(left)) <
                instance_.snake_rank.at(static_cast<std::size_t>(right));
     });
+    std::vector<std::size_t> snake_position_by_item(instance_.item_ids.size(), 0U);
+    for (std::size_t snake_position = 0; snake_position < items_by_snake_rank_.size(); ++snake_position) {
+        snake_position_by_item[static_cast<std::size_t>(items_by_snake_rank_[snake_position])] = snake_position;
+    }
 
     for (std::size_t order_index = 0; order_index < instance_.orders.size(); ++order_index) {
         // Per order bewaren we twee vormen:
@@ -51,39 +58,39 @@ BatchEvaluator::BatchEvaluator(const ProblemInstance& instance)
             if (item == instance_.start_index || item == instance_.end_index) {
                 continue;
             }
-            const std::size_t item_index = static_cast<std::size_t>(item);
-            order_item_masks_[order_index][item_index / 64U] |= (std::uint64_t{1} << (item_index % 64U));
+            const std::size_t snake_position = snake_position_by_item[static_cast<std::size_t>(item)];
+            order_item_masks_[order_index][snake_position / 64U] |=
+                (std::uint64_t{1} << (snake_position % 64U));
         }
     }
 }
 
-std::string BatchEvaluator::make_key(const std::vector<int>& order_indices) const {
-    std::vector<int> canonical = sort_and_deduplicate(order_indices);
-    std::string key;
-    key.resize(canonical.size() * sizeof(int));
-    // De key is een compacte binaire representatie van de gesorteerde orderindices.
-    // Dat is sneller en kleiner dan telkens een tekstuele "1,7,19"-string bouwen.
-    for (std::size_t index = 0; index < canonical.size(); ++index) {
-        const int value = canonical[index];
-        const auto* bytes = reinterpret_cast<const char*>(&value);
-        std::copy(bytes, bytes + sizeof(int), key.begin() + static_cast<std::ptrdiff_t>(index * sizeof(int)));
+std::string_view BatchEvaluator::make_key_view(const std::vector<int>& sorted_unique_order_indices) const {
+    // De key is de compacte binaire representatie van de gesorteerde indices.
+    // unordered_map vergelijkt de bytes tijdens find(); alleen een miss krijgt
+    // verderop een owning std::string.
+    if (sorted_unique_order_indices.empty()) {
+        return {};
     }
-    return key;
+    return {
+        reinterpret_cast<const char*>(sorted_unique_order_indices.data()),
+        sorted_unique_order_indices.size() * sizeof(int)};
 }
 
-BatchStats BatchEvaluator::compute_stats(int wave_index, const std::vector<int>& order_indices) const {
+BatchStats BatchEvaluator::compute_stats_sorted_unique(
+    int wave_index,
+    const std::vector<int>& sorted_unique_order_indices) const {
     if (wave_index < 0 || static_cast<std::size_t>(wave_index) >= instance_.waves.size()) {
         throw std::out_of_range("Wave index out of range");
     }
 
-    const std::vector<int> canonical_orders = sort_and_deduplicate(order_indices);
-    std::vector<std::uint64_t> item_mask(mask_words_, 0U);
+    std::fill(item_mask_scratch_.begin(), item_mask_scratch_.end(), 0U);
     // Union van alle picklocaties in de batch. Als twee orders dezelfde locatie
     // nodig hebben, wordt die locatie maar een keer gepickt en dus maar een keer gescoord.
-    for (const int order_index : canonical_orders) {
+    for (const int order_index : sorted_unique_order_indices) {
         const auto& order_mask = order_item_masks_.at(static_cast<std::size_t>(order_index));
         for (std::size_t word = 0; word < mask_words_; ++word) {
-            item_mask[word] |= order_mask[word];
+            item_mask_scratch_[word] |= order_mask[word];
         }
     }
 
@@ -92,20 +99,24 @@ BatchStats BatchEvaluator::compute_stats(int wave_index, const std::vector<int>&
     bool has_items = false;
     // Score exact zoals de opdracht verwacht: START -> unieke locaties in
     // snake-volgorde -> END. Tegelijk vullen we extra statistieken voor analyse.
-    for (const int item : items_by_snake_rank_) {
-        const std::size_t item_index = static_cast<std::size_t>(item);
-        const bool present = (item_mask[item_index / 64U] & (std::uint64_t{1} << (item_index % 64U))) != 0U;
-        if (!present) {
-            continue;
+    for (std::size_t word = 0; word < item_mask_scratch_.size(); ++word) {
+        std::uint64_t present_items = item_mask_scratch_[word];
+        while (present_items != 0U) {
+            const unsigned bit = std::countr_zero(present_items);
+            const std::size_t snake_position = word * 64U + static_cast<std::size_t>(bit);
+            const int item = items_by_snake_rank_[snake_position];
+            const std::size_t item_index = static_cast<std::size_t>(item);
+            if (!has_items) {
+                stats.min_snake_rank = instance_.snake_rank.at(item_index);
+                has_items = true;
+            }
+            stats.max_snake_rank = instance_.snake_rank.at(item_index);
+            ++stats.unique_item_count;
+            stats.cost +=
+                instance_.distances.at(static_cast<std::size_t>(previous)).at(static_cast<std::size_t>(item));
+            previous = item;
+            present_items &= present_items - 1U;
         }
-        if (!has_items) {
-            stats.min_snake_rank = instance_.snake_rank.at(item_index);
-            has_items = true;
-        }
-        stats.max_snake_rank = instance_.snake_rank.at(item_index);
-        ++stats.unique_item_count;
-        stats.cost += instance_.distances.at(static_cast<std::size_t>(previous)).at(static_cast<std::size_t>(item));
-        previous = item;
     }
     if (!has_items) {
         return stats;
@@ -117,7 +128,17 @@ BatchStats BatchEvaluator::compute_stats(int wave_index, const std::vector<int>&
 }
 
 BatchStats BatchEvaluator::batch_stats(int wave_index, const std::vector<int>& order_indices) const {
-    const std::string key = make_key(order_indices);
+    return batch_stats_sorted_unique(wave_index, sort_and_deduplicate(order_indices));
+}
+
+BatchStats BatchEvaluator::batch_stats_sorted_unique(
+    int wave_index,
+    const std::vector<int>& order_indices) const {
+    if (cache_entry_limit_ == 0U) {
+        return compute_stats_sorted_unique(wave_index, order_indices);
+    }
+
+    const std::string_view key = make_key_view(order_indices);
     auto& wave_cache = cache_.at(static_cast<std::size_t>(wave_index));
     const auto found = wave_cache.find(key);
     if (found != wave_cache.end()) {
@@ -126,13 +147,36 @@ BatchStats BatchEvaluator::batch_stats(int wave_index, const std::vector<int>& o
 
     // Local search vraagt vaak herhaaldelijk dezelfde batchkost op.
     // Caching maakt vooral pair/triple rebuilds veel goedkoper.
-    BatchStats stats = compute_stats(wave_index, order_indices);
-    wave_cache.emplace(key, stats);
+    BatchStats stats = compute_stats_sorted_unique(wave_index, order_indices);
+    if (cache_size_ >= cache_entry_limit_) {
+        // clear() alleen behoudt de bucket-arrays van unordered_map en kan dus
+        // na opeenvolgende waves nog veel geheugen vasthouden. Swappen met een
+        // lege map geeft ook die capaciteit daadwerkelijk terug.
+        for (auto& cache_to_clear : cache_) {
+            WaveCache{}.swap(cache_to_clear);
+        }
+        cache_size_ = 0U;
+    }
+
+    auto& target_cache = cache_.at(static_cast<std::size_t>(wave_index));
+    const auto [unused, inserted] = target_cache.emplace(std::string(key), stats);
+    static_cast<void>(unused);
+    if (inserted) {
+        ++cache_size_;
+    }
     return stats;
+}
+
+std::size_t BatchEvaluator::cache_size() const noexcept {
+    return cache_size_;
 }
 
 double BatchEvaluator::batch_cost(int wave_index, const std::vector<int>& order_indices) const {
     return batch_stats(wave_index, order_indices).cost;
+}
+
+double BatchEvaluator::batch_cost_sorted_unique(int wave_index, const std::vector<int>& order_indices) const {
+    return batch_stats_sorted_unique(wave_index, order_indices).cost;
 }
 
 double BatchEvaluator::wave_cost(int wave_index, const std::vector<Batch>& batches) const {
