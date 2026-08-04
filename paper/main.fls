@@ -201,7 +201,6 @@ INPUT .\figures\retrospective_seed.pdf
 INPUT .\appendix.tex
 INPUT .\appendix.tex
 INPUT appendix.tex
-INPUT C:\Users\zepin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmr10.tfm
 INPUT C:\Users\zepin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmr8.tfm
 INPUT C:\Users\zepin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmr6.tfm
 INPUT main.aux
