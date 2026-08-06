@@ -2,7 +2,7 @@
 
 De invoer bestaat uitsluitend uit de canonieke resultatenmappen.  Alle
 onzekerheid voor stochastische methoden is reeds berekend op het niveau van een
-volledige instantie per seed; waves worden dus niet als onafhankelijke
+volledige instantie per seed. Waves worden dus niet als onafhankelijke
 replicaten behandeld.
 """
 
@@ -113,14 +113,14 @@ def sa_ga_figure() -> None:
             zorder=3,
         )
         ax.set_xticks(x, labels, rotation=22, ha="right")
-        ax.set_ylabel("doelfunctie ($10^6$; lager is beter)")
+        ax.set_ylabel("doelfunctie ($10^6$, lager is beter)")
         ax.set_title(title)
         ax.grid(axis="y", alpha=0.25)
         note_y = 0.03 if start == "greedy" else 0.97
         ax.text(
             0.02,
             note_y,
-            "10 seeds/config.; 400 iteraties",
+            "10 seeds/config., 400 iteraties",
             transform=ax.transAxes,
             fontsize=6.7,
             va="bottom" if start == "greedy" else "top",
@@ -159,7 +159,7 @@ def sa_ga_figure() -> None:
     axes[1, 0].axvline(0, color="black", linewidth=0.8, linestyle="--")
     axes[1, 0].set_yticks(y, labels)
     axes[1, 0].invert_yaxis()
-    axes[1, 0].set_xlabel("variant $-$ baseline (afstand; lager is beter)")
+    axes[1, 0].set_xlabel("variant $-$ baseline (afstand, lager is beter)")
     axes[1, 0].set_title("(c) GA: gekoppelde parameter-effecten")
     axes[1, 0].grid(axis="x", alpha=0.25)
 
@@ -486,7 +486,7 @@ def seed_figure() -> None:
     axes[2].text(
         0.02,
         0.02,
-        "○ grootste span; □ kleinste span",
+        "○ grootste span, □ kleinste span",
         transform=axes[2].transAxes,
         fontsize=5.8,
     )
