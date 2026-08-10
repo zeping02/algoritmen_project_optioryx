@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "state": "complete",
+  "created_utc": "2026-08-06T13:13:27.159+00:00",
+  "study_dir": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806",
+  "study_manifest_sha256": "1cb2ce6d8d696cf689ba7d6a39f4abb49cdd089208013a229ab535332c8466e1",
+  "validated_raw_runs": 960,
+  "full_instance_rows": 80,
+  "summary_rows": 8,
+  "aggregation": "For each experiment and solver seed, objective, solver_runtime_ms and wall_process_ms are summed over the twelve complete waves.",
+  "pairing": "Each configuration is paired with greedy on the same solver seed.",
+  "gain_definition": "greedy objective minus candidate objective; positive is better",
+  "percent_gain_definition": "100 * (greedy - candidate) / greedy, computed per seed",
+  "dispersion": "sample standard deviation and linearly interpolated quartiles",
+  "confidence_interval": {
+    "kind": "two-sided Student-t interval for the arithmetic mean",
+    "confidence": 0.95,
+    "degrees_of_freedom": 9,
+    "critical_value": 2.2621571627409915,
+    "sampling_unit": "paired solver seed after aggregation over twelve waves"
+  },
+  "matplotlib_version": "3.10.7",
+  "outputs": {
+    "full_instance_runs.csv": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\full_instance_runs.csv",
+      "sha256": "db82a1afd615729585a1b261b2830d45906291c7c9d12a6b1b2e2945b448dd98"
+    },
+    "paired_gains.csv": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\paired_gains.csv",
+      "sha256": "0de2cf2c97417bfd0afe632efbea7dac1e53145b73ac882c7ae53624946a533b"
+    },
+    "summary.csv": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\summary.csv",
+      "sha256": "cce5f9a44e9c336bd1b6e2df5c098892bd582611526ba671d0d7b4a9ea94e38b"
+    },
+    "time_quality_curve.png": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\time_quality_curve.png",
+      "sha256": "a676544f62320a7fa03c64a700f1c922d510e35282bd0f9e40d5224461b3c9f0"
+    },
+    "time_quality_curve.pdf": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\time_quality_curve.pdf",
+      "sha256": "f5135212b6d7355c26ceda02372564a8ea511ddf324c939caab360884ee25962"
+    }
+  }
+}

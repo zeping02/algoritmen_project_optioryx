@@ -16,6 +16,8 @@ import pandas as pd
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+from matplotlib.ticker import FuncFormatter
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,6 +42,30 @@ def save(fig: plt.Figure, stem: str) -> None:
     plt.close(fig)
 
 
+def decimal_comma(value: float, decimals: int) -> str:
+    """Formatteer een vaste precisie met de Nederlandse decimale komma."""
+
+    return f"{value:.{decimals}f}".replace(".", ",")
+
+
+def apply_decimal_comma(
+    ax: plt.Axes,
+    *,
+    x_axis: bool = False,
+    y_axis: bool = False,
+) -> None:
+    """Gebruik een decimale komma op gewone lineaire assen.
+
+    Logaritmische assen behouden hun gebruikelijke macht-van-tiennotatie.
+    """
+
+    formatter = lambda value, _position: f"{value:g}".replace(".", ",")
+    if x_axis:
+        ax.xaxis.set_major_formatter(FuncFormatter(formatter))
+    if y_axis:
+        ax.yaxis.set_major_formatter(FuncFormatter(formatter))
+
+
 def setup_style() -> None:
     plt.rcParams.update(
         {
@@ -60,7 +86,8 @@ def setup_style() -> None:
 
 def sa_ga_figure() -> None:
     sa = read_csv(
-        "results/sa_factorial/factorial_analysis/sa_config_summary.csv"
+        "results/sa_factorial_capacity_matched_release_20260807/"
+        "factorial_analysis/sa_config_summary.csv"
     )
     ga = read_csv(
         "results/ga_sensitivity_fast/factorial_analysis/ga_sensitivity_summary.csv"
@@ -80,7 +107,7 @@ def sa_ga_figure() -> None:
     for ax, start, title in zip(
         axes[0],
         ["greedy", "randomized"],
-        ["(a) SA met sterke greedy-start", "(b) SA met willekeurige start"],
+        ["(a) SA met sterke greedy-start", "(b) SA met capaciteitsgelijke randomstart"],
     ):
         rows = []
         labels = []
@@ -109,18 +136,23 @@ def sa_ga_figure() -> None:
             marker="*",
             s=42,
             color="#8c2d04",
-            label="beste run",
+            label="beste uitvoering",
             zorder=3,
         )
         ax.set_xticks(x, labels, rotation=22, ha="right")
         ax.set_ylabel("doelfunctie ($10^6$, lager is beter)")
         ax.set_title(title)
         ax.grid(axis="y", alpha=0.25)
+        apply_decimal_comma(ax, y_axis=True)
         note_y = 0.03 if start == "greedy" else 0.97
         ax.text(
             0.02,
             note_y,
-            "10 seeds/config., 400 iteraties",
+            (
+                "10 seeds, 400 iteraties"
+                if start == "greedy"
+                else "10 seeds, 400 iteraties, 517 startroutes"
+            ),
             transform=ax.transAxes,
             fontsize=6.7,
             va="bottom" if start == "greedy" else "top",
@@ -159,9 +191,12 @@ def sa_ga_figure() -> None:
     axes[1, 0].axvline(0, color="black", linewidth=0.8, linestyle="--")
     axes[1, 0].set_yticks(y, labels)
     axes[1, 0].invert_yaxis()
-    axes[1, 0].set_xlabel("variant $-$ baseline (afstand, lager is beter)")
+    axes[1, 0].set_xlabel(
+        "variant $-$ basisconfiguratie (afstand, lager is beter)"
+    )
     axes[1, 0].set_title("(c) GA: gekoppelde parameter-effecten")
     axes[1, 0].grid(axis="x", alpha=0.25)
+    apply_decimal_comma(axes[1, 0], x_axis=True)
 
     baseline_id = (
         "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08"
@@ -186,6 +221,7 @@ def sa_ga_figure() -> None:
     axes[1, 1].set_ylim(0, 1.03)
     axes[1, 1].set_title("(d) GA: populatie wordt snel homogeen")
     axes[1, 1].grid(alpha=0.25)
+    apply_decimal_comma(axes[1, 1], x_axis=True, y_axis=True)
     axes[1, 1].legend(ncol=2, frameon=False, loc="upper right")
 
     save(fig, "retrospective_sa_ga")
@@ -193,20 +229,30 @@ def sa_ga_figure() -> None:
 
 def comparison_figure() -> None:
     scaling = read_csv("results/scaling_controlled_matched/summary.csv")
-    fits = read_csv("results/scaling_controlled_matched/fits.csv")
-    convergence = read_csv(
-        "results/comparison_fast_matched/analysis/convergence_summary.csv"
+    fits = read_csv(
+        "results/retrospective_budget_scaling_inference_20260807/"
+        "scaling_exponents.csv"
     )
-
-    # Behoud dezelfde totale canvasmaat als de vroegere driepanelenfiguur. Zo
-    # krijgen schaalfit en convergentie elk meer horizontale ruimte zonder dat
-    # de ingevoegde figuur in het verslag hoger wordt.
-    fig, axes = plt.subplots(1, 2, figsize=(7.25, 2.35), constrained_layout=True)
-
-    names = {
-        "simulated_annealing": "SA",
-        "genetic": "GA",
-    }
+    budget_runtime = read_csv(
+        "results/retrospective_budget_release_full_20260806/analysis/summary.csv"
+    )[["experiment_label", "solver_runtime_ms_mean"]]
+    budget_inference = read_csv(
+        "results/retrospective_budget_scaling_inference_20260807/"
+        "budget_paired_comparisons.csv"
+    )
+    budget = budget_inference.merge(
+        budget_runtime,
+        on="experiment_label",
+        how="left",
+        validate="one_to_one",
+    )
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(7.25, 2.55),
+        gridspec_kw={"width_ratios": [1.02, 1.18]},
+        constrained_layout=True,
+    )
 
     label_map = {
         "greedy_matched": ("greedy", "greedy"),
@@ -225,7 +271,11 @@ def comparison_figure() -> None:
             color=COLORS[solver],
             linewidth=1.3,
             markersize=3.5,
-            label=f"{label}: b={fit['empirical_exponent_b']:.2f}",
+            label=(
+                f"{label}: $b={decimal_comma(fit['empirical_exponent_b'], 2)}$ "
+                f"[{decimal_comma(fit['slope_t95_low'], 2)}; "
+                f"{decimal_comma(fit['slope_t95_high'], 2)}]"
+            ),
         )
         axes[0].fill_between(
             x,
@@ -237,259 +287,442 @@ def comparison_figure() -> None:
         )
     axes[0].set_xlabel("orders $n$ (geneste subsets)")
     axes[0].set_ylabel("mediane solvertijd (ms)")
-    axes[0].set_title("(a) Empirische schaalfit")
+    axes[0].set_title("(a) Schaalprotocol")
     axes[0].grid(which="both", alpha=0.22)
-    axes[0].legend(frameon=False, loc="upper left")
+    axes[0].legend(
+        frameon=False,
+        loc="upper left",
+        fontsize=6.25,
+        title="Student-t-95%-BI voor $b$",
+        title_fontsize=6.35,
+        handlelength=1.8,
+        handletextpad=0.5,
+    )
+    axes[0].text(
+        0.98,
+        0.04,
+        "lijn = mediaan, band = IQR",
+        transform=axes[0].transAxes,
+        ha="right",
+        va="bottom",
+        fontsize=6.1,
+    )
 
-    for solver in ["genetic", "simulated_annealing"]:
-        part = convergence[convergence["solver"] == solver].sort_values("step")
-        start = float(part.iloc[0]["mean_best_objective"])
-        gain = 100.0 * (start - part["mean_best_objective"]) / start
-        ci = 100.0 * part["ci95_best_objective"] / start
-        axes[1].plot(
-            part["step"],
+    budget_styles = {
+        "SA": ("simulated_annealing", "o"),
+        "GA": ("genetic", "s"),
+    }
+    budget_annotations = {
+        "sa_i120": (12, -9),
+        "sa_i400": (-16, 8),
+        "sa_i2000": (4, 8),
+        "sa_i10000": (5, 0),
+        "ga_g10": (-15, -9),
+        "ga_g20": (-2, 8),
+        "ga_g40": (-12, 8),
+    }
+    short_budget_labels = {
+        "sa_i120": "120 i",
+        "sa_i400": "400 i",
+        "sa_i2000": "2k i",
+        "sa_i10000": "10k i",
+        "ga_g10": "10 g",
+        "ga_g20": "20 g",
+        "ga_g40": "40 g",
+    }
+    all_low = budget["t95_low_gain_pct"].to_numpy(dtype=float)
+    all_high = budget["t95_high_gain_pct"].to_numpy(dtype=float)
+    star_offset = max(0.002, 0.035 * float(np.max(all_high) - np.min(all_low)))
+    for family, (solver, marker) in budget_styles.items():
+        part = budget[budget["family"] == family].sort_values("budget")
+        x = part["solver_runtime_ms_mean"].to_numpy(dtype=float) / 1000.0
+        gain = part["mean_gain_pct"].to_numpy(dtype=float)
+        low = part["t95_low_gain_pct"].to_numpy(dtype=float)
+        high = part["t95_high_gain_pct"].to_numpy(dtype=float)
+        axes[1].errorbar(
+            x,
             gain,
+            yerr=np.vstack((gain - low, high - gain)),
+            marker=marker,
+            markersize=3.8,
+            linewidth=1.15,
+            capsize=2,
             color=COLORS[solver],
-            linewidth=1.4,
-            label=names[solver],
+            label=family,
         )
-        axes[1].fill_between(
-            part["step"],
-            gain - ci,
-            gain + ci,
-            color=COLORS[solver],
-            alpha=0.14,
-            linewidth=0,
-        )
+        holm_significant = (
+            part["holm_reject_at_alpha"].astype(str).str.lower() == "true"
+        ).to_numpy()
+        if np.any(holm_significant):
+            axes[1].scatter(
+                x[holm_significant],
+                high[holm_significant] + star_offset,
+                marker="*",
+                s=27,
+                color="#111111",
+                linewidth=0.3,
+                zorder=4,
+            )
+        for (_, row), x_value, gain_value in zip(part.iterrows(), x, gain):
+            experiment = str(row["experiment_label"])
+            axes[1].annotate(
+                short_budget_labels[experiment],
+                (x_value, gain_value),
+                xytext=budget_annotations[experiment],
+                textcoords="offset points",
+                fontsize=6.25,
+            )
     axes[1].axhline(0, color="black", linewidth=0.7, linestyle="--")
-    axes[1].set_xlabel("iteratie / generatie")
-    axes[1].set_ylabel("verbetering t.o.v. eigen start (%)")
-    axes[1].set_title("(b) Convergentie, 10 seeds")
+    axes[1].set_xlabel("gemiddelde solvertijd (s)")
+    axes[1].set_ylabel("gekoppelde winst t.o.v. greedy (%)")
+    axes[1].set_title("(b) Release-budgetprotocol")
     axes[1].grid(alpha=0.25)
-    axes[1].legend(frameon=False, loc="upper left")
+    axes[1].margins(x=0.10)
+    axes[1].set_ylim(
+        min(-0.008, float(np.min(all_low)) - 2.0 * star_offset),
+        float(np.max(all_high)) + 4.0 * star_offset,
+    )
+    apply_decimal_comma(axes[1], x_axis=True, y_axis=True)
+    budget_handles, budget_labels = axes[1].get_legend_handles_labels()
+    budget_handles.append(
+        Line2D(
+            [],
+            [],
+            marker="*",
+            linestyle="none",
+            color="#111111",
+            markersize=6,
+        )
+    )
+    budget_labels.append(r"Holm: $p_{\mathrm{adj}}<0{,}05$")
+    axes[1].legend(
+        budget_handles,
+        budget_labels,
+        frameon=False,
+        loc="upper right",
+        fontsize=6.25,
+        handletextpad=0.4,
+    )
+    axes[1].text(
+        0.98,
+        0.72,
+        "Student-t-95%-BI, $n=10$",
+        transform=axes[1].transAxes,
+        ha="right",
+        va="bottom",
+        fontsize=6.2,
+    )
 
     save(fig, "retrospective_comparison")
 
 
 def waves_figure() -> None:
-    gains = read_csv(
-        "results/comparison_fast_matched/analysis/relative_gains.csv"
+    wave_gains = read_csv(
+        "results/retrospective_budget_release_full_20260806/analysis/"
+        "release_wave_paired_comparisons.csv"
     )
-    correlations = read_csv(
-        "results/comparison_fast_matched/analysis/correlations.csv"
+    greedy_ablation = read_csv(
+        "results/retrospective_greedy_development_20260807/greedy_ablation.csv"
+    ).sort_values("stage_index")
+
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(7.25, 2.35),
+        gridspec_kw={"width_ratios": [1.32, 1.0]},
+        constrained_layout=True,
     )
 
-    fig, axes = plt.subplots(1, 2, figsize=(7.25, 2.25), constrained_layout=True)
-    for solver, label in [("genetic", "GA"), ("simulated_annealing", "SA")]:
-        part = gains[gains["solver"] == solver].sort_values("wave_id")
-        x = np.arange(1, len(part) + 1)
+    method_styles = {
+        "sa_i10000": ("SA-10.000", "simulated_annealing", "o", -0.10),
+        "ga_g40": ("GA-40", "genetic", "s", 0.10),
+    }
+    for candidate, (label, solver, marker, x_offset) in method_styles.items():
+        part = wave_gains[
+            wave_gains["candidate_label"] == candidate
+        ].sort_values("wave_id")
+        wave_number = (
+            part["wave_id"].str.extract(r"(\d+)$", expand=False).astype(int)
+        ).to_numpy(dtype=float)
+        gain = part["gain_pct_mean"].to_numpy(dtype=float)
+        low = part["gain_pct_ci95_low"].to_numpy(dtype=float)
+        high = part["gain_pct_ci95_high"].to_numpy(dtype=float)
+        x = wave_number + x_offset
         axes[0].errorbar(
             x,
-            100.0 * part["relative_gain_vs_greedy"],
-            yerr=100.0 * part["relative_gain_ci95"].fillna(0.0),
-            marker="o",
-            markersize=3.2,
-            linewidth=1.2,
+            gain,
+            yerr=np.vstack((gain - low, high - gain)),
+            fmt=marker,
+            linestyle="none",
+            markersize=3.5,
             capsize=2,
+            elinewidth=0.9,
             color=COLORS[solver],
             label=label,
         )
+
+        holm_significant = (
+            part["holm_reject_0_05"].astype(str).str.lower() == "true"
+        ).to_numpy()
+        if np.any(holm_significant):
+            interval_span = float(np.max(high) - np.min(low))
+            star_offset = max(0.025, 0.025 * interval_span)
+            axes[0].scatter(
+                x[holm_significant],
+                high[holm_significant] + star_offset,
+                marker="*",
+                s=31,
+                color="#111111",
+                linewidth=0.3,
+                zorder=4,
+            )
+
     axes[0].axhline(0, color="black", linewidth=0.7, linestyle="--")
     axes[0].set_xticks(np.arange(1, 13))
     axes[0].set_xlabel("wave")
-    axes[0].set_ylabel("verbetering t.o.v. greedy (%)")
-    axes[0].set_title("(a) Verschillen tussen twaalf waves")
-    axes[0].grid(alpha=0.25)
-    axes[0].legend(frameon=False)
-
-    ga = gains[gains["solver"] == "genetic"].copy()
-    x = ga["span_dispersion"].to_numpy(dtype=float)
-    y = 100.0 * ga["relative_gain_vs_greedy"].to_numpy(dtype=float)
-    colors = ga["overlap_density"].to_numpy(dtype=float)
-    scatter = axes[1].scatter(
-        x,
-        y,
-        c=colors,
-        cmap="viridis_r",
-        s=34,
-        edgecolor="white",
-        linewidth=0.5,
-    )
-    if len(x) >= 2:
-        slope, intercept = np.polyfit(x, y, 1)
-        xx = np.linspace(float(np.min(x)), float(np.max(x)), 100)
-        axes[1].plot(xx, slope * xx + intercept, color="#555555", linewidth=1.0)
-    # Bij de gematchte start vallen veel GA-winsten exact samen op nul. Vaste
-    # verticale offsets houden de wave-ID's in die dichte cluster leesbaar.
-    label_offsets = {
-        "01": (0, 4),
-        "02": (3, -28),
-        "03": (3, 12),
-        "04": (0, 14),
-        "05": (-3, -28),
-        "06": (2, 14),
-        "07": (2, -15),
-        "08": (-5, 4),
-        "09": (3, 4),
-        "10": (3, 4),
-        "11": (-10, -15),
-        "12": (3, 4),
-    }
-    for _, row in ga.iterrows():
-        wave_key = str(row["wave_id"])[-2:]
-        wave_label = str(int(wave_key))
-        axes[1].annotate(
-            wave_label,
-            (row["span_dispersion"], 100.0 * row["relative_gain_vs_greedy"]),
-            xytext=label_offsets[wave_key],
-            textcoords="offset points",
-            fontsize=5.8,
+    axes[0].set_ylabel("gekoppelde winst t.o.v. greedy (%)")
+    axes[0].set_title("(a) Release-winst per wave")
+    axes[0].grid(axis="y", alpha=0.25)
+    apply_decimal_comma(axes[0], x_axis=True, y_axis=True)
+    method_handles, method_labels = axes[0].get_legend_handles_labels()
+    method_handles.append(
+        Line2D(
+            [],
+            [],
+            marker="*",
+            linestyle="none",
+            color="#111111",
+            markersize=6,
         )
-    corr = correlations[correlations["solver"] == "genetic"].iloc[0]
-    axes[1].set_xlabel("spreiding van snake-spans")
-    axes[1].set_ylabel("GA-winst t.o.v. greedy (%)")
-    axes[1].set_ylim(bottom=-0.020)
-    axes[1].set_title(
-        f"(b) Eigen analyse: $r_{{span}}$={corr['corr_span_gain']:.2f}, "
-        f"$r_{{overlap}}$={corr['corr_overlap_gain']:.2f}"
     )
-    axes[1].grid(alpha=0.25)
-    cbar = fig.colorbar(scatter, ax=axes[1], pad=0.02)
-    cbar.set_label("overlapdichtheid")
+    method_labels.append(r"Holm: $p_{\mathrm{adj}}<0{,}05$")
+    axes[0].legend(
+        method_handles,
+        method_labels,
+        frameon=False,
+        loc="upper left",
+        ncol=3,
+        columnspacing=0.8,
+        handletextpad=0.3,
+    )
+    axes[0].text(
+        0.99,
+        0.03,
+        "gemiddelde en Student-t-95%-BI, $n=10$",
+        transform=axes[0].transAxes,
+        ha="right",
+        va="bottom",
+        fontsize=5.9,
+    )
+
+    stage_labels = {
+        "savings": "basis",
+        "local_search": "lokaal",
+        "elimination_post_ls": "elimin. +\npost-LS",
+        "pair_final_ls": "paar +\nfinal-LS",
+        "triple_rebuild": "triple-\nherbouw",
+        "triple_cycle_bundle": "triplecyclus\n+ venster",
+        "tail_pair_rebuild": "slot-\npaar",
+    }
+    x = np.arange(len(greedy_ablation))
+    labels = [stage_labels[str(value)] for value in greedy_ablation["mechanism"]]
+    cumulative = greedy_ablation["cumulative_gain_pct_baseline"].to_numpy(dtype=float)
+    baseline_objective = float(greedy_ablation.iloc[0]["objective"])
+    marginal = (
+        100.0
+        * greedy_ablation["marginal_gain_abs"].to_numpy(dtype=float)
+        / baseline_objective
+    )
+    bars = axes[1].bar(
+        x,
+        marginal,
+        width=0.62,
+        color="#9ecae1",
+        edgecolor="#4c78a8",
+        linewidth=0.5,
+        label="marginale bijdrage",
+        zorder=2,
+    )
+    line = axes[1].plot(
+        x,
+        cumulative,
+        "o-",
+        color=COLORS["greedy"],
+        linewidth=1.4,
+        markersize=3.8,
+        label="cumulatieve winst",
+        zorder=3,
+    )[0]
+    axes[1].set_xticks(x, labels)
+    axes[1].set_ylabel("afstandsreductie t.o.v. basis (%)")
+    axes[1].set_title("(b) Greedy-tuning per fase")
+    axes[1].grid(axis="y", alpha=0.25, zorder=0)
+    apply_decimal_comma(axes[1], y_axis=True)
+    axes[1].legend(
+        [line, bars],
+        ["cumulatief", "marginaal"],
+        frameon=False,
+        loc="upper left",
+    )
+    axes[1].set_ylim(0, max(cumulative) * 1.18)
+    axes[1].annotate(
+        f"{decimal_comma(greedy_ablation.iloc[1]['share_of_final_gain_pct'], 0)}% "
+        "van eindwinst",
+        (x[1], marginal[1]),
+        xytext=(0, 10),
+        textcoords="offset points",
+        ha="center",
+        fontsize=5.8,
+    )
+    axes[1].annotate(
+        f"{int(greedy_ablation.iloc[2]['routes'])} routes",
+        (x[2], cumulative[2]),
+        xytext=(0, -14),
+        textcoords="offset points",
+        ha="center",
+        fontsize=5.8,
+    )
+    axes[1].annotate(
+        f"{decimal_comma(cumulative[-1], 2)}% totaal",
+        (x[-1], cumulative[-1]),
+        xytext=(-3, 7),
+        textcoords="offset points",
+        ha="right",
+        fontsize=5.8,
+    )
 
     save(fig, "retrospective_waves")
 
 
 def seed_figure() -> None:
-    paper = read_csv(
-        "results/seed_factorial/factorial_analysis/seed_paper_2x2.csv"
-    )
-    custom = read_csv(
-        "results/seed_factorial/factorial_analysis/seed_custom_ablation.csv"
-    )
-    summary = read_csv("results/seed_factorial/analysis/summary.csv")
-    matched = read_csv(
-        "results/comparison_fast_matched/analysis/summary.csv"
-    )
+    analysis_dir = "results/retrospective_seed_k_timing_release_20260807/analysis"
+    summary = read_csv(f"{analysis_dir}/summary.csv")
+    k_sensitivity = read_csv(f"{analysis_dir}/k_sensitivity.csv")
 
     fig, axes = plt.subplots(
         1,
         3,
         figsize=(7.25, 2.35),
-        gridspec_kw={"width_ratios": [1.05, 0.75, 1.2]},
+        gridspec_kw={"width_ratios": [1.10, 1.0, 1.0]},
         constrained_layout=True,
     )
 
-    seeds = ["largest_snake_span", "smallest_snake_span"]
-    selections = ["maximum_location_overlap", "minimum_span_expansion"]
+    seed_styles = {
+        "largest": ("grootste span", COLORS["seed_selection"], "o"),
+        "smallest": ("kleinste span", "#8c6d31", "s"),
+    }
+    seed_order = list(seed_styles)
+    selection_order = ["overlap", "span"]
+    selection_labels = ["max. locatie-\noverlap", "min. span-\nuitbreiding"]
+
+    def unique_row(
+        frame: pd.DataFrame,
+        *,
+        seed: str,
+        selection: str,
+    ) -> pd.Series:
+        selected = frame[
+            (frame["seed_rule"] == seed)
+            & (frame["selection_rule"] == selection)
+        ]
+        if len(selected) != 1:
+            raise ValueError(
+                "verwacht precies een resultaat voor "
+                f"seed={seed!r}, selectie={selection!r}; gevonden: {len(selected)}"
+            )
+        return selected.iloc[0]
+
     matrix = np.empty((2, 2))
-    for i, seed in enumerate(seeds):
-        for j, selection in enumerate(selections):
-            matrix[i, j] = paper[
-                (paper["seed_rule"] == seed)
-                & (paper["selection_rule"] == selection)
-            ].iloc[0]["objective_mean"] / 1e6
+    for i, seed in enumerate(seed_order):
+        for j, selection in enumerate(selection_order):
+            matrix[i, j] = (
+                float(unique_row(summary, seed=seed, selection=selection)["objective"])
+                / 1e6
+            )
     im = axes[0].imshow(matrix, cmap="viridis_r", aspect="auto")
+    value_range = float(np.ptp(matrix))
     for i in range(2):
         for j in range(2):
+            normalized = (
+                (matrix[i, j] - float(np.min(matrix))) / value_range
+                if value_range > 0
+                else 0.5
+            )
             axes[0].text(
                 j,
                 i,
-                f"{matrix[i, j]:.3f}",
+                decimal_comma(matrix[i, j], 3),
                 ha="center",
                 va="center",
-                color="white" if matrix[i, j] > 7.2 else "black",
-                fontsize=8,
+                color="white" if normalized > 0.58 else "black",
+                fontsize=7.5,
             )
-    axes[0].set_xticks([0, 1], ["max. overlap", "min. span-\nuitbreiding"])
-    axes[0].set_yticks([0, 1], ["grootste span", "kleinste span"])
-    axes[0].set_title("(a) Paperregels ($10^6$)")
-    fig.colorbar(im, ax=axes[0], pad=0.02, shrink=0.86)
-
-    custom_order = ["largest_snake_span", "smallest_snake_span"]
-    rows = [custom[custom["seed_rule"] == seed].iloc[0] for seed in custom_order]
-    frame = pd.DataFrame(rows)
-    improvement = -frame["objective_delta_percent_mean"].to_numpy(dtype=float)
-    runtime_ratio = (
-        frame["custom_runtime_ms_mean"].to_numpy(dtype=float)
-        / frame["immediate_runtime_ms_mean"].to_numpy(dtype=float)
-    )
-    bars = axes[1].bar(
+    axes[0].set_xticks([0, 1], selection_labels)
+    axes[0].set_yticks(
         [0, 1],
-        improvement,
-        color=["#8c6d31", "#e7ba52"],
-        width=0.62,
+        [seed_styles[seed][0] for seed in seed_order],
     )
-    axes[1].set_xticks([0, 1], ["grootste\nspan", "kleinste\nspan"])
-    axes[1].set_ylabel("winst door lookahead (%)")
-    axes[1].set_title("(b) Ablatie eigen regel")
-    axes[1].grid(axis="y", alpha=0.25)
-    for bar, ratio in zip(bars, runtime_ratio):
-        axes[1].text(
-            bar.get_x() + bar.get_width() / 2,
-            bar.get_height() + 0.03,
-            rf"tijd $\times${ratio:.1f}",
-            ha="center",
-            va="bottom",
-            fontsize=6.5,
-        )
+    axes[0].set_xlabel("selectieregel")
+    axes[0].set_ylabel("startregel")
+    axes[0].set_title(r"(a) Oorspronkelijke $2\times2$-regels")
+    cbar = fig.colorbar(im, ax=axes[0], pad=0.02, shrink=0.82)
+    cbar.set_label(r"doelfunctie ($10^6$)", fontsize=7)
+    apply_decimal_comma(cbar.ax, y_axis=True)
 
-    def selection_label(config_id: str) -> str:
-        if "maximum_location_overlap" in config_id:
-            return "max. overlap"
-        if "minimum_span_expansion" in config_id:
-            return "min. spanuitbreiding"
-        if "minimum_incremental_cost" in config_id:
-            return "directe kost"
-        return "tweestaps-lookahead"
+    expected_k = [2, 4, 8, 16]
+    for seed in seed_order:
+        label, color, marker = seed_styles[seed]
+        part = k_sensitivity[k_sensitivity["seed_rule"] == seed].copy()
+        part["lookahead_width"] = pd.to_numeric(part["lookahead_width"])
+        part = part.sort_values("lookahead_width")
+        observed_k = part["lookahead_width"].astype(int).tolist()
+        if observed_k != expected_k:
+            raise ValueError(
+                f"onvolledige K-reeks voor seed={seed!r}: {observed_k}"
+            )
 
-    marker_by_seed = {
-        "largest_snake_span": "o",
-        "smallest_snake_span": "s",
-    }
-    color_by_rule = {
-        "max. overlap": "#9467bd",
-        "min. spanuitbreiding": "#17becf",
-        "directe kost": "#7f7f7f",
-        "tweestaps-lookahead": "#d62728",
-    }
-    used = set()
-    for _, row in summary.iterrows():
-        config_id = str(row["config_id"])
-        seed = "smallest_snake_span" if "smallest_snake_span" in config_id else "largest_snake_span"
-        rule = selection_label(config_id)
-        label = rule if rule not in used else None
-        used.add(rule)
-        axes[2].scatter(
-            row["mean_runtime_ms"] / 1000.0,
-            row["mean_objective"] / 1e6,
-            marker=marker_by_seed[seed],
-            color=color_by_rule[rule],
-            s=30,
+        axes[1].plot(
+            part["lookahead_width"],
+            part["gain_vs_immediate_pct"],
+            color=color,
+            marker=marker,
+            linewidth=1.3,
+            markersize=4,
             label=label,
         )
-    greedy_matched = matched[matched["solver"] == "greedy"].iloc[0]
-    axes[2].scatter(
-        greedy_matched["mean_runtime_ms"] / 1000.0,
-        greedy_matched["mean_objective"] / 1e6,
-        marker="*",
-        color=COLORS["greedy"],
-        s=55,
-        label="greedy (gematcht)",
-        zorder=4,
-    )
-    axes[2].set_xlabel("uitvoeringstijd (s)")
-    axes[2].set_ylabel("doelfunctie ($10^6$)")
-    axes[2].set_title("(c) Kwaliteit--tijd")
+
+        median_seconds = part["solver_runtime_ms_median"].to_numpy(dtype=float) / 1000.0
+        q1_seconds = part["solver_runtime_ms_q1"].to_numpy(dtype=float) / 1000.0
+        q3_seconds = part["solver_runtime_ms_q3"].to_numpy(dtype=float) / 1000.0
+        axes[2].errorbar(
+            part["lookahead_width"],
+            median_seconds,
+            yerr=np.vstack(
+                (median_seconds - q1_seconds, q3_seconds - median_seconds)
+            ),
+            color=color,
+            marker=marker,
+            linewidth=1.2,
+            markersize=4,
+            capsize=2.5,
+            label=label,
+        )
+
+    axes[1].axhline(0, color="black", linewidth=0.7, linestyle="--")
+    axes[1].set_xlabel(r"voorselectiebreedte $K$")
+    axes[1].set_ylabel("winst t.o.v. directe kost (%)")
+    axes[1].set_title("(b) Kwaliteitswinst vooruitblik")
+    axes[1].grid(alpha=0.25)
+    axes[1].legend(frameon=False, loc="best", fontsize=6.2)
+
+    axes[2].set_xlabel(r"voorselectiebreedte $K$")
+    axes[2].set_ylabel("interne tijd, mediaan [IQR] (s)")
+    axes[2].set_title("(c) Tijdskost vooruitblik")
     axes[2].grid(alpha=0.25)
-    axes[2].legend(frameon=False, fontsize=5.8, loc="upper right")
-    axes[2].text(
-        0.02,
-        0.02,
-        "○ grootste span, □ kleinste span",
-        transform=axes[2].transAxes,
-        fontsize=5.8,
-    )
+
+    for ax in axes[1:]:
+        ax.set_xticks(expected_k)
+        apply_decimal_comma(ax, x_axis=True, y_axis=True)
 
     save(fig, "retrospective_seed")
 

@@ -86,29 +86,21 @@ double evaluate_batch_list(
 }
 
 BatchList build_randomized_start(const ProblemInstance& instance, int wave_index, std::mt19937_64& rng) {
-    // Randomized start verdeelt orders willekeurig over batches met capaciteit.
-    // Dit werd gebruikt om te vergelijken met een sterke greedy warm-start.
+    // Randomiseer alleen de samenstelling van de batches. Het aantal batches
+    // blijft de capaciteitsondergrens ceil(|wave| / nmax), zodat deze start niet
+    // door extra, ondervulde routes wordt benadeeld ten opzichte van greedy.
     std::vector<int> shuffled_orders = instance.waves.at(static_cast<std::size_t>(wave_index)).order_indices;
     std::shuffle(shuffled_orders.begin(), shuffled_orders.end(), rng);
 
     BatchList batch_list;
-    for (const int order_index : shuffled_orders) {
-        std::vector<std::size_t> eligible_batches;
-        for (std::size_t batch_index = 0; batch_index < batch_list.size(); ++batch_index) {
-            if (batch_list[batch_index].size() < instance.nmax) {
-                eligible_batches.push_back(batch_index);
-            }
-        }
-
-        std::uniform_real_distribution<double> chance(0.0, 1.0);
-        const bool create_new_batch = eligible_batches.empty() || chance(rng) < 0.45;
-        if (create_new_batch) {
-            batch_list.push_back({order_index});
-            continue;
-        }
-
-        std::uniform_int_distribution<std::size_t> pick_batch(0, eligible_batches.size() - 1U);
-        batch_list[eligible_batches[pick_batch(rng)]].push_back(order_index);
+    const std::size_t batch_count =
+        (shuffled_orders.size() + instance.nmax - 1U) / instance.nmax;
+    batch_list.reserve(batch_count);
+    for (std::size_t begin = 0U; begin < shuffled_orders.size(); begin += instance.nmax) {
+        const std::size_t end = std::min(begin + instance.nmax, shuffled_orders.size());
+        batch_list.emplace_back(
+            shuffled_orders.begin() + static_cast<std::ptrdiff_t>(begin),
+            shuffled_orders.begin() + static_cast<std::ptrdiff_t>(end));
     }
 
     return batch_list;

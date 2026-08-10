@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "state": "complete",
+  "created_utc": "2026-08-07T12:33:39.122+00:00",
+  "analysis_scope": "per-wave greedy, SA-10000 and GA-40 Release performance",
+  "solver_execution": "none; existing runs.csv files only",
+  "script": {
+    "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\analyze_wave_performance.py",
+    "sha256": "a0676e12c4198cf6b8d065d7b5beb377fcdcbd04d3a5bc1762b7396703d3f95a"
+  },
+  "software": {
+    "python": "3.12.7",
+    "pandas": "2.3.3",
+    "numpy": "2.3.4",
+    "scipy": "1.16.2"
+  },
+  "inputs": {
+    "study_dir": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806",
+    "wave_run_files": [
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000001\\runs.csv",
+        "sha256": "b031ebdb1dd9a603cf3b43cebd2ff45d8cbbd6bd125c1fd2c573d1a959a40043"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000002\\runs.csv",
+        "sha256": "0fe2269eda6d1aa7cb542e6d667f96f98816698fed4a8497e7ef4c5789921bd6"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000003\\runs.csv",
+        "sha256": "ec7099684f82d8101d7cc1a47e9d6f2775d12f37aa2ccc2521e36e8b3ae56fa7"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000004\\runs.csv",
+        "sha256": "0db9c035d3bcb883e81233fd38c386933eec37741e7d0d45a09cd98e2253e656"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005\\runs.csv",
+        "sha256": "b704d0a9f6e5bac32c8d416dd4163b59f46e437c1d4f730b53729adb91d439d1"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000006\\runs.csv",
+        "sha256": "3dcb4870c0dc4093e977dd75df8ded410b6f55ebd354116531266bd4d839c854"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000007\\runs.csv",
+        "sha256": "f20122b25004063e9ec854fde7bd30cbbdcbaaf7b3db2cbe6bae05b1371ec317"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000008\\runs.csv",
+        "sha256": "d662536239279b00396115b5554d413d34038a8eef24c5d1d11e58d075e99c97"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000009\\runs.csv",
+        "sha256": "d9de06d3ed923898e28d5e2ee53b2474e4e2868d4f82e4f9bcedeb2111147e18"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000010\\runs.csv",
+        "sha256": "8406c37f04f4f7b500a39a8cf476c19f799a0c711dde518f43b3b0aaa562dea4"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000011\\runs.csv",
+        "sha256": "4e9c9679ed93f85449e0a1f3e422c558c7ce66731a57688e7304d564e775019c"
+      },
+      {
+        "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000012\\runs.csv",
+        "sha256": "63f5b77729a51fa1805a72fca140a37545052d21b2f10d6a7d02c8293640f6c7"
+      }
+    ],
+    "feature_source": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\comparison_fast_matched\\runs.csv",
+      "sha256": "ac53dc41ca4acc1307fc49137d3cdaa43a3267c80b8ca4e06dd579c5bd6e7fc2",
+      "use": "deterministic overlap_density and span_dispersion values only; order counts are cross-validated against the Release runs"
+    }
+  },
+  "validation": {
+    "selected_run_count": 360,
+    "wave_count": 12,
+    "method_count": 3,
+    "seeds_per_wave_method": 10,
+    "expected_seed_labels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "all_successful": true,
+    "all_feasible": true,
+    "all_not_timed_out": true
+  },
+  "quality_statistics": {
+    "pairing": "same wave_id and solver_seed",
+    "absolute_gain": "D_greedy - D_candidate; positive is better",
+    "percentage_gain": "100 * (D_greedy - D_candidate) / D_greedy, per paired seed",
+    "mean": "arithmetic mean over the ten paired solver seeds within a wave",
+    "dispersion": "sample standard deviation over paired solver seeds (ddof=1)",
+    "confidence_interval": "two-sided Student-t 95% CI: mean +/- t_(0.975,n-1) * sample_sd / sqrt(n)",
+    "hypothesis_test": "two-sided one-sample Student-t test of paired absolute gains against mean zero",
+    "holm": "Holm step-down adjusted p-values, separately for each candidate's family of twelve wave tests",
+    "familywise_alpha": 0.05
+  },
+  "feature_statistics": {
+    "response": "per-wave arithmetic mean of paired percentage gains",
+    "features": [
+      "order_count",
+      "overlap_density",
+      "span_dispersion"
+    ],
+    "overlap_density_definition": "mean pairwise Jaccard similarity of unique pick-location sets across orders",
+    "span_dispersion_definition": "population SD across orders of each order's width between extreme snake ranks",
+    "association": "Spearman rank correlation over twelve waves, two-sided p-value",
+    "holm": "Holm step-down adjusted p-values, separately for each candidate's family of three pre-specified features",
+    "sensitivity": "leave-one-wave-out Spearman rho; descriptive stability check, not a CI",
+    "caveat": "n=12 waves, tied/zero gains and observational features; associations are exploratory and do not establish causality"
+  },
+  "outputs": {
+    "method_summary": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\release_wave_method_summary.csv",
+      "sha256": "fa55a601130ac21f8ce8b00aa858954e315a9bbe149342a8de80ee9e52233a9a"
+    },
+    "paired_seed_differences": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\release_wave_paired_seed_differences.csv",
+      "sha256": "71a8273b82c5140a1c46f5b7ecb8bdf7c22037bbe133056af10d6594aaa26a60"
+    },
+    "paired_comparisons": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\release_wave_paired_comparisons.csv",
+      "sha256": "0b0cea12a4f547fdec46ffc1908cc5cd26318833ed620d07f85d964d5477eb97"
+    },
+    "features_and_gains": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\release_wave_features_and_mean_gains.csv",
+      "sha256": "8007774098e64941cd8516594b55c20ef46214f8c202de21276ea4155d185b30"
+    },
+    "feature_associations": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\release_wave_feature_associations.csv",
+      "sha256": "dbf538d0b78128c53b0847c234affb0c3249742e33eac9d991ff8b946c2dd2a5"
+    },
+    "feature_leave_one_out": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\release_wave_feature_leave_one_out.csv",
+      "sha256": "5cbf1f7edc286fd2d7e877c8d2675e21c80db9d0635cd062e9948a7c1cca8c73"
+    },
+    "report": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\release_wave_analysis_report.md",
+      "sha256": "c34769149f647be5ffc2964a06ed7dfe8e37fe3a81044c25e55dba966e46b019"
+    }
+  }
+}

@@ -1,0 +1,340 @@
+{
+  "analysis": "retrospective_ga_ofat_paired_inference",
+  "artifacts": [
+    "ga_ofat_paired_seed_differences.csv",
+    "ga_ofat_contrasts.csv",
+    "ga_ofat_diversity_summary.csv",
+    "ga_ofat_fixed_conditions.csv",
+    "ga_ofat_report.md",
+    "analysis_protocol.json"
+  ],
+  "baseline_config_id": "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08",
+  "confidence_interval": "two-sided 95% Student-t interval for paired mean, df=9",
+  "contrast_sign": "variant_minus_baseline; negative objective delta is better",
+  "created_utc": "2026-08-07T13:02:10.713442+00:00",
+  "design": {
+    "configurations": 9,
+    "manifest_parameters": {
+      "ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08": {
+        "config_id": "ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08",
+        "elitism_fraction": "0.08",
+        "generations": "10",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.2",
+        "population_size": "12",
+        "tournament_size": "3"
+      },
+      "ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08": {
+        "config_id": "ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08",
+        "elitism_fraction": "0.08",
+        "generations": "20",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.05",
+        "population_size": "12",
+        "tournament_size": "3"
+      },
+      "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0": {
+        "config_id": "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0",
+        "elitism_fraction": "0",
+        "generations": "20",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.2",
+        "population_size": "12",
+        "tournament_size": "3"
+      },
+      "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08": {
+        "config_id": "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08",
+        "elitism_fraction": "0.08",
+        "generations": "20",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.2",
+        "population_size": "12",
+        "tournament_size": "3"
+      },
+      "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20": {
+        "config_id": "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20",
+        "elitism_fraction": "0.2",
+        "generations": "20",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.2",
+        "population_size": "12",
+        "tournament_size": "3"
+      },
+      "ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08": {
+        "config_id": "ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08",
+        "elitism_fraction": "0.08",
+        "generations": "20",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.4",
+        "population_size": "12",
+        "tournament_size": "3"
+      },
+      "ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08": {
+        "config_id": "ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08",
+        "elitism_fraction": "0.08",
+        "generations": "40",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.2",
+        "population_size": "12",
+        "tournament_size": "3"
+      },
+      "ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08": {
+        "config_id": "ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08",
+        "elitism_fraction": "0.08",
+        "generations": "20",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.2",
+        "population_size": "24",
+        "tournament_size": "3"
+      },
+      "ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08": {
+        "config_id": "ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08",
+        "elitism_fraction": "0.08",
+        "generations": "20",
+        "insertion_rate": "0.5",
+        "mutation_rate": "0.2",
+        "population_size": "6",
+        "tournament_size": "3"
+      }
+    },
+    "variants": 8,
+    "variants_per_factor": 2
+  },
+  "input_directory": "results/ga_sensitivity_fast",
+  "limitations": [
+    "OFAT estimates are conditional and do not identify factor interactions.",
+    "At elitism fraction 0.08, changing population size also changes the rounded elite count (0, 1, or 2), so that derived mechanism is part of the population contrast.",
+    "The archived suite was not randomized across configurations, so runtime contrasts may include order and system-load effects.",
+    "Seed labels are paired, but changing a hyperparameter changes subsequent random-number consumption.",
+    "The ten-seed Student-t analysis assumes the paired differences are adequate replicates for the reported mean contrasts."
+  ],
+  "multiplicity": {
+    "alpha": 0.05,
+    "families": {
+      "final_diversity": 8,
+      "internal_solver_runtime_ms": 8,
+      "objective": 8
+    },
+    "method": "Holm step-down family-wise error correction"
+  },
+  "output_directory": "results/retrospective_ga_ofat_inference_final_20260807",
+  "paired_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "pairing_key": "seed",
+  "sha256": {
+    "archived_solution_files": {
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed0.json": "72541d167d6cffdf2d60a2e1ecf28680cbf58b2a799709dc893a5b96026d4d72",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed1.json": "741e48afc1eaa95661d3226f92e887db588f1924e0c5c05bf44ab1fd54548c1f",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed2.json": "53784dddd2795690c19d5c8818ae4639f3495d60c0e66f8a57df662b9af0b5c1",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed3.json": "c00818dbe3edcdd8966458e12c289b8769f4ce0b405dcc60f571698a5fa910ba",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed4.json": "faf9bb3065875beea0a855a7c92ca9c1396a8ebd97d23cc6a0315a1d89844075",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed5.json": "910661c16683776ea5be5d8cd0706a889d7d7f491a8427c3fd4b20f6518173ac",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed6.json": "00e449e49d316f510ff4e734f904db240ace30dda15a1167b53dd88519fe7ac9",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed7.json": "8589fad15baeb9961a7fa4314413c24db81def6778802f114e00272fed6bc141",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed8.json": "a0a91bedef40e01c4724852a496f6eaee829d11276a78278fdb90d9a187329cc",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08_seed9.json": "228d448ad2fbef52706e74f16b3553b8f1b41a00d81ea3aa8da1e730a867d38d",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed0.json": "3e014f67e599fe299fea949525274f84a2309d7602d55dd2c5e4f8dfc665d0b8",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed1.json": "47fa8c5609af0defa48a2b7ab67a71b1b6bd5507481ea65bbdb987c1146315d9",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed2.json": "c6cada6a75078ad7c64b807ccdfc7bc84f9b72051885e30d6a077daf849e534b",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed3.json": "b1794876b33706e587749f00946132cb97c8ae6c27df3c838813a0512dd6f5bf",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed4.json": "b7225b720705a34dde25be043997840a186099bf0d917a163d51b79c1f2469d6",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed5.json": "0bc2ced9b54599da368e9403a6aa6e26fd294606652e69c2887866c22c2e772b",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed6.json": "36fef1f67605d7fef3a2d34a2aefd2b173c7ed0bc3ab80d045997652d06e164c",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed7.json": "57b3d3678f2a72824ab77ede83eb9a1db5d1bda82b2c368feffd9d9d2d0aa392",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed8.json": "f891028ff086c4b169cc612742f7dfe5e438c8c6946a13b30cc99b84aebfa34c",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08_seed9.json": "cf6561db726b406894906230fba0a078f425c211abc7d3d1cf2338a2c3f8f09e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed0.json": "442d9b496ef36fdc1ba1342b92fd1970c72756c57c8027a8af4ecdf0a7087d97",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed1.json": "f24d93166ab0cb8c8830a4c04f967200a34eff4d350133fcfe4ab2bfedd1591a",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed2.json": "bf7f0fcf889fa5d6cccd808b5f0c4f12e43a9a0d9ed7d7600cd54b0e8e78cdfb",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed3.json": "82558bd442e31513808055dd57e34cb253277227170f251ec4a9c4b8aacc3f53",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed4.json": "91be082eb8fba6e9733bcf977ecb4b28e3d187e784e89c61f8e4720940ffb43d",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed5.json": "5a19527910042e07959d7d3ddf626b64773d65856b0798aea7043012d6baf54f",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed6.json": "3672507b268a54e9d598f5dc2e39476d161961262eca3bc02c2db4e0f903b342",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed7.json": "f8997ca9244e6956416cef929b5e1f9f0fc03413a5730e251ffbd9bf58a6a301",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed8.json": "03fbf1a3eb8f75cdb6fc59adda20f00102f99faa9bb7a0e1e922807d25501684",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0_seed9.json": "5fb6b145022e78307136b4280c25d33ccb50ead6486d73c6111a3bcec7fd7153",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed0.json": "afd53ee18cc1bdeb9bacfbe2fef060573cef11382b5e755cb3febfac7c9cec13",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed1.json": "86564f270a9f0f6d8bf1d42f347b06f766799101bdb6e3e56e41eb39996f5bb7",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed2.json": "5b24c803dfeca58bd77955bc888c84e4beb8d1eb1c1d5e186193e35aa6e8dbd6",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed3.json": "9c2b8ae2398b814fbbf058f11e4b70b9ce25ae936d9f49857e75017574f44764",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed4.json": "bdf5e568d851c903529c233ca34168c88dbb3d19cb10c84c408ba9a26b609631",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed5.json": "45e37462413e70f557ee79654bd19c2c2781c3c5a5cfaf5817c96bcde0808718",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed6.json": "9a2c5473ab48d57777e9e51d399694d5e8ab13a5d1440f40a69f45a384663a92",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed7.json": "624966d1378cbd001cf890361de215d29002182889f649876ff0185fb5c0b4a9",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed8.json": "9841489d1c454d8e56bef83a61c6c043ea6a561d0c5065e2d0fb96fe6f601133",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed9.json": "5161ae0812d0dacece1a9e1812fe9c0d6adfa0468f8767dcdc90f4fc6e0e877b",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed0.json": "4c961bb0ccd3db0dee78930167eefbb705afc0b707bad5abb40ec269fcb975c9",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed1.json": "3d83166169845aa515b9c5fd5e7d9d3e33cb0683da7f486c15343707bb23a747",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed2.json": "472278077381df75593acf6f124701536509fbfcf1054cf08b6edaa63d9d64bd",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed3.json": "538d6b05bf859eaca352541f8df619abc72ecc8c17ec67a38b9fed0d4dc562fa",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed4.json": "b08c4a04e3880fd35b29ea714f2b35a1ee1e55ea44651fe370ebfd8abccd594d",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed5.json": "3fa2044c2d158681c2c31ba62e45a575ba72db4d16bac78beb6f2b9bacb0ae44",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed6.json": "927181d4b4567bf886c0aa63cb733bd4bcddcd8a9a149013c70cdd64055ec875",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed7.json": "6311f3d5afa85b3967d6140196c4f20e20c7424fbabda34f97ff4c9f1880abda",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed8.json": "590e2371f270d68fa1fbd6f39c75c3c8c5a12a3feae3733fd229c8928e0c911e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20_seed9.json": "6c952367307b63ee0c63abef4831eeb012a43c4af5f85b727b66b6da16626ad3",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed0.json": "3a77e45facb0c22e688924d0f90dcc32d670d0d943bacf06a8401df772424658",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed1.json": "d2027f85effbdf46424e532a17ef671acc5eae8d49caed08d5dfb08ad572182e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed2.json": "820cdb3cc48dd09e153591193461206da71411c35998caeb833946e66e994f7e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed3.json": "f65d2dc1f3ca7cc54c0482deb9d6d506d216a3983aae33250cd113872d312069",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed4.json": "9bbb1fd24a7c502962262a6a56af999129acdfdc4d101d7082cba935818dd63f",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed5.json": "92f30f9a191233a8d1a224a5ce9a5d3ea1fe8b286aa12e619f6d003989e2b9ff",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed6.json": "a02a4b1d07d582f7a3ef6b4e708edb622bfd44e050ca491a5f8c8ee516ef5cc1",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed7.json": "71bb05ee8b16f5c0aba1f846301e99552a316464898da049ec8ac09397667ca6",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed8.json": "47cfc29256cedfa7e4562c82cdd6e98a9f6886daa6792582f4e8c5f74103db0e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08_seed9.json": "ab72eed5e094222db88abd57fd18fa8278c8693d2124f924a63d938575dde4c3",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed0.json": "84bc7308cd6a923c71767c6fe99e625d0faa42f1137be475fdb9af436b24d930",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed1.json": "ba2ce7a8fe3582dc56967da027fb339e422db45a727ccae99e5b08cb20253987",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed2.json": "ce11839ef7fed14f51000b6a11b984f24eb87c9167b24d87e44f8b0fc1f0d7bd",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed3.json": "c74adb2d5e257faf4f2791f6b4a1bb60974e6c9294e6fca750af3d834e95ff0e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed4.json": "10a0186580bd2bdeb8c844552c2ea3ab2072305f29218a89db8818817c3e2c44",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed5.json": "a959b26893fc76218a6966985167c5c853d0429b0e42dbccbd453c05e412fbf1",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed6.json": "fc1341080e676d4b78f62cf97922d047c5fc3454a5cdaf1471ae7d96911cb2bc",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed7.json": "1aac85c6e6cc1b26f7edc826f959dc5606d2c40bef11621cef07aeef55f6239a",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed8.json": "81f25d548ded63d70785f6a8598e3da035a69dab08b07c7a0f634a54a7279895",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08_seed9.json": "93b0ad9e1981d452c058248d02fc367c811c8d388b4c75278cc044a689078159",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed0.json": "1b1929cf8775569f424c382e8d690928a69c74b3243d808dea84cd17771e758a",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed1.json": "1422269f8ac8a72797507097b5663da42d051ef853449a442189ae9784aac21a",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed2.json": "5d409490697e3c5bb27bc1804f9363f43b6123a4bb92f3713539968c2c8e71d6",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed3.json": "00e5f6fd9090d9d63df44c3dff1c7618bbfcd47025229de20dd32cb4c7cf419e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed4.json": "484a34853cd39aea891b748607c061175428238b2fe5e2c58ec989bdd33d143e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed5.json": "4fe067fda5efb16b553c5e74c988bd63e412e714668cb27dbe39b95aafa97172",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed6.json": "349dddafb21cbe1b42d27a969c43c8adaf2fa5df29cf4b19bfeb1912e54dd828",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed7.json": "a7fd0b72bae56f9a90a498886305213784a0e9a25c769a9369040d9764746c85",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed8.json": "669d0944ef3b43d81059d941ff6ad9410aa85b22691f394f6794aa4106cc4602",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed9.json": "3cdb7ce44b9a86bc76767781315d8ca3d2c64ee42ff0619f7070fcfa7bce3e72",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed0.json": "680febddaaf19804a7fc00c45a0bd4389defe0857f2b62e8578109b67ebfa7ab",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed1.json": "efd39d70a91339d9e6e32d9e8c122ea0dafa1f3e8ab1a12996a4df5c2011aa73",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed2.json": "1a42a43ace25c745d9f0946b52a631ccfe0308b5bb4ad7eebb0eeb989d72d693",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed3.json": "7ff403435bde7316a5969a319d532f16d692cd3328b20367b29612f0e0b2d67e",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed4.json": "03326cf0967e107a8f10c0793d13a2b2323c97c0b1f4d28e700f4fa33fa551fc",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed5.json": "f9ff187429e645cacc7f340f83f3a544a6ef8abe1a01d1115f2655fa9ad90d4d",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed6.json": "024839c1c191fa2bca0d6246038e5346d7bcff9d6939ccd65c54e0b5d923f2c2",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed7.json": "ebb540fc52a03a2c8b8fb7ef203996751f79601589d1680ea28ab2855f7d21c0",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed8.json": "2b794c6dd5ee2034f7ce8667b753c18b42a9f03e04e4f48db425af8ec91bec0a",
+      "results/ga_sensitivity_fast/solutions/genetic_ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08_seed9.json": "642576ff9ff4b09fb8e2469edd42c4c7e660bfbd044ab28ed2eb784154629364"
+    },
+    "output_artifacts_excluding_protocol": {
+      "ga_ofat_contrasts.csv": "590cf9b713ae656f3a0b4508b7540c4a948c1e7902d7f5d534acde87c166bf27",
+      "ga_ofat_diversity_summary.csv": "2c14116d78b65fc12cd002511bd9b318422a52f618fa2567e42ce9ac2cd28dc0",
+      "ga_ofat_fixed_conditions.csv": "482e1e3d78c3babcbdea0dafdd7b80cf203c6de4b98f1b26f5d344cedc772002",
+      "ga_ofat_paired_seed_differences.csv": "70a6376b50d3c069cf1ea95c570a64b12f9424718d6665d4a81a0e30a7522829",
+      "ga_ofat_report.md": "649790f6d8a4279ed03624d72cf627ca0d0ce2b589dbe4656cf5455d8550c49a"
+    },
+    "primary_inputs_and_evidence": {
+      "configs/ga_competition_fast.cfg": "dbb819631f72a67f49c0239bc26391963532778204e100740be54ce880d4058b",
+      "results/ga_sensitivity_fast/ga_diversity.csv": "d4b85593419ca4c94a9bb2574270497e37b56d25fee79ada82dee495d35cc3e8",
+      "results/ga_sensitivity_fast/instance_runs.csv": "d2417bd26561a2da86d1f35003c42fc14a1826cd5420347e1fa96b4ffc97f952",
+      "results/ga_sensitivity_fast/runs.csv": "074d02d33faba9e78bf9996e9a3700693405237f1fc3f3931be0e2de0c97e490",
+      "results/ga_sensitivity_fast/suite_manifest.csv": "c834474b0e6703198928f4912aa306609c9fa2cfd5cd066578cbf0fbd9161bda",
+      "scripts/retrospective_ga_ofat_inference.py": "75ef66ccea98d8198c53a8fbdb7e7395e9412f8c384c08e0357494aaf4b866d3",
+      "src/algorithms/genetic_solver.cpp": "b028eaeedbc0de43fb02ccfec1e3e34ba2d35718c8358109d4295553ccf11827",
+      "src/main.cpp": "55d2635c8cda4c3a0bf0981a60c9810cae232b1941e48be2314b8083604f0983"
+    }
+  },
+  "statistical_unit": "complete_instance_per_config_seed",
+  "target_factors": [
+    "population_size",
+    "generations",
+    "mutation_rate",
+    "elitism_fraction"
+  ],
+  "test": "two-sided paired Student-t test, implemented as one-sample t test of paired differences",
+  "validation": {
+    "diversity_data": {
+      "aggregation": "mean_across_12_waves_within_seed_at_generation_0_and_final",
+      "config_seed_summaries": 90,
+      "metric": "mean normalized positional Hamming distance over chromosome pairs",
+      "range_check": "all values in [0, 1]",
+      "trajectory_rows": 23880
+    },
+    "result_data": {
+      "all_instance_runs_feasible": true,
+      "complete_instance_rows": 90,
+      "instance_minus_summed_wave_runtime_ms": {
+        "maximum": 5.243999999998778,
+        "mean": 3.8610022222219413,
+        "minimum": 3.544099999999162
+      },
+      "max_abs_objective_sum_error": 9.313225746154785e-10,
+      "runtime_used_for_inference": "sum_of_internal_wave_solver_runtime_ms",
+      "wave_rows": 1080
+    },
+    "solution_metadata": {
+      "canonical_metadata_sha256": "ed52fb128720df1fec4f1499cf3133751723fc979b19a3eab85420ebdb78046f",
+      "crossover_values": [
+        "order_crossover"
+      ],
+      "elitism_count_values_by_config": {
+        "ga_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08": [
+          "1"
+        ],
+        "ga_pop-12_gen-20_tour-3_mut-0p05_insert-0p50_elite-0p08": [
+          "1"
+        ],
+        "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0": [
+          "0"
+        ],
+        "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08": [
+          "1"
+        ],
+        "ga_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p20": [
+          "2"
+        ],
+        "ga_pop-12_gen-20_tour-3_mut-0p40_insert-0p50_elite-0p08": [
+          "1"
+        ],
+        "ga_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08": [
+          "1"
+        ],
+        "ga_pop-24_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08": [
+          "2"
+        ],
+        "ga_pop-6_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08": [
+          "0"
+        ]
+      },
+      "elitism_fraction_values": [
+        "0",
+        "0.08",
+        "0.2"
+      ],
+      "fitness_values": [
+        "decoded_total_route_cost"
+      ],
+      "insertion_rate_values": [
+        "0.5"
+      ],
+      "representation_values": [
+        "order_permutation"
+      ],
+      "solution_files": 90,
+      "tournament_size_values": [
+        "3"
+      ],
+      "wave_metadata_records": 1080
+    },
+    "source_and_config": {
+      "archived_manifest_is_authoritative_for_run_parameters": true,
+      "matching_baseline_config_file": "configs/ga_competition_fast.cfg",
+      "source_confirms": {
+        "crossover": "order crossover (OX)",
+        "elitism": "round(population_size * elitism_fraction), clamped to [0, population_size]",
+        "mutation_operator_mix": "conditional on mutation, insertion with probability 0.50 and swap otherwise",
+        "selection": "tournament selection, size 3 in this suite"
+      }
+    }
+  },
+  "version": 1,
+  "wave_aggregation": "sum objective and internal solver runtime over 12 waves before inference"
+}

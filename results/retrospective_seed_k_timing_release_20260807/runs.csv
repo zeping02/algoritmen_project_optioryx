@@ -1,0 +1,841 @@
+schedule_index,started_utc,label,seed_rule,selection_rule,lookahead_width,repeat_index,config_id,config_sha256,status,return_code,timed_out,feasible,objective,solver_runtime_ms,wall_process_ms,wave_count,parse_error,stdout,stderr
+1,2026-08-07T12:38:11.572+00:00,largest_k16,largest,two_step,16,2,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,79606.4559,79867.81600001268,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 79606.5
+Feasible: yes
+",
+2,2026-08-07T12:39:31.453+00:00,largest_span_expansion,largest,span,,3,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6990.1471,7317.171500064433,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6990.15
+Feasible: yes
+",
+3,2026-08-07T12:39:38.790+00:00,smallest_overlap,smallest,overlap,,5,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,6949.3891,7233.574499958195,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 6949.39
+Feasible: yes
+",
+4,2026-08-07T12:39:46.040+00:00,smallest_k8,smallest,two_step,8,0,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,41996.1677,42272.60170003865,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 41996.2
+Feasible: yes
+",
+5,2026-08-07T12:40:28.333+00:00,largest_k2,largest,two_step,2,3,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,13585.938,13861.340399947949,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 13585.9
+Feasible: yes
+",
+6,2026-08-07T12:40:42.211+00:00,largest_k4,largest,two_step,4,8,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,27745.1925,28018.635699991137,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 27745.2
+Feasible: yes
+",
+7,2026-08-07T12:41:10.243+00:00,largest_k8,largest,two_step,8,6,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,74105.8476,74398.81000004243,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 74105.8
+Feasible: yes
+",
+8,2026-08-07T12:42:24.661+00:00,smallest_k2,smallest,two_step,2,2,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,23067.1194,23362.812799983658,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 23067.1
+Feasible: yes
+",
+9,2026-08-07T12:42:48.054+00:00,largest_k8,largest,two_step,8,7,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,76278.6641,76580.65850008279,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 76278.7
+Feasible: yes
+",
+10,2026-08-07T12:44:04.650+00:00,largest_overlap,largest,overlap,,4,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,11807.3976,12106.045100023039,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 11807.4
+Feasible: yes
+",
+11,2026-08-07T12:44:16.771+00:00,largest_overlap,largest,overlap,,3,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,11647.1231,11957.647999981418,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 11647.1
+Feasible: yes
+",
+12,2026-08-07T12:44:28.742+00:00,largest_immediate,largest,immediate,,6,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,11757.0051,12061.07279995922,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 11757
+Feasible: yes
+",
+13,2026-08-07T12:44:40.828+00:00,smallest_k16,smallest,two_step,16,7,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,149167.9206,149448.68480006699,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 149168
+Feasible: yes
+",
+14,2026-08-07T12:47:10.297+00:00,largest_k16,largest,two_step,16,7,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,139486.6194,139886.52050006203,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 139487
+Feasible: yes
+",
+15,2026-08-07T12:49:30.198+00:00,smallest_span_expansion,smallest,span,,8,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,8478.4718,8776.734100072645,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 8478.47
+Feasible: yes
+",
+16,2026-08-07T12:49:38.986+00:00,largest_k4,largest,two_step,4,2,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,32133.7312,32445.7636999432,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 32133.7
+Feasible: yes
+",
+17,2026-08-07T12:50:11.447+00:00,smallest_immediate,smallest,immediate,,7,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,11308.1179,11648.564200033434,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 11308.1
+Feasible: yes
+",
+18,2026-08-07T12:50:23.119+00:00,largest_immediate,largest,immediate,,8,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,11305.4444,11573.097700020298,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 11305.4
+Feasible: yes
+",
+19,2026-08-07T12:50:34.711+00:00,largest_k4,largest,two_step,4,5,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,27789.1149,28059.764600009657,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 27789.1
+Feasible: yes
+",
+20,2026-08-07T12:51:02.780+00:00,largest_k4,largest,two_step,4,3,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,23420.3163,23702.216199948452,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 23420.3
+Feasible: yes
+",
+21,2026-08-07T12:51:26.491+00:00,smallest_span_expansion,smallest,span,,4,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,7500.7299,7750.746299978346,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 7500.73
+Feasible: yes
+",
+22,2026-08-07T12:51:34.252+00:00,smallest_overlap,smallest,overlap,,6,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,6750.1333,6986.789099988528,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 6750.13
+Feasible: yes
+",
+23,2026-08-07T12:51:41.250+00:00,largest_immediate,largest,immediate,,0,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,7319.0808,7554.7985000303015,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 7319.08
+Feasible: yes
+",
+24,2026-08-07T12:51:48.815+00:00,smallest_k8,smallest,two_step,8,2,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,41186.1833,41434.788300073706,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 41186.2
+Feasible: yes
+",
+25,2026-08-07T12:52:30.261+00:00,largest_k8,largest,two_step,8,9,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,42152.4999,42423.63480001222,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 42152.5
+Feasible: yes
+",
+26,2026-08-07T12:53:12.694+00:00,largest_k4,largest,two_step,4,0,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,22362.5474,22603.752700029872,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 22362.5
+Feasible: yes
+",
+27,2026-08-07T12:53:35.310+00:00,largest_k2,largest,two_step,2,4,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,13168.1946,13406.54989995528,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 13168.2
+Feasible: yes
+",
+28,2026-08-07T12:53:48.726+00:00,smallest_k2,smallest,two_step,2,8,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,12587.4637,12822.989100008272,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 12587.5
+Feasible: yes
+",
+29,2026-08-07T12:54:01.559+00:00,largest_span_expansion,largest,span,,0,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6634.0259,6863.395599997602,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6634.03
+Feasible: yes
+",
+30,2026-08-07T12:54:08.436+00:00,smallest_k8,smallest,two_step,8,1,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,40760.0254,40994.53479994554,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 40760
+Feasible: yes
+",
+31,2026-08-07T12:54:49.445+00:00,largest_k4,largest,two_step,4,9,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,23786.3733,24021.27519994974,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 23786.4
+Feasible: yes
+",
+32,2026-08-07T12:55:13.476+00:00,largest_k8,largest,two_step,8,1,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,44890.9933,45143.22770002764,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 44891
+Feasible: yes
+",
+33,2026-08-07T12:55:58.630+00:00,largest_k4,largest,two_step,4,7,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,25973.8603,26287.891900050454,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 25973.9
+Feasible: yes
+",
+34,2026-08-07T12:56:24.926+00:00,smallest_k2,smallest,two_step,2,1,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,22339.038,22783.520300057717,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 22339
+Feasible: yes
+",
+35,2026-08-07T12:56:47.731+00:00,smallest_immediate,smallest,immediate,,5,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,11628.2385,12172.432599938475,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 11628.2
+Feasible: yes
+",
+36,2026-08-07T12:56:59.915+00:00,largest_k16,largest,two_step,16,9,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,89194.8858,89614.27959997673,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 89194.9
+Feasible: yes
+",
+37,2026-08-07T12:58:29.539+00:00,smallest_immediate,smallest,immediate,,4,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,6913.9519,7157.157100038603,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 6913.95
+Feasible: yes
+",
+38,2026-08-07T12:58:36.705+00:00,largest_overlap,largest,overlap,,8,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,7257.1496,7499.776100041345,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 7257.15
+Feasible: yes
+",
+39,2026-08-07T12:58:44.213+00:00,largest_span_expansion,largest,span,,6,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6649.2963,6892.168399994262,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6649.3
+Feasible: yes
+",
+40,2026-08-07T12:58:51.126+00:00,smallest_k4,smallest,two_step,4,5,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,22464.9328,22702.20059994608,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 22464.9
+Feasible: yes
+",
+41,2026-08-07T12:59:13.840+00:00,largest_overlap,largest,overlap,,2,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,7215.6748,7469.3126999773085,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 7215.67
+Feasible: yes
+",
+42,2026-08-07T12:59:21.318+00:00,smallest_k2,smallest,two_step,2,4,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,12811.6674,13043.340899981558,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 12811.7
+Feasible: yes
+",
+43,2026-08-07T12:59:34.389+00:00,largest_k16,largest,two_step,16,5,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,82953.5751,83215.56549996603,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 82953.6
+Feasible: yes
+",
+44,2026-08-07T13:00:57.629+00:00,largest_overlap,largest,overlap,,9,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,6650.0803,7255.77099993825,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 6650.08
+Feasible: yes
+",
+45,2026-08-07T13:01:04.896+00:00,smallest_k2,smallest,two_step,2,5,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,13359.8261,13599.938299972564,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 13359.8
+Feasible: yes
+",
+46,2026-08-07T13:01:18.508+00:00,largest_k8,largest,two_step,8,2,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,42558.2534,42806.170299998485,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 42558.3
+Feasible: yes
+",
+47,2026-08-07T13:02:01.327+00:00,largest_k4,largest,two_step,4,1,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,24282.508,24537.140400032513,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 24282.5
+Feasible: yes
+",
+48,2026-08-07T13:02:25.874+00:00,smallest_immediate,smallest,immediate,,0,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,7012.1167,7294.348899973556,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 7012.12
+Feasible: yes
+",
+49,2026-08-07T13:02:33.180+00:00,smallest_k8,smallest,two_step,8,6,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,42350.7787,42587.63199998066,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 42350.8
+Feasible: yes
+",
+50,2026-08-07T13:03:15.780+00:00,smallest_immediate,smallest,immediate,,6,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,6737.4294,6984.851100016385,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 6737.43
+Feasible: yes
+",
+51,2026-08-07T13:03:22.776+00:00,smallest_k4,smallest,two_step,4,3,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,21837.8673,22097.64940000605,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 21837.9
+Feasible: yes
+",
+52,2026-08-07T13:03:44.887+00:00,largest_k2,largest,two_step,2,1,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,12890.9139,13150.454099988565,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 12890.9
+Feasible: yes
+",
+53,2026-08-07T13:03:58.047+00:00,largest_span_expansion,largest,span,,5,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6712.3076,6951.426299987361,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6712.31
+Feasible: yes
+",
+54,2026-08-07T13:04:05.016+00:00,largest_k8,largest,two_step,8,5,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,40829.9535,41065.83880004473,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 40830
+Feasible: yes
+",
+55,2026-08-07T13:04:46.092+00:00,smallest_overlap,smallest,overlap,,0,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,6748.6821,6989.225100027397,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 6748.68
+Feasible: yes
+",
+56,2026-08-07T13:04:53.092+00:00,largest_span_expansion,largest,span,,9,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6524.7077,6752.24669999443,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6524.71
+Feasible: yes
+",
+57,2026-08-07T13:04:59.857+00:00,smallest_k4,smallest,two_step,4,6,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,21625.2594,21866.74219998531,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 21625.3
+Feasible: yes
+",
+58,2026-08-07T13:05:21.736+00:00,smallest_k4,smallest,two_step,4,4,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,22780.9495,23029.07970000524,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 22780.9
+Feasible: yes
+",
+59,2026-08-07T13:05:44.776+00:00,largest_immediate,largest,immediate,,5,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,6840.5368,7098.862299928442,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 6840.54
+Feasible: yes
+",
+60,2026-08-07T13:05:51.886+00:00,smallest_overlap,smallest,overlap,,4,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,7702.3551,7945.047199958935,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 7702.36
+Feasible: yes
+",
+61,2026-08-07T13:05:59.841+00:00,largest_immediate,largest,immediate,,7,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,7658.1882,7940.833800006658,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 7658.19
+Feasible: yes
+",
+62,2026-08-07T13:06:07.792+00:00,largest_k8,largest,two_step,8,3,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,41358.5389,41595.203100005165,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 41358.5
+Feasible: yes
+",
+63,2026-08-07T13:06:49.397+00:00,largest_overlap,largest,overlap,,5,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,7293.7987,7555.571199976839,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 7293.8
+Feasible: yes
+",
+64,2026-08-07T13:06:56.963+00:00,smallest_k2,smallest,two_step,2,9,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,14019.6221,14253.131399978884,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 14019.6
+Feasible: yes
+",
+65,2026-08-07T13:07:11.233+00:00,smallest_immediate,smallest,immediate,,8,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,6845.786,7107.843599980697,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 6845.79
+Feasible: yes
+",
+66,2026-08-07T13:07:18.352+00:00,largest_k2,largest,two_step,2,9,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,12691.0557,12941.445499891415,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 12691.1
+Feasible: yes
+",
+67,2026-08-07T13:07:31.304+00:00,largest_k4,largest,two_step,4,4,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,22514.3258,22777.70989993587,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 22514.3
+Feasible: yes
+",
+68,2026-08-07T13:07:54.093+00:00,smallest_k8,smallest,two_step,8,3,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,41495.5212,41730.275099980645,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 41495.5
+Feasible: yes
+",
+69,2026-08-07T13:08:35.837+00:00,smallest_k8,smallest,two_step,8,7,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,41196.8128,41429.52180001885,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 41196.8
+Feasible: yes
+",
+70,2026-08-07T13:09:17.281+00:00,largest_k2,largest,two_step,2,8,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,12380.1847,12609.772600000724,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 12380.2
+Feasible: yes
+",
+71,2026-08-07T13:09:29.904+00:00,smallest_span_expansion,smallest,span,,9,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,6744.046,6984.966100077145,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 6744.05
+Feasible: yes
+",
+72,2026-08-07T13:09:36.900+00:00,largest_span_expansion,largest,span,,8,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6851.8546,7094.818899990059,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6851.85
+Feasible: yes
+",
+73,2026-08-07T13:09:44.007+00:00,smallest_k2,smallest,two_step,2,6,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,12378.9414,12617.054399917834,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 12378.9
+Feasible: yes
+",
+74,2026-08-07T13:09:56.634+00:00,smallest_k8,smallest,two_step,8,8,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,40217.2941,40458.677000016905,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 40217.3
+Feasible: yes
+",
+75,2026-08-07T13:10:37.106+00:00,smallest_k4,smallest,two_step,4,2,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,22223.9136,22455.13120002579,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 22223.9
+Feasible: yes
+",
+76,2026-08-07T13:10:59.572+00:00,smallest_k4,smallest,two_step,4,7,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,22256.4549,22494.981599971652,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 22256.5
+Feasible: yes
+",
+77,2026-08-07T13:11:22.084+00:00,smallest_k4,smallest,two_step,4,8,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,21924.868,22164.704700000584,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 21924.9
+Feasible: yes
+",
+78,2026-08-07T13:11:44.261+00:00,smallest_span_expansion,smallest,span,,2,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,6739.1366,6969.444700051099,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 6739.14
+Feasible: yes
+",
+79,2026-08-07T13:11:51.241+00:00,smallest_k4,smallest,two_step,4,9,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,21792.0261,22023.418799974024,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 21792
+Feasible: yes
+",
+80,2026-08-07T13:12:13.277+00:00,smallest_k2,smallest,two_step,2,0,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,12432.6761,12665.702100028284,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 12432.7
+Feasible: yes
+",
+81,2026-08-07T13:12:25.975+00:00,smallest_span_expansion,smallest,span,,6,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,6678.8753,6913.917500060052,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 6678.88
+Feasible: yes
+",
+82,2026-08-07T13:12:32.901+00:00,smallest_span_expansion,smallest,span,,5,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,6731.8307,6963.245099992491,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 6731.83
+Feasible: yes
+",
+83,2026-08-07T13:12:39.875+00:00,smallest_overlap,smallest,overlap,,3,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,6672.9168,6926.742500043474,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 6672.92
+Feasible: yes
+",
+84,2026-08-07T13:12:46.812+00:00,smallest_k16,smallest,two_step,16,9,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,76924.0647,77165.00400006771,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 76924.1
+Feasible: yes
+",
+85,2026-08-07T13:14:03.987+00:00,largest_overlap,largest,overlap,,0,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,6711.9191,6943.773999926634,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 6711.92
+Feasible: yes
+",
+86,2026-08-07T13:14:10.942+00:00,smallest_immediate,smallest,immediate,,9,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,6780.074,7033.037499990314,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 6780.07
+Feasible: yes
+",
+87,2026-08-07T13:14:17.988+00:00,smallest_k16,smallest,two_step,16,8,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,79049.7484,79297.2533000866,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 79049.7
+Feasible: yes
+",
+88,2026-08-07T13:15:37.302+00:00,largest_k16,largest,two_step,16,6,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,76903.7531,77155.77379998285,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 76903.8
+Feasible: yes
+",
+89,2026-08-07T13:16:54.470+00:00,largest_span_expansion,largest,span,,4,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6582.762,6816.1961999721825,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6582.76
+Feasible: yes
+",
+90,2026-08-07T13:17:01.300+00:00,largest_immediate,largest,immediate,,2,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,6743.1766,7010.788400075398,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 6743.18
+Feasible: yes
+",
+91,2026-08-07T13:17:08.321+00:00,smallest_immediate,smallest,immediate,,3,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,7454.1148,7689.917899901047,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 7454.11
+Feasible: yes
+",
+92,2026-08-07T13:17:16.022+00:00,largest_k16,largest,two_step,16,0,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,77437.9969,77687.71679990459,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 77438
+Feasible: yes
+",
+93,2026-08-07T13:18:33.723+00:00,smallest_k16,smallest,two_step,16,4,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,76642.2576,76888.03469995037,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 76642.3
+Feasible: yes
+",
+94,2026-08-07T13:19:50.621+00:00,largest_k2,largest,two_step,2,5,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,12627.7396,12861.331599997357,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 12627.7
+Feasible: yes
+",
+95,2026-08-07T13:20:03.495+00:00,smallest_overlap,smallest,overlap,,8,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,8002.0667,8243.518200004473,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 8002.07
+Feasible: yes
+",
+96,2026-08-07T13:20:11.752+00:00,largest_k2,largest,two_step,2,7,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,13512.9085,13792.080200044438,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 13512.9
+Feasible: yes
+",
+97,2026-08-07T13:20:25.558+00:00,largest_span_expansion,largest,span,,7,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6995.7171,7312.055499991402,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6995.72
+Feasible: yes
+",
+98,2026-08-07T13:20:32.882+00:00,smallest_overlap,smallest,overlap,,7,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,7116.0802,7346.8890999211,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 7116.08
+Feasible: yes
+",
+99,2026-08-07T13:20:40.241+00:00,smallest_k16,smallest,two_step,16,3,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,78350.3187,78591.92809998058,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 78350.3
+Feasible: yes
+",
+100,2026-08-07T13:21:58.843+00:00,smallest_overlap,smallest,overlap,,1,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,6623.6158,6858.024399960414,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 6623.62
+Feasible: yes
+",
+101,2026-08-07T13:22:05.713+00:00,smallest_k2,smallest,two_step,2,7,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,12676.2918,12911.0459999647,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 12676.3
+Feasible: yes
+",
+102,2026-08-07T13:22:18.637+00:00,smallest_k4,smallest,two_step,4,0,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,22661.8657,22897.042700089514,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 22661.9
+Feasible: yes
+",
+103,2026-08-07T13:22:41.549+00:00,largest_k2,largest,two_step,2,6,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,12348.1415,12576.437299954705,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 12348.1
+Feasible: yes
+",
+104,2026-08-07T13:22:54.136+00:00,smallest_k2,smallest,two_step,2,3,retrospective_seed_smallest_two_step_k2,10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773,success,0,False,True,5486876.18584,12340.9495,12571.181299979798,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k2
+Objective: 5.48688e+06
+Runtime ms: 12340.9
+Feasible: yes
+",
+105,2026-08-07T13:23:06.726+00:00,smallest_span_expansion,smallest,span,,7,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,6627.9232,6899.890000000596,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 6627.92
+Feasible: yes
+",
+106,2026-08-07T13:23:13.636+00:00,largest_k16,largest,two_step,16,3,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,78127.9396,78372.55949992687,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 78127.9
+Feasible: yes
+",
+107,2026-08-07T13:24:32.021+00:00,largest_k8,largest,two_step,8,8,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,41070.4696,41310.51400001161,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 41070.5
+Feasible: yes
+",
+108,2026-08-07T13:25:13.343+00:00,largest_overlap,largest,overlap,,6,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,7075.9232,7406.736399978399,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 7075.92
+Feasible: yes
+",
+109,2026-08-07T13:25:20.767+00:00,largest_span_expansion,largest,span,,2,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6778.9426,7012.146000051871,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6778.94
+Feasible: yes
+",
+110,2026-08-07T13:25:27.792+00:00,largest_overlap,largest,overlap,,7,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,6662.3772,6917.249699938111,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 6662.38
+Feasible: yes
+",
+111,2026-08-07T13:25:34.722+00:00,smallest_k16,smallest,two_step,16,2,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,76672.3955,76932.19419999514,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 76672.4
+Feasible: yes
+",
+112,2026-08-07T13:26:51.665+00:00,smallest_k8,smallest,two_step,8,4,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,40080.4385,40335.19609994255,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 40080.4
+Feasible: yes
+",
+113,2026-08-07T13:27:32.015+00:00,smallest_k16,smallest,two_step,16,5,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,76219.3912,76503.53350001387,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 76219.4
+Feasible: yes
+",
+114,2026-08-07T13:28:48.530+00:00,smallest_overlap,smallest,overlap,,2,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,6564.3544,6800.117100006901,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 6564.35
+Feasible: yes
+",
+115,2026-08-07T13:28:55.343+00:00,smallest_overlap,smallest,overlap,,9,retrospective_seed_smallest_overlap,1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4,success,0,False,True,7722909.409820001,7112.064,7374.682400026359,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_overlap
+Objective: 7.72291e+06
+Runtime ms: 7112.06
+Feasible: yes
+",
+116,2026-08-07T13:29:02.729+00:00,largest_k2,largest,two_step,2,0,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,12507.1238,12743.474300019443,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 12507.1
+Feasible: yes
+",
+117,2026-08-07T13:29:15.485+00:00,largest_k4,largest,two_step,4,6,retrospective_seed_largest_two_step_k4,a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca,success,0,False,True,6517269.346570001,22900.5643,23139.942799927667,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k4
+Objective: 6.51727e+06
+Runtime ms: 22900.6
+Feasible: yes
+",
+118,2026-08-07T13:29:38.641+00:00,largest_immediate,largest,immediate,,3,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,6977.3105,7236.262599937618,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 6977.31
+Feasible: yes
+",
+119,2026-08-07T13:29:45.888+00:00,largest_immediate,largest,immediate,,4,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,6683.4143,6923.637000028975,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 6683.41
+Feasible: yes
+",
+120,2026-08-07T13:29:52.822+00:00,smallest_k16,smallest,two_step,16,0,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,78419.8052,78661.02110000793,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 78419.8
+Feasible: yes
+",
+121,2026-08-07T13:31:11.495+00:00,smallest_span_expansion,smallest,span,,3,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,6556.0854,6799.616399919614,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 6556.09
+Feasible: yes
+",
+122,2026-08-07T13:31:18.306+00:00,smallest_k8,smallest,two_step,8,9,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,40249.1593,40486.364100012,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 40249.2
+Feasible: yes
+",
+123,2026-08-07T13:31:58.803+00:00,smallest_k16,smallest,two_step,16,1,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,77836.3656,78079.156300053,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 77836.4
+Feasible: yes
+",
+124,2026-08-07T13:33:16.893+00:00,largest_k8,largest,two_step,8,0,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,41254.7087,41505.62670000363,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 41254.7
+Feasible: yes
+",
+125,2026-08-07T13:33:58.412+00:00,smallest_k4,smallest,two_step,4,1,retrospective_seed_smallest_two_step_k4,e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6,success,0,False,True,5441471.57118,21643.2113,21879.182799952105,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k4
+Objective: 5.44147e+06
+Runtime ms: 21643.2
+Feasible: yes
+",
+126,2026-08-07T13:34:20.323+00:00,smallest_span_expansion,smallest,span,,1,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,6631.1031,6863.782100030221,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 6631.1
+Feasible: yes
+",
+127,2026-08-07T13:34:27.198+00:00,largest_span_expansion,largest,span,,1,retrospective_seed_largest_span_expansion,b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a,success,0,False,True,6759161.157159999,6628.7159,6860.352999996394,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_span_expansion
+Objective: 6.75916e+06
+Runtime ms: 6628.72
+Feasible: yes
+",
+128,2026-08-07T13:34:34.072+00:00,smallest_k16,smallest,two_step,16,6,retrospective_seed_smallest_two_step_k16,a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5,success,0,False,True,5447493.81925,76808.9682,77056.03350000456,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k16
+Objective: 5.44749e+06
+Runtime ms: 76809
+Feasible: yes
+",
+129,2026-08-07T13:35:51.143+00:00,largest_immediate,largest,immediate,,9,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,6857.4423,7170.401299954392,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 6857.44
+Feasible: yes
+",
+130,2026-08-07T13:35:58.325+00:00,largest_k16,largest,two_step,16,4,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,77330.8065,77606.05370008852,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 77330.8
+Feasible: yes
+",
+131,2026-08-07T13:37:15.939+00:00,smallest_immediate,smallest,immediate,,1,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,6410.4874,6641.403299989179,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 6410.49
+Feasible: yes
+",
+132,2026-08-07T13:37:22.595+00:00,largest_immediate,largest,immediate,,1,retrospective_seed_largest_immediate,6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1,success,0,False,True,6566050.685270001,6428.5084,6654.22339993529,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_immediate
+Objective: 6.56605e+06
+Runtime ms: 6428.51
+Feasible: yes
+",
+133,2026-08-07T13:37:29.256+00:00,largest_k16,largest,two_step,16,8,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,73943.7701,74215.49930004403,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 73943.8
+Feasible: yes
+",
+134,2026-08-07T13:38:43.476+00:00,smallest_span_expansion,smallest,span,,0,retrospective_seed_smallest_span_expansion,2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33,success,0,False,True,6836622.849539998,6354.252,6585.490399971604,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_span_expansion
+Objective: 6.83662e+06
+Runtime ms: 6354.25
+Feasible: yes
+",
+135,2026-08-07T13:38:50.085+00:00,largest_k16,largest,two_step,16,1,retrospective_seed_largest_two_step_k16,badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d,success,0,False,True,6492774.6608299995,76259.8555,76507.13639997412,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k16
+Objective: 6.49277e+06
+Runtime ms: 76259.9
+Feasible: yes
+",
+136,2026-08-07T13:40:06.608+00:00,largest_k8,largest,two_step,8,4,retrospective_seed_largest_two_step_k8,246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c,success,0,False,True,6491675.00947,43514.5701,43756.415600073524,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k8
+Objective: 6.49168e+06
+Runtime ms: 43514.6
+Feasible: yes
+",
+137,2026-08-07T13:40:50.378+00:00,largest_overlap,largest,overlap,,1,retrospective_seed_largest_overlap,2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c,success,0,False,True,7485443.93185,6695.5231,6925.8772999746725,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_overlap
+Objective: 7.48544e+06
+Runtime ms: 6695.52
+Feasible: yes
+",
+138,2026-08-07T13:40:57.317+00:00,smallest_immediate,smallest,immediate,,2,retrospective_seed_smallest_immediate,ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25,success,0,False,True,5487174.002610002,6607.2219,6846.246000030078,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_immediate
+Objective: 5.48717e+06
+Runtime ms: 6607.22
+Feasible: yes
+",
+139,2026-08-07T13:41:04.175+00:00,largest_k2,largest,two_step,2,2,retrospective_seed_largest_two_step_k2,3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88,success,0,False,True,6506731.963440001,12295.261,12529.868999961764,12,,"Solver: seed_selection
+Config: retrospective_seed_largest_two_step_k2
+Objective: 6.50673e+06
+Runtime ms: 12295.3
+Feasible: yes
+",
+140,2026-08-07T13:41:16.717+00:00,smallest_k8,smallest,two_step,8,5,retrospective_seed_smallest_two_step_k8,a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286,success,0,False,True,5436248.7681599995,40963.3182,41206.37799997348,12,,"Solver: seed_selection
+Config: retrospective_seed_smallest_two_step_k8
+Objective: 5.43625e+06
+Runtime ms: 40963.3
+Feasible: yes
+",

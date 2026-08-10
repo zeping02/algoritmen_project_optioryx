@@ -1,0 +1,182 @@
+{
+  "analysis": "retrospective_sa_factorial_paired_inference",
+  "artifacts": [
+    "sa_factorial_paired_seed_effects.csv",
+    "sa_factorial_effects.csv",
+    "sa_factorial_config_summary.csv",
+    "sa_factorial_summary_nl.md",
+    "analysis_protocol.json"
+  ],
+  "confidence_interval": "two-sided 95% Student-t interval for the paired mean, df=9",
+  "created_utc": "2026-08-07T13:57:15.305883+00:00",
+  "design": {
+    "alternative_levels": {
+      "cooling": "lundy_mees",
+      "neighborhood": "swap",
+      "start_strategy": "randomized"
+    },
+    "configurations": 8,
+    "effects": [
+      "cooling",
+      "neighborhood",
+      "start_strategy",
+      "cooling:neighborhood",
+      "cooling:start_strategy",
+      "neighborhood:start_strategy",
+      "cooling:neighborhood:start_strategy"
+    ],
+    "factors": {
+      "cooling": [
+        "geometric",
+        "lundy_mees"
+      ],
+      "neighborhood": [
+        "relocate",
+        "swap"
+      ],
+      "start_strategy": [
+        "greedy",
+        "randomized"
+      ]
+    },
+    "paired_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "reference_levels": {
+      "cooling": "geometric",
+      "neighborhood": "relocate",
+      "start_strategy": "greedy"
+    },
+    "type": "complete_2x2x2_factorial",
+    "wave_ids": [
+      "W000001",
+      "W000002",
+      "W000003",
+      "W000004",
+      "W000005",
+      "W000006",
+      "W000007",
+      "W000008",
+      "W000009",
+      "W000010",
+      "W000011",
+      "W000012"
+    ],
+    "waves_per_complete_instance": 12
+  },
+  "effect_scaling": "sum of plus/minus-coded cell means divided by 2^(3-effect_order)",
+  "effect_sign": "alternative_minus_reference for main effects; corresponding differences-of-differences for interactions",
+  "input_directory": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\sa_factorial_capacity_matched_release_20260807",
+  "limitations": [
+    "Ten paired seeds support inference on seed variability, not on a population of independent problem instances.",
+    "Equal seed labels define the pairing, but factor changes can alter subsequent random-number consumption.",
+    "Holm correction is applied separately to quality and internal-runtime families.",
+    "Runtime effects use the sum of twelve wave solver timers and exclude instance-level evaluator setup and final validation.",
+    "The analysis validates archived outputs and hashes but does not invoke or revalidate the solver executable."
+  ],
+  "multiplicity": {
+    "alpha": 0.05,
+    "families": {
+      "internal_runtime_effects": 7,
+      "objective_effects": 7
+    },
+    "method": "Holm step-down family-wise error correction"
+  },
+  "output_directory": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_sa_factorial_inference_20260807",
+  "pairing_key": "seed",
+  "sha256": {
+    "analysis_script": "60572bc2129861478ef473a4dc0be4b09adfbda259a8122fea3b2a99656e32f2",
+    "output_artifacts_excluding_protocol": {
+      "sa_factorial_config_summary.csv": "49b13e65e35c92230e2ec04459bc9c1c3db69b9ce506501c03bd4a058f44b57c",
+      "sa_factorial_effects.csv": "ac81c44e326587b675ae648939f4709e41ce91264f346c1e794914cedbb9dca9",
+      "sa_factorial_paired_seed_effects.csv": "5490fd1e68ae1c8150ea93de33d9b9d15cca0452a9571a3f710c8114552ef22e",
+      "sa_factorial_summary_nl.md": "3ca97d9267376e1cef7a4e44544c4660708931dd2adacb236ec56a0ec5d4b186"
+    },
+    "prior_factorial_analysis_artifacts": {
+      "analysis_protocol.json": "fece2aacfcae484b38d8cefbdedbb310de50cae59ebdf402993448211e9b87c0",
+      "sa_config_summary.csv": "7b2bff3437bc4bc2ef96a2c78373dc82f59a2a4e6e734295f37749ca83f00e16",
+      "sa_effects.pdf": "47a7c01865b06f939f52df644037a49c72e7a21b0c7b24e8ac00537bf0f44976",
+      "sa_effects.png": "a29a20d39752686403f52c99e0eaa6cbac4089643757f5391bedbebb1edf656c",
+      "sa_interactions.csv": "a2b467f8f6c5a341b2d8ba26f79333155b920fd25b378b03faa3b8a257586d38",
+      "sa_main_effects.csv": "2da6fa3e2a979c27ddd0756bd047aa9b20ac0e08d6b57f460d7cb3b71be09f46"
+    },
+    "raw_suite_inputs": {
+      "convergence.csv": "e2bae824a99262527a734178ea86edeae7c51a4cbca2d53db47cf2c22c8b38b8",
+      "instance_runs.csv": "c91cdd8294759828f99326d5aacf8732e4feea714c99774308831760ff2cfd6b",
+      "runs.csv": "cf548b4fa329a3d6bde5f305e55e1df02cce548475970ef87aaa3838cefaf9b9",
+      "suite_manifest.csv": "cae4ef9b4bf43766edf20ce27dcbf244370ae18ee497216e4aee35de213b66b2"
+    }
+  },
+  "source_suite": "sa_factorial",
+  "statistical_unit": "complete_instance_per_configuration_and_seed",
+  "test": "two-sided one-sample Student-t test of ten paired factorial effects against zero",
+  "validation": {
+    "all_instance_runs_feasible": true,
+    "instance_objectives_match_wave_sums": true,
+    "instance_rows": 80,
+    "instance_runtime_bounds_wave_runtime_sum": true,
+    "instance_timer_overhead_ms": {
+      "maximum": 7.959399999999732,
+      "mean": 3.738772500000066,
+      "minimum": 3.2942
+    },
+    "paired_seed_effect_rows": 70,
+    "prior_analysis_protocol": {
+      "artifacts": [
+        "sa_config_summary.csv",
+        "sa_main_effects.csv",
+        "sa_interactions.csv",
+        "sa_effects.png",
+        "sa_effects.pdf",
+        "analysis_protocol.json"
+      ],
+      "confidence_interval": "two_sided_95_percent_student_t; NA_when_n_less_than_2",
+      "details": {
+        "effect_estimation": "paired_seed_marginal_contrasts",
+        "factor_levels": {
+          "cooling": [
+            "geometric",
+            "lundy_mees"
+          ],
+          "neighborhood": [
+            "relocate",
+            "swap"
+          ],
+          "start_strategy": [
+            "greedy",
+            "randomized"
+          ]
+        },
+        "interaction_sign": "alternative_minus_reference_difference_of_differences",
+        "reference_levels": {
+          "cooling": "geometric",
+          "neighborhood": "relocate",
+          "start_strategy": "greedy"
+        }
+      },
+      "dispersion": "sample_standard_deviation_ddof_1",
+      "inputs": {
+        "convergence.csv": "e2bae824a99262527a734178ea86edeae7c51a4cbca2d53db47cf2c22c8b38b8",
+        "runs.csv": "cf548b4fa329a3d6bde5f305e55e1df02cce548475970ef87aaa3838cefaf9b9",
+        "suite_manifest.csv": "cae4ef9b4bf43766edf20ce27dcbf244370ae18ee497216e4aee35de213b66b2"
+      },
+      "statistical_unit": "complete_instance_per_solver_config_seed",
+      "suite_type": "sa",
+      "wave_aggregation": "sum_objective_and_runtime_before_seed_statistics"
+    },
+    "prior_analysis_registered_input_hashes_verified": true,
+    "prior_factorial_analysis_recomputed": true,
+    "run_rows": 960
+  },
+  "version": 1,
+  "wave_aggregation": "sum objective and internal solver runtime over all twelve waves before contrasts"
+}

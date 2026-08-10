@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "state": "complete",
+  "input": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\benchmark_results.csv",
+  "input_sha256": "16776c1a5751c1e94f2780274144c8e023e05a1f4c9ba22abf3e5906b89e919a",
+  "selection": "seven cumulative, valid full-instance tuning milestones",
+  "quality": "exact recorded objective for the complete competition instance",
+  "runtime_limitation": "one historical measurement per configuration; descriptive order of magnitude only",
+  "causal_scope": "marginal changes describe this cumulative tuning path, not isolated factorial main effects",
+  "adaptive_tuning_limitation": "all mechanisms were developed and selected on the same instance; no held-out validation",
+  "matplotlib_version": "3.10.7",
+  "outputs": {
+    "greedy_ablation.csv": {
+      "sha256": "c89b2fac6f1538e8770719aa9c1d38ff8be4c4c23c62e3688cbee6f1e8bcf89d"
+    },
+    "greedy_ablation.png": {
+      "sha256": "0db90b4e765ef00d6d4b283b016b4ca15ece9d84b4764200698e46c166c595df"
+    },
+    "greedy_ablation.pdf": {
+      "sha256": "8c78b52ba87611d6482394bafd92e3179235c43a60b66fb6c69f9c5d7887a057"
+    }
+  }
+}

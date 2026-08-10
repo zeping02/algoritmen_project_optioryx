@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "state": "complete",
+  "study_dir": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_seed_k_timing_release_20260807",
+  "study_protocol_sha256": "fd2dc8f5b8a668d4bc34a880185ce2131816d87530d52a5abeae94a53f6f76c2",
+  "runs_sha256": "f934ce799974246133e16f20f2fc1f1f49ae38fe863caaec7340f1d4c645a1a1",
+  "validated_runs": 140,
+  "sampling_unit": "independent process invocation of a deterministic full-instance configuration",
+  "quality_check": "objective must be exactly identical over all repetitions",
+  "timing_summary": "median and linearly interpolated IQR over randomized-order repetitions",
+  "quality_comparator": "same-seed-rule minimum incremental route-cost selection",
+  "runtime_ratio": "ratio of configuration median to matched immediate-rule median",
+  "matplotlib_version": "3.10.7",
+  "outputs": {
+    "summary.csv": {
+      "sha256": "1ca1f942226df636f9b7fee86d69f9fdd90f0bc4503ed4749f2e56247a8358fc"
+    },
+    "k_sensitivity.csv": {
+      "sha256": "4eee8ba2aa742b6dc9ed597a8ddcc845d887f1115d1c31696f51893015191f12"
+    },
+    "k_sensitivity.png": {
+      "sha256": "ec70e76b0802de9400d0eae0df6a7f18b98c9f880ad8c2480a8d4721bdb71c9d"
+    },
+    "k_sensitivity.pdf": {
+      "sha256": "5755e3e9120cb25254799595c88fdb62ce4f79169a0a5e4e886274b6075f2813"
+    }
+  }
+}

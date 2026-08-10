@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "study": "controlled empirical runtime versus order count",
+  "state": "complete",
+  "started_utc": "2026-08-06T12:52:10.485+00:00",
+  "finished_utc": "2026-08-06T12:54:14.412+00:00",
+  "claim_scope": "Power-law exponents are descriptive empirical fits over the measured n range; they are not proofs of asymptotic time complexity.",
+  "protocol": {
+    "fixed_wave": "W000005",
+    "available_orders_in_wave": 909,
+    "n_values": [
+      909
+    ],
+    "repeats": 1,
+    "solver_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "subset_seed_base": 2026081605,
+    "subset_seed_rule": "subset_seed = subset_seed_base + zero_based_repeat_index",
+    "subset_sampling": "For each repeat, Python random.Random(subset_seed).shuffle creates one permutation of all order IDs in the fixed wave. Each n is its prefix, so subsets are nested within a repeat. Rows are written in original canonical CSV order so sampling does not randomize solver input order.",
+    "pairing": "every solver/config and solver seed receives every identical subset",
+    "run_process": "one fresh CLI process per measured run; no in-process warm-up",
+    "schedule": "all run jobs are shuffled once with Python random.Random(schedule_seed)",
+    "schedule_seed": 2026080605,
+    "timeout_seconds_per_process": 900.0,
+    "primary_runtime_metric": "solver_runtime_ms parsed from the CLI solution JSON; excludes Python orchestration but includes the C++ solve_instance interval",
+    "secondary_runtime_metric": "wall_process_ms measured around subprocess.run",
+    "summary_dispersion": "median and linearly interpolated 25th/75th percentiles (IQR)",
+    "fit": "OLS of ln(median solver_runtime_ms) on ln(n): T(n)=a*n^b",
+    "execution_order_caveat": "Thermal state, dynamic CPU frequency, background load, and OS scheduling are not controlled."
+  },
+  "experiments": [
+    {
+      "label": "greedy",
+      "solver": "greedy",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\greedy_ls1_win8.cfg",
+      "declared_config_id": "retrospective_budget_greedy_ls-1_win-8",
+      "config_sha256": "eed7c4730e5c31895d6f839ced8e68e936cb835ba4c1126801c608cc46ee5c6a"
+    },
+    {
+      "label": "sa_i120",
+      "solver": "simulated_annealing",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\sa_i120.cfg",
+      "declared_config_id": "retrospective_budget_sa_c-geometric_n-relocate_start-greedy-ls-1-win-8_i-120_t0-60_tf-0p05",
+      "config_sha256": "a4fe7ff7d2fc641f8cebe8bd35abfdb484b43b9ea89a386efa972f4f1dbc4aaa"
+    },
+    {
+      "label": "sa_i400",
+      "solver": "simulated_annealing",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\sa_i400.cfg",
+      "declared_config_id": "retrospective_budget_sa_c-geometric_n-relocate_start-greedy-ls-1-win-8_i-400_t0-60_tf-0p05",
+      "config_sha256": "18b40feab1503b4a7aa9da0a65029ac7c2f8a2243c27f735d7d6fa9d80f91643"
+    },
+    {
+      "label": "sa_i2000",
+      "solver": "simulated_annealing",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\sa_i2000.cfg",
+      "declared_config_id": "retrospective_budget_sa_c-geometric_n-relocate_start-greedy-ls-1-win-8_i-2000_t0-60_tf-0p05",
+      "config_sha256": "ed11f62dc5bb41c3459fd26144e134e12c4559db8a84a1eb402ad2e022ddbf3d"
+    },
+    {
+      "label": "sa_i10000",
+      "solver": "simulated_annealing",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\sa_i10000.cfg",
+      "declared_config_id": "retrospective_budget_sa_c-geometric_n-relocate_start-greedy-ls-1-win-8_i-10000_t0-60_tf-0p05",
+      "config_sha256": "4ceed2a0165d02ad3d3a76b11bd9f561bcb27c72821d424006eb8c5a10c7ffd3"
+    },
+    {
+      "label": "ga_g10",
+      "solver": "genetic",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\ga_g10.cfg",
+      "declared_config_id": "retrospective_budget_ga_start-greedy-ls-1-win-8_pop-12_gen-10_tour-3_mut-0p20_insert-0p50_elite-0p08",
+      "config_sha256": "1944365fc30915fd35f06fb9e4d666192f65946057080ab138ad365de792039b"
+    },
+    {
+      "label": "ga_g20",
+      "solver": "genetic",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\ga_g20.cfg",
+      "declared_config_id": "retrospective_budget_ga_start-greedy-ls-1-win-8_pop-12_gen-20_tour-3_mut-0p20_insert-0p50_elite-0p08",
+      "config_sha256": "364245eb93422daa6de703f47f2aff00a2f64e828b298d37a8da66b408b2f2c4"
+    },
+    {
+      "label": "ga_g40",
+      "solver": "genetic",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\ga_g40.cfg",
+      "declared_config_id": "retrospective_budget_ga_start-greedy-ls-1-win-8_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08",
+      "config_sha256": "bbe415aafffba7ac8ff93a362c81037df1f1226e4dd734bb4b534edb4afe835e"
+    }
+  ],
+  "software": {
+    "command_argv": [
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\scripts\\run_scaling_experiments.py",
+      "--cli",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_budget_release\\optioryx_cli.exe",
+      "--data-dir",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\data",
+      "--wave",
+      "W000005",
+      "--n-list",
+      "909",
+      "--repeats",
+      "1",
+      "--seeds",
+      "0,1,2,3,4,5,6,7,8,9",
+      "--subset-seed",
+      "2026081605",
+      "--schedule-seed",
+      "2026080605",
+      "--timeout-seconds",
+      "900.0",
+      "--out-dir",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005",
+      "--require-release",
+      "--fail-fast",
+      "--experiment",
+      "greedy",
+      "greedy",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\greedy_ls1_win8.cfg",
+      "--experiment",
+      "sa_i120",
+      "simulated_annealing",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\sa_i120.cfg",
+      "--experiment",
+      "sa_i400",
+      "simulated_annealing",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\sa_i400.cfg",
+      "--experiment",
+      "sa_i2000",
+      "simulated_annealing",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\sa_i2000.cfg",
+      "--experiment",
+      "sa_i10000",
+      "simulated_annealing",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\sa_i10000.cfg",
+      "--experiment",
+      "ga_g10",
+      "genetic",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\ga_g10.cfg",
+      "--experiment",
+      "ga_g20",
+      "genetic",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\ga_g20.cfg",
+      "--experiment",
+      "ga_g40",
+      "genetic",
+      "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_budget\\ga_g40.cfg",
+      "--quiet"
+    ],
+    "orchestrator_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\scripts\\run_scaling_experiments.py",
+    "orchestrator_sha256": "bdac8e6da9c9b626eed5384ac3b6cb745a4a43df0e193c4abbb8797d88ea4115",
+    "working_directory": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx",
+    "repo_root": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx",
+    "git": {
+      "commit": "9a5da300c546cc91cd7e8730cdcc40ac44eb5720",
+      "branch": "main",
+      "working_tree_dirty": true,
+      "changed_paths": [
+        "M paper/appendix.tex",
+        " M paper/figures/retrospective_comparison.pdf",
+        " M paper/figures/retrospective_comparison.png",
+        " M paper/figures/retrospective_sa_ga.pdf",
+        " M paper/figures/retrospective_sa_ga.png",
+        " M paper/figures/retrospective_seed.pdf",
+        " M paper/figures/retrospective_seed.png",
+        " M paper/figures/retrospective_waves.pdf",
+        " M paper/figures/retrospective_waves.png",
+        " M paper/main.aux",
+        " M paper/main.log",
+        " M paper/main.out",
+        " M paper/main.pdf",
+        " M paper/main.tex",
+        " M paper/verslag_02006554.pdf",
+        " M scripts/make_retrospective_report_figures.py",
+        "?? configs/retrospective_budget/",
+        "?? results/retrospective_budget_release_full_20260806/",
+        "?? scripts/retrospective_budget_analyze.py",
+        "?? scripts/retrospective_budget_common.py",
+        "?? scripts/retrospective_budget_run.py"
+      ]
+    },
+    "cli_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_budget_release\\optioryx_cli.exe",
+    "cli_sha256": "4ea89c5425e2c0057c7bd9247ea91498d99cb0228b9904e3963ec8c68632f538",
+    "cmake_build_type_detected": "Release",
+    "cmake_cache_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_budget_release\\CMakeCache.txt",
+    "release_was_required": true
+  },
+  "hardware_and_os": {
+    "hostname": "MSI",
+    "operating_system": "Windows-10-10.0.19045-SP0",
+    "system": "Windows",
+    "release": "10",
+    "version": "10.0.19045",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+    "logical_cpu_count": 12,
+    "cpus_available_to_process": 12,
+    "total_memory_bytes": 17018523648,
+    "python_version": "3.12.7",
+    "python_implementation": "CPython",
+    "python_executable": "C:\\Users\\zepin\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "perf_counter": {
+      "implementation": "QueryPerformanceCounter()",
+      "monotonic": true,
+      "adjustable": false,
+      "resolution": 1e-07
+    },
+    "relevant_environment": {
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "NUMBER_OF_PROCESSORS": "12",
+      "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel"
+    }
+  },
+  "data": {
+    "data_directory": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\data",
+    "pick_data_sha256": "405aa52dbacdeac1722f17b90274cd433f9671a2879724f1e68a5ffb640d0fd5",
+    "dist_matrix_sha256": "2a72ae32135a1c6aca8f074ccd5479a65a33d3a7b8ab4da3ceb69022b93996eb",
+    "static_file_sha256": {
+      "dist_matrix.csv": "2a72ae32135a1c6aca8f074ccd5479a65a33d3a7b8ab4da3ceb69022b93996eb",
+      "example_submission.csv": "3c2e7e7b5cdb1f6e5da987f98b2cecd7a10816f4aad4346818f7d211c00f4db4",
+      "graph_loc_map.csv": "fc5b00c6291b04e2d41c6f4f9f96d78cca827fcfc65c362e0004c6c9e645cc3c",
+      "loc_graph_map.csv": "38debe4460481992cde20c223b01793410ab98d89cc72c69fa3d07383b914126",
+      "loc_to_coord.csv": "4571cfa791fb8d3984faa176235a36805c0732b914ff7b8c950dc13ab48b6987",
+      "loc_to_idx.csv": "ecca50792aba51e6775be57e074d859d650d6e3d99743022fb68e3c75f01aabb",
+      "obstacles.csv": "c37e66e0170ce3f2631e656ea212c3e5e6d88db25c0ac53822041fdd3a6b94c8",
+      "shortest_paths.csv": "08c8681c8348fdf6c4b90cd631d7adc169b7372bd4d0c682f83adf9c85300cdd"
+    },
+    "wave_order_counts": {
+      "W000001": 1041,
+      "W000002": 1076,
+      "W000003": 1219,
+      "W000004": 800,
+      "W000005": 909,
+      "W000006": 1076,
+      "W000007": 974,
+      "W000008": 945,
+      "W000009": 1148,
+      "W000010": 858,
+      "W000011": 50,
+      "W000012": 150
+    }
+  },
+  "outputs": {
+    "runs.csv": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005\\runs.csv",
+    "summary.csv": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005\\summary.csv",
+    "fits.csv": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005\\fits.csv",
+    "subset_manifest.csv": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005\\subset_manifest.csv",
+    "protocol.json": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005\\protocol.json",
+    "runtime_vs_n.png": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005\\runtime_vs_n.png",
+    "runtime_vs_n.pdf": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\W000005\\runtime_vs_n.pdf"
+  },
+  "completed_runs": 80,
+  "successful_runs": 80,
+  "unsuccessful_runs": 0,
+  "temporary_data": {
+    "retained": false,
+    "path": null,
+    "static_materialization_methods": [
+      "hardlink"
+    ]
+  },
+  "matplotlib_version": "3.10.7"
+}

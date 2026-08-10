@@ -1,0 +1,472 @@
+{
+  "schema_version": 1,
+  "state": "complete",
+  "created_utc": "2026-08-07T13:58:04.133+00:00",
+  "completed_utc": "2026-08-07T14:33:49.788+00:00",
+  "root": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx",
+  "output_root": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807",
+  "protocol": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "wave_counts": {
+      "W000001": 1041,
+      "W000002": 1076,
+      "W000003": 1219,
+      "W000004": 800,
+      "W000005": 909,
+      "W000006": 1076,
+      "W000007": 974,
+      "W000008": 945,
+      "W000009": 1148,
+      "W000010": 858,
+      "W000011": 50,
+      "W000012": 150
+    },
+    "schedule_seed": 2026080701,
+    "job_order": [
+      "ga_g40__seed-07",
+      "ga_g200__seed-07",
+      "sa_i10000__seed-04",
+      "ga_g100__seed-05",
+      "ga_g40__seed-08",
+      "ga_g40__seed-09",
+      "ga_g40__seed-06",
+      "sa_i50000__seed-07",
+      "sa_i50000__seed-08",
+      "sa_i10000__seed-06",
+      "ga_g100__seed-00",
+      "sa_i50000__seed-04",
+      "sa_i10000__seed-08",
+      "sa_i10000__seed-02",
+      "ga_g100__seed-08",
+      "ga_g40__seed-05",
+      "ga_g200__seed-01",
+      "ga_g100__seed-06",
+      "ga_g200__seed-09",
+      "sa_i10000__seed-09",
+      "ga_g200__seed-04",
+      "sa_i10000__seed-03",
+      "sa_i10000__seed-01",
+      "ga_g200__seed-05",
+      "ga_g200__seed-02",
+      "ga_g200__seed-03",
+      "ga_g100__seed-03",
+      "sa_i50000__seed-09",
+      "ga_g200__seed-00",
+      "sa_i50000__seed-01",
+      "ga_g100__seed-07",
+      "sa_i50000__seed-06",
+      "ga_g40__seed-00",
+      "ga_g200__seed-08",
+      "sa_i10000__seed-05",
+      "ga_g200__seed-06",
+      "ga_g100__seed-02",
+      "ga_g100__seed-09",
+      "ga_g40__seed-03",
+      "sa_i50000__seed-02",
+      "sa_i50000__seed-00",
+      "ga_g40__seed-04",
+      "ga_g100__seed-04",
+      "sa_i10000__seed-07",
+      "ga_g40__seed-02",
+      "ga_g40__seed-01",
+      "sa_i10000__seed-00",
+      "sa_i50000__seed-03",
+      "sa_i50000__seed-05",
+      "ga_g100__seed-01"
+    ],
+    "serial_execution": true,
+    "trajectory_unit": "best objective summed over all twelve waves at each step",
+    "timing": "solver_runtime_ms is the internal complete-instance timer including evaluator setup and validation; per-wave timers are recorded separately; wall_process_ms includes input loading and temporary JSON serialization",
+    "improvement_tolerance": 1e-09,
+    "t95_t99": "first step reaching respectively 95% or 99% of that run's total within-budget full-instance gain",
+    "seconds_to_t95_t99": "not available: the current Release convergence records contain no per-step timestamps; only exact iteration/generation steps and total run/per-wave times are recorded",
+    "sa_budget_relation": "SA 10k and SA 50k independently cool from 60 to 0.05 using budget-specific geometric factors; SA 10k is not a prefix of SA 50k",
+    "ga_budget_relation": "GA 40/100/200 differ only in the generation horizon; shared prefixes are verified explicitly during analysis",
+    "last_ten_percent": "steps floor(0.9 * horizon) through horizon, inclusive"
+  },
+  "experiments": [
+    {
+      "label": "sa_i10000",
+      "solver": "simulated_annealing",
+      "family": "SA",
+      "budget": 10000,
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_long_convergence\\sa_i10000.cfg",
+      "config_id": "retrospective_long_convergence_sa_c-geometric_n-relocate_start-greedy-ls-1-win-8_i-10000_t0-60_tf-0p05",
+      "config_sha256": "116dd544f4fbae65827c85b0d90b2f4e24692deaad2a9ca60b359fe94f10e8b8"
+    },
+    {
+      "label": "sa_i50000",
+      "solver": "simulated_annealing",
+      "family": "SA",
+      "budget": 50000,
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_long_convergence\\sa_i50000.cfg",
+      "config_id": "retrospective_long_convergence_sa_c-geometric_n-relocate_start-greedy-ls-1-win-8_i-50000_t0-60_tf-0p05",
+      "config_sha256": "16f3fdc4291e9a7ab3b610cd7c8efc9b94d2cfda185015120f0f74d2f6d88694"
+    },
+    {
+      "label": "ga_g40",
+      "solver": "genetic",
+      "family": "GA",
+      "budget": 40,
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_long_convergence\\ga_g40.cfg",
+      "config_id": "retrospective_long_convergence_ga_start-greedy-ls-1-win-8_pop-12_gen-40_tour-3_mut-0p20_insert-0p50_elite-0p08",
+      "config_sha256": "9225c60a1529a655f068e0b24623a5bd52e1b08418e9bad4d42e6697a694fda2"
+    },
+    {
+      "label": "ga_g100",
+      "solver": "genetic",
+      "family": "GA",
+      "budget": 100,
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_long_convergence\\ga_g100.cfg",
+      "config_id": "retrospective_long_convergence_ga_start-greedy-ls-1-win-8_pop-12_gen-100_tour-3_mut-0p20_insert-0p50_elite-0p08",
+      "config_sha256": "e612affe0df4a3501d03436a8a427397e033f59151996be0077e87fce91250d2"
+    },
+    {
+      "label": "ga_g200",
+      "solver": "genetic",
+      "family": "GA",
+      "budget": 200,
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_long_convergence\\ga_g200.cfg",
+      "config_id": "retrospective_long_convergence_ga_start-greedy-ls-1-win-8_pop-12_gen-200_tour-3_mut-0p20_insert-0p50_elite-0p08",
+      "config_sha256": "44978618189edbf20c78445b8699c065495dcff11379d2a6884979bfaa58dbce"
+    }
+  ],
+  "software": {
+    "cli_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_research_release\\optioryx_cli.exe",
+    "cli_sha256": "c6dd7bb88ead07f95c647ce6b4ee36dcc407ce7fd780b6964d9570874555e151",
+    "cmake_build_type": "Release",
+    "cmake_cache_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_research_release\\CMakeCache.txt",
+    "runner_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\scripts\\retrospective_long_convergence_run.py",
+    "runner_sha256": "4dce5aae27e0ee2abc57a2df2e9d1d9c25c04db5a5de284710433547b07e1921",
+    "common_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\scripts\\retrospective_long_convergence_common.py",
+    "common_sha256": "3df13cee4ae10112ba845d270668e82e7a71cb80624a2ca3e34af65d8b8ac411",
+    "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "git_head": "9a5da300c546cc91cd7e8730cdcc40ac44eb5720",
+    "git_status_porcelain_at_start": "M paper/appendix.tex\n M paper/figures/retrospective_comparison.pdf\n M paper/figures/retrospective_comparison.png\n M paper/figures/retrospective_sa_ga.pdf\n M paper/figures/retrospective_sa_ga.png\n M paper/figures/retrospective_seed.pdf\n M paper/figures/retrospective_seed.png\n M paper/figures/retrospective_waves.pdf\n M paper/figures/retrospective_waves.png\n M paper/main.aux\n M paper/main.log\n M paper/main.out\n M paper/main.pdf\n M paper/main.tex\n M paper/verslag_02006554.pdf\n M scripts/make_retrospective_report_figures.py\n M src/algorithms/simulated_annealing_solver.cpp\n M tests/test_main.cpp\n?? configs/retrospective_budget/\n?? configs/retrospective_long_convergence/\n?? configs/retrospective_seed_k/\n?? results/retrospective_budget_release_full_20260806/\n?? results/retrospective_budget_scaling_inference_20260807/\n?? results/retrospective_ga_ofat_inference_20260807/\n?? results/retrospective_ga_ofat_inference_final_20260807/\n?? results/retrospective_greedy_ablation_20260807/\n?? results/retrospective_greedy_development_20260807/\n?? results/retrospective_sa_factorial_inference_20260807/\n?? results/retrospective_seed_k_timing_release_20260807/\n?? results/sa_factorial_capacity_matched_release_20260807/\n?? scripts/retrospective_budget_analyze.py\n?? scripts/retrospective_budget_common.py\n?? scripts/retrospective_budget_resume.py\n?? scripts/retrospective_budget_run.py\n?? scripts/retrospective_budget_scaling_inference.py\n?? scripts/retrospective_ga_ofat_inference.py\n?? scripts/retrospective_greedy_ablation_analyze.py\n?? scripts/retrospective_long_convergence_analyze.py\n?? scripts/retrospective_long_convergence_common.py\n?? scripts/retrospective_long_convergence_run.py\n?? scripts/retrospective_sa_factorial_inference.py\n?? scripts/retrospective_seed_k_analyze.py\n?? scripts/retrospective_seed_k_run.py\n?? tests/test_retrospective_sa_factorial_inference.py"
+  },
+  "hardware": {
+    "processor": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+    "logical_cpu_count": 12
+  },
+  "data": {
+    "data_dir": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\data",
+    "pick_data_sha256": "405aa52dbacdeac1722f17b90274cd433f9671a2879724f1e68a5ffb640d0fd5",
+    "dist_matrix_sha256": "2a72ae32135a1c6aca8f074ccd5479a65a33d3a7b8ab4da3ceb69022b93996eb"
+  },
+  "planned_jobs": 50,
+  "completed_jobs": 50,
+  "records": [
+    {
+      "job_id": "ga_g40__seed-07",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-07.json",
+      "solver_runtime_ms": 29709.9468,
+      "wall_process_ms": 29952.1569
+    },
+    {
+      "job_id": "ga_g200__seed-07",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-07.json",
+      "solver_runtime_ms": 87952.2824,
+      "wall_process_ms": 88205.2285
+    },
+    {
+      "job_id": "sa_i10000__seed-04",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-04.json",
+      "solver_runtime_ms": 14124.0393,
+      "wall_process_ms": 15141.135
+    },
+    {
+      "job_id": "ga_g100__seed-05",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-05.json",
+      "solver_runtime_ms": 57774.3758,
+      "wall_process_ms": 58040.1422
+    },
+    {
+      "job_id": "ga_g40__seed-08",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-08.json",
+      "solver_runtime_ms": 32747.5942,
+      "wall_process_ms": 32991.9321
+    },
+    {
+      "job_id": "ga_g40__seed-09",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-09.json",
+      "solver_runtime_ms": 33070.6172,
+      "wall_process_ms": 33319.4285
+    },
+    {
+      "job_id": "ga_g40__seed-06",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-06.json",
+      "solver_runtime_ms": 33291.5248,
+      "wall_process_ms": 33545.9858
+    },
+    {
+      "job_id": "sa_i50000__seed-07",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-07.json",
+      "solver_runtime_ms": 16076.1316,
+      "wall_process_ms": 19860.4365
+    },
+    {
+      "job_id": "sa_i50000__seed-08",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-08.json",
+      "solver_runtime_ms": 16242.678,
+      "wall_process_ms": 20082.4809
+    },
+    {
+      "job_id": "sa_i10000__seed-06",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-06.json",
+      "solver_runtime_ms": 13320.7122,
+      "wall_process_ms": 14270.6717
+    },
+    {
+      "job_id": "ga_g100__seed-00",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-00.json",
+      "solver_runtime_ms": 52636.314,
+      "wall_process_ms": 52878.5235
+    },
+    {
+      "job_id": "sa_i50000__seed-04",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-04.json",
+      "solver_runtime_ms": 16131.0589,
+      "wall_process_ms": 19928.0296
+    },
+    {
+      "job_id": "sa_i10000__seed-08",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-08.json",
+      "solver_runtime_ms": 13599.2279,
+      "wall_process_ms": 14562.3063
+    },
+    {
+      "job_id": "sa_i10000__seed-02",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-02.json",
+      "solver_runtime_ms": 13479.4227,
+      "wall_process_ms": 14418.4866
+    },
+    {
+      "job_id": "ga_g100__seed-08",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-08.json",
+      "solver_runtime_ms": 53096.5627,
+      "wall_process_ms": 53357.6766
+    },
+    {
+      "job_id": "ga_g40__seed-05",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-05.json",
+      "solver_runtime_ms": 33462.6908,
+      "wall_process_ms": 33717.4622
+    },
+    {
+      "job_id": "ga_g200__seed-01",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-01.json",
+      "solver_runtime_ms": 85971.994,
+      "wall_process_ms": 86239.36
+    },
+    {
+      "job_id": "ga_g100__seed-06",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-06.json",
+      "solver_runtime_ms": 54243.4897,
+      "wall_process_ms": 54512.2063
+    },
+    {
+      "job_id": "ga_g200__seed-09",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-09.json",
+      "solver_runtime_ms": 84328.0313,
+      "wall_process_ms": 84608.3395
+    },
+    {
+      "job_id": "sa_i10000__seed-09",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-09.json",
+      "solver_runtime_ms": 13622.2419,
+      "wall_process_ms": 14542.1683
+    },
+    {
+      "job_id": "ga_g200__seed-04",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-04.json",
+      "solver_runtime_ms": 88120.5464,
+      "wall_process_ms": 88381.2127
+    },
+    {
+      "job_id": "sa_i10000__seed-03",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-03.json",
+      "solver_runtime_ms": 15074.5052,
+      "wall_process_ms": 16075.3497
+    },
+    {
+      "job_id": "sa_i10000__seed-01",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-01.json",
+      "solver_runtime_ms": 14557.3644,
+      "wall_process_ms": 15513.308
+    },
+    {
+      "job_id": "ga_g200__seed-05",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-05.json",
+      "solver_runtime_ms": 92525.2043,
+      "wall_process_ms": 92779.9998
+    },
+    {
+      "job_id": "ga_g200__seed-02",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-02.json",
+      "solver_runtime_ms": 91139.041,
+      "wall_process_ms": 91420.009
+    },
+    {
+      "job_id": "ga_g200__seed-03",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-03.json",
+      "solver_runtime_ms": 94878.2011,
+      "wall_process_ms": 95151.2481
+    },
+    {
+      "job_id": "ga_g100__seed-03",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-03.json",
+      "solver_runtime_ms": 53837.3788,
+      "wall_process_ms": 54093.0164
+    },
+    {
+      "job_id": "sa_i50000__seed-09",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-09.json",
+      "solver_runtime_ms": 16948.2025,
+      "wall_process_ms": 20742.7447
+    },
+    {
+      "job_id": "ga_g200__seed-00",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-00.json",
+      "solver_runtime_ms": 91101.7904,
+      "wall_process_ms": 91363.4409
+    },
+    {
+      "job_id": "sa_i50000__seed-01",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-01.json",
+      "solver_runtime_ms": 17566.4238,
+      "wall_process_ms": 21309.2588
+    },
+    {
+      "job_id": "ga_g100__seed-07",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-07.json",
+      "solver_runtime_ms": 53027.6343,
+      "wall_process_ms": 53289.3455
+    },
+    {
+      "job_id": "sa_i50000__seed-06",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-06.json",
+      "solver_runtime_ms": 16154.4259,
+      "wall_process_ms": 19929.1135
+    },
+    {
+      "job_id": "ga_g40__seed-00",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-00.json",
+      "solver_runtime_ms": 32629.3785,
+      "wall_process_ms": 32873.7225
+    },
+    {
+      "job_id": "ga_g200__seed-08",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-08.json",
+      "solver_runtime_ms": 86985.2474,
+      "wall_process_ms": 87245.7407
+    },
+    {
+      "job_id": "sa_i10000__seed-05",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-05.json",
+      "solver_runtime_ms": 13572.2261,
+      "wall_process_ms": 14583.927
+    },
+    {
+      "job_id": "ga_g200__seed-06",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g200__seed-06.json",
+      "solver_runtime_ms": 85753.7772,
+      "wall_process_ms": 86025.3767
+    },
+    {
+      "job_id": "ga_g100__seed-02",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-02.json",
+      "solver_runtime_ms": 51863.3728,
+      "wall_process_ms": 52120.1529
+    },
+    {
+      "job_id": "ga_g100__seed-09",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-09.json",
+      "solver_runtime_ms": 52915.2836,
+      "wall_process_ms": 53166.1877
+    },
+    {
+      "job_id": "ga_g40__seed-03",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-03.json",
+      "solver_runtime_ms": 32377.2557,
+      "wall_process_ms": 32638.8603
+    },
+    {
+      "job_id": "sa_i50000__seed-02",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-02.json",
+      "solver_runtime_ms": 15863.9476,
+      "wall_process_ms": 19620.8135
+    },
+    {
+      "job_id": "sa_i50000__seed-00",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-00.json",
+      "solver_runtime_ms": 16337.6202,
+      "wall_process_ms": 20094.6952
+    },
+    {
+      "job_id": "ga_g40__seed-04",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-04.json",
+      "solver_runtime_ms": 31228.7605,
+      "wall_process_ms": 31532.7823
+    },
+    {
+      "job_id": "ga_g100__seed-04",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-04.json",
+      "solver_runtime_ms": 52163.2907,
+      "wall_process_ms": 52433.3709
+    },
+    {
+      "job_id": "sa_i10000__seed-07",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-07.json",
+      "solver_runtime_ms": 13397.839,
+      "wall_process_ms": 14362.6473
+    },
+    {
+      "job_id": "ga_g40__seed-02",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-02.json",
+      "solver_runtime_ms": 33173.4002,
+      "wall_process_ms": 33421.3754
+    },
+    {
+      "job_id": "ga_g40__seed-01",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g40__seed-01.json",
+      "solver_runtime_ms": 31463.375,
+      "wall_process_ms": 31719.3419
+    },
+    {
+      "job_id": "sa_i10000__seed-00",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i10000__seed-00.json",
+      "solver_runtime_ms": 13179.5327,
+      "wall_process_ms": 14097.175
+    },
+    {
+      "job_id": "sa_i50000__seed-03",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-03.json",
+      "solver_runtime_ms": 15857.721,
+      "wall_process_ms": 19696.9133
+    },
+    {
+      "job_id": "sa_i50000__seed-05",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\sa_i50000__seed-05.json",
+      "solver_runtime_ms": 15843.8689,
+      "wall_process_ms": 19632.8111
+    },
+    {
+      "job_id": "ga_g100__seed-01",
+      "record_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\records\\ga_g100__seed-01.json",
+      "solver_runtime_ms": 52170.1348,
+      "wall_process_ms": 52463.3972
+    }
+  ]
+}

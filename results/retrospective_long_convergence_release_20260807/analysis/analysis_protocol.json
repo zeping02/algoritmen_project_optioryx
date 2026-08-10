@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "state": "complete",
+  "created_utc": "2026-08-07T14:35:38.408+00:00",
+  "study_dir": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807",
+  "study_manifest_sha256": "482e27f01161b9ee74e7eb35b408dfee84b1faeb8d46ee9a4b35b88a0980a4e4",
+  "validated_runs": 50,
+  "validated_wave_runs": 600,
+  "wave_summary_rows": 60,
+  "ga_objective_prefix_checks": 30,
+  "ga_objective_prefix_mismatches": 24,
+  "matplotlib_version": "3.10.7",
+  "numpy_version": "2.3.4",
+  "definitions": {
+    "sampling_unit": "solver seed after exact aggregation over twelve waves",
+    "t95_t99": "first step reaching 95%/99% of the within-budget total gain",
+    "last_improvement": "last strict best-so-far decrease larger than 1e-9",
+    "edge_improvement": "last strict decrease occurs at the final budget step",
+    "last_ten_percent_share": "gain from floor(0.9*horizon) through the horizon divided by total gain",
+    "quartiles": "linear interpolation at positions (n-1)*p",
+    "runtime": "internal complete-instance timer including evaluator setup and validation; the sum of twelve wave timers is retained separately",
+    "seconds_to_t95_t99": "unavailable: convergence points contain no per-step timestamps; exact t95/t99 are reported only in iterations/generations",
+    "sa_budget_relation": "SA 10k and 50k are independent schedules, each cooling from 60 to 0.05 with its own geometric alpha; SA 10k is not a prefix of SA 50k",
+    "ga_budget_relation": "GA 40/100/200 use the same seed labels but one RNG stream is consumed sequentially over waves. A longer horizon in an earlier wave shifts the RNG state for later waves, so full-instance curves are alternative horizons rather than shared prefixes. Best-objective prefix equality is recorded as a descriptive audit and is not required.",
+    "paired_budget_confidence_intervals": "two-sided Student-t 95% intervals over paired solver-seed contrasts",
+    "figure": "mean percentage gain from each run's own start with two-sided Student-t 95% intervals; dotted vertical lines mark 90% of each budget"
+  },
+  "outputs": {
+    "run_metrics.csv": {
+      "sha256": "4c6f6a57cba2b6f1400693ccccb1f6c0bafafd680e22498508b693e730ebc4c5",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\run_metrics.csv"
+    },
+    "wave_metrics.csv": {
+      "sha256": "b709c5996ccdc8dc82e032263841961c7a8cb631762c6356ae84512499480548",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\wave_metrics.csv"
+    },
+    "wave_summary.csv": {
+      "sha256": "024be5c3d66b2864f589f083ae18457c929f5ba997a9e636d23966c0631abcd0",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\wave_summary.csv"
+    },
+    "summary.csv": {
+      "sha256": "a6e53e4ba7423fdb90687a980b80e1ab23fc4ab31652787874f86da9acfb4ed2",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\summary.csv"
+    },
+    "paired_budget_comparisons.csv": {
+      "sha256": "6616486e63e7b868e1dc3ba5571f49f662b7261a97219afc8fcb64b83b4c5249",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\paired_budget_comparisons.csv"
+    },
+    "paired_budget_summary.csv": {
+      "sha256": "2ec487c646140b6e5c7cd5fa1e0dc7bdc0c955f6b43a97326ebfaef433c70977",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\paired_budget_summary.csv"
+    },
+    "ga_objective_prefix_audit.csv": {
+      "sha256": "d05c02e814aa77dad95f9c7cd56e46a997a211d5e5967ea6bbb10fe7c295d8f4",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\ga_objective_prefix_audit.csv"
+    },
+    "long_convergence.png": {
+      "sha256": "0c5348c9fbca3a6d514dd0281499dc47e340bc115292fc21cccc72ae206ef839",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\long_convergence.png"
+    },
+    "long_convergence.pdf": {
+      "sha256": "d375675cb15eeafedc6e53aeb55d41a5f1224e1332b4bd999a6f5cbedfa28fb4",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\long_convergence.pdf"
+    },
+    "summary.md": {
+      "sha256": "e0ffcee27fab63dc9657cbc9b5efd981851d1258f8f95e9547dea02b9ac5d51d",
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_long_convergence_release_20260807\\analysis\\summary.md"
+    }
+  }
+}

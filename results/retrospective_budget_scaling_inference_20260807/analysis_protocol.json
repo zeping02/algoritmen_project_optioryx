@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "state": "complete",
+  "created_utc": "2026-08-07T12:50:12.195+00:00",
+  "study": "inferential reanalysis of existing Release budget and scaling measurements",
+  "execution": "analysis only; no solver process was started",
+  "source_studies": {
+    "budget": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806",
+    "scaling": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\scaling_controlled_matched"
+  },
+  "validation": {
+    "budget_raw_runs_previously_validated": 960,
+    "budget_full_instance_rows_revalidated": 80,
+    "scaling_raw_runs_revalidated": 135,
+    "scaling_grid": {
+      "labels": [
+        "greedy_matched",
+        "sa_matched",
+        "ga_matched"
+      ],
+      "n_values": [
+        50,
+        100,
+        200,
+        400,
+        800
+      ],
+      "repeats": [
+        0,
+        1,
+        2
+      ],
+      "solver_seeds": [
+        0,
+        1,
+        2
+      ]
+    },
+    "legacy_scaling_fits_reproduced": true
+  },
+  "budget_inference": {
+    "sampling_unit": "solver seed after summing objective over all twelve complete waves",
+    "pairing": "candidate and greedy share the same solver-seed label",
+    "gain_definition": "greedy objective minus candidate objective; positive favours candidate",
+    "planned_comparisons": [
+      "sa_i120",
+      "sa_i400",
+      "sa_i2000",
+      "sa_i10000",
+      "ga_g10",
+      "ga_g20",
+      "ga_g40"
+    ],
+    "test": "two-sided one-sample Student-t test of paired gains against zero",
+    "confidence_interval": "two-sided Student-t interval for the mean at confidence=0.95",
+    "multiplicity": "Holm step-down adjustment across the seven predeclared candidate-versus-greedy budgets",
+    "marginal_contrasts": [
+      "sa_i2000_minus_sa_i400",
+      "sa_i10000_minus_sa_i2000",
+      "ga_g40_minus_ga_g20"
+    ],
+    "marginal_multiplicity": "separate Holm family across the three predeclared marginal contrasts",
+    "alpha": 0.05
+  },
+  "scaling_inference": {
+    "aggregation": "median solver_runtime_ms over nine runs at each n",
+    "model": "OLS of ln(median runtime) on ln(n), T(n)=a*n^b",
+    "primary_interval": "Student-t slope interval with n_levels-2 residual degrees of freedom",
+    "compatibility_interval": "normal approximation retained to reproduce the original fits.csv convention",
+    "scope": "descriptive over n=50..800 and not evidence of asymptotic complexity"
+  },
+  "source_software": {
+    "budget_cli_sha256": "4ea89c5425e2c0057c7bd9247ea91498d99cb0228b9904e3963ec8c68632f538",
+    "budget_cmake_build_type": "Release",
+    "scaling_cli_sha256": "10d8e166fb05d78589a713a765c07503e3a5393e52fe65e5f964b7824bf4fe2a",
+    "scaling_cmake_build_type": "Release"
+  },
+  "analysis_software": {
+    "python": "3.12.7",
+    "python_implementation": "CPython",
+    "scipy": "1.16.2"
+  },
+  "inputs": {
+    "budget_study_manifest": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\study_manifest.json",
+      "size_bytes": 35573,
+      "sha256": "1cb2ce6d8d696cf689ba7d6a39f4abb49cdd089208013a229ab535332c8466e1"
+    },
+    "budget_aggregation_protocol": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\analysis_protocol.json",
+      "size_bytes": 2606,
+      "sha256": "81fd9e9be1b0338179f654e4c0057c9470008054a5e043c7330225860b717052"
+    },
+    "budget_full_instance_runs": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_release_full_20260806\\analysis\\full_instance_runs.csv",
+      "size_bytes": 20288,
+      "sha256": "db82a1afd615729585a1b261b2830d45906291c7c9d12a6b1b2e2945b448dd98"
+    },
+    "scaling_protocol": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\scaling_controlled_matched\\protocol.json",
+      "size_bytes": 11734,
+      "sha256": "f0207885c9d07bababb776e01ca5edfc630a82a82f3e67ae9cd9745027417eb3"
+    },
+    "scaling_runs": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\scaling_controlled_matched\\runs.csv",
+      "size_bytes": 156129,
+      "sha256": "c64ccee73df0d20ce1d58ca8da0758e191a65235d5248e75558f9984e1e2544f"
+    },
+    "scaling_legacy_fits": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\scaling_controlled_matched\\fits.csv",
+      "size_bytes": 1450,
+      "sha256": "02e63e85b003cb8b27d47765d86622cb5d1619f63f331182fc10d2f2ce0582e1"
+    },
+    "scaling_summary": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\scaling_controlled_matched\\summary.csv",
+      "size_bytes": 8364,
+      "sha256": "667cad1eba0e8d0c06f239a550a3c3c2e019044be5c098f4a1a3ed9ca6bc394e"
+    },
+    "analysis_script": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\scripts\\retrospective_budget_scaling_inference.py",
+      "size_bytes": 30434,
+      "sha256": "c2d96f4a574aa6ace9f17b16dc1278fa8a4461b0bd88e831ba67af18ce5a511b"
+    }
+  },
+  "outputs": {
+    "budget_paired_comparisons": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_scaling_inference_20260807\\budget_paired_comparisons.csv",
+      "size_bytes": 2760,
+      "sha256": "71f894be689ef4d984f2ef735d1a03c663cf97f2bd141f8b4a25c35bbcc96b40"
+    },
+    "budget_marginal_contrasts": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_scaling_inference_20260807\\budget_marginal_contrasts.csv",
+      "size_bytes": 1166,
+      "sha256": "83bc65b7f43a06a400ec5366fce4b113a734cbf3b235b19360a19228290f9956"
+    },
+    "budget_paired_seed_values": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_scaling_inference_20260807\\budget_paired_seed_values.csv",
+      "size_bytes": 7247,
+      "sha256": "546b732a1043efcdf317fe029c6eeaa0483023fb9153895e8045250ba6cf05a8"
+    },
+    "scaling_exponents": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_scaling_inference_20260807\\scaling_exponents.csv",
+      "size_bytes": 1456,
+      "sha256": "d8f201be64a60e24215cb27d70c5c97ae9998d9fa58988e1a90d33b37f380978"
+    },
+    "scaling_runtime_medians": {
+      "path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\results\\retrospective_budget_scaling_inference_20260807\\scaling_runtime_medians.csv",
+      "size_bytes": 666,
+      "sha256": "c534236b3f9a05f047173f3d7887331277209ec9bc4d0cc3c08220d764b14b44"
+    }
+  },
+  "row_counts": {
+    "budget_paired_comparisons": 7,
+    "budget_marginal_contrasts": 3,
+    "budget_paired_seed_values": 70,
+    "scaling_exponents": 3,
+    "scaling_runtime_medians": 15
+  }
+}

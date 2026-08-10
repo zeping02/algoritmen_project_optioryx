@@ -1,0 +1,8 @@
+condition,archived_value,status,paper_scope
+representation_and_decoder,order permutation; DP-decoded total route cost,fixed across all nine configurations,all OFAT conclusions are conditional on this representation and decoder
+crossover,order crossover (OX),fixed across all nine configurations,no comparison with another crossover operator was performed
+tournament_size,3,fixed across all nine configurations,effects are conditional on tournament selection with size 3
+mutation_operator_mix,"50% insertion and 50% swap, conditional on mutation",fixed through insertion_rate=0.50,mutation-rate effects do not compare operator mixtures
+elitism_fraction,baseline 0.08; variants 0 and 0.20,fixed at 0.08 outside the two elitism contrasts,generation and mutation-rate effects are conditional on elitism 0.08
+effective_elite_count,population 6: 0; population 12 at 0.08: 1; population 24: 2,derived by rounding population_size times elitism_fraction,the population-size contrast also changes the absolute number of elites
+paired_seeds,0 through 9,same seed labels for every configuration,contrasts are paired by seed on the complete instance

@@ -1,0 +1,16 @@
+experiment_label,solver,n_orders,runtime_observations,median_solver_runtime_ms
+greedy_matched,greedy,50,9,3.3514
+greedy_matched,greedy,100,9,13.6199
+greedy_matched,greedy,200,9,44.4234
+greedy_matched,greedy,400,9,176.2291
+greedy_matched,greedy,800,9,648.1595
+sa_matched,simulated_annealing,50,9,3.4096
+sa_matched,simulated_annealing,100,9,13.1169
+sa_matched,simulated_annealing,200,9,47.8773
+sa_matched,simulated_annealing,400,9,185.6115
+sa_matched,simulated_annealing,800,9,638.493
+ga_matched,genetic,50,9,36.8923
+ga_matched,genetic,100,9,96.3731
+ga_matched,genetic,200,9,198.8076
+ga_matched,genetic,400,9,526.8714
+ga_matched,genetic,800,9,1442.138

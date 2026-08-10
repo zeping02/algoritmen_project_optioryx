@@ -1,5 +1,7 @@
-#include <filesystem>
+#include <algorithm>
 #include <cmath>
+#include <cstdint>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <limits>
@@ -413,6 +415,84 @@ void test_simulated_annealing_explicit_pure_greedy_start() {
         "SA should record its explicit pure greedy-start configuration");
 }
 
+void test_simulated_annealing_randomized_start_is_capacity_matched() {
+    const ProblemInstance instance = optioryx::load_instance(fixture_path("small.instance"));
+    const BatchEvaluator evaluator(instance);
+
+    SimulatedAnnealingConfig config;
+    config.start_strategy = StartSolutionStrategy::randomized;
+    config.iterations = 0;
+
+    for (std::size_t wave_index = 0U; wave_index < instance.waves.size(); ++wave_index) {
+        const std::vector<int>& expected_orders = instance.waves[wave_index].order_indices;
+        const std::size_t expected_batch_count =
+            (expected_orders.size() + instance.nmax - 1U) / instance.nmax;
+        std::vector<int> first_layout;
+        bool observed_distinct_layout = false;
+
+        // Elke seed moet uitsluitend de ordervolgorde randomiseren. Routeaantal,
+        // capaciteit en volledigheid van de toewijzing blijven invariant.
+        for (const std::uint64_t seed : {0ULL, 1ULL, 2ULL, 7ULL, 42ULL, 999ULL}) {
+            std::mt19937_64 rng(seed);
+            const auto result = optioryx::solve_wave_simulated_annealing(
+                instance,
+                evaluator,
+                static_cast<int>(wave_index),
+                config,
+                rng);
+
+            expect(
+                result.batches.size() == expected_batch_count,
+                "Randomized SA start should use the capacity-minimal batch count");
+
+            std::vector<int> actual_orders;
+            for (std::size_t batch_index = 0U; batch_index < result.batches.size(); ++batch_index) {
+                const Batch& batch = result.batches[batch_index];
+                expect(!batch.order_indices.empty(), "Randomized SA start should not create empty batches");
+                expect(
+                    batch.order_indices.size() <= instance.nmax,
+                    "Randomized SA start should respect nmax");
+                if (batch_index + 1U < result.batches.size()) {
+                    expect(
+                        batch.order_indices.size() == instance.nmax,
+                        "Randomized SA start should fill every non-final batch to capacity");
+                }
+                actual_orders.insert(
+                    actual_orders.end(),
+                    batch.order_indices.begin(),
+                    batch.order_indices.end());
+            }
+
+            if (first_layout.empty()) {
+                first_layout = actual_orders;
+            } else if (actual_orders != first_layout) {
+                observed_distinct_layout = true;
+            }
+
+            std::vector<int> sorted_expected = expected_orders;
+            std::sort(actual_orders.begin(), actual_orders.end());
+            std::sort(sorted_expected.begin(), sorted_expected.end());
+            expect(
+                actual_orders == sorted_expected,
+                "Randomized SA start should assign each wave order exactly once");
+        }
+        expect(
+            observed_distinct_layout,
+            "Different SA seeds should be able to produce different randomized starts");
+    }
+
+    std::mt19937_64 first_rng(123456);
+    std::mt19937_64 repeated_rng(123456);
+    const auto first = optioryx::solve_wave_simulated_annealing(instance, evaluator, 0, config, first_rng);
+    const auto repeated = optioryx::solve_wave_simulated_annealing(instance, evaluator, 0, config, repeated_rng);
+    expect(first.batches.size() == repeated.batches.size(), "Equal SA seeds should reproduce the batch count");
+    for (std::size_t batch_index = 0U; batch_index < first.batches.size(); ++batch_index) {
+        expect(
+            first.batches[batch_index].order_indices == repeated.batches[batch_index].order_indices,
+            "Equal SA seeds should reproduce the randomized start exactly");
+    }
+}
+
 void test_simulated_annealing_incremental_objective() {
     const ProblemInstance instance = optioryx::load_instance(fixture_path("small.instance"));
     const std::vector<optioryx::NeighborhoodStrategy> neighborhoods = {
@@ -619,6 +699,7 @@ int main() {
         test_bounded_two_step_lookahead();
         test_simulated_annealing_regression();
         test_simulated_annealing_explicit_pure_greedy_start();
+        test_simulated_annealing_randomized_start_is_capacity_matched();
         test_simulated_annealing_incremental_objective();
         test_ga_decoder_and_regression();
         test_submission_roundtrip();

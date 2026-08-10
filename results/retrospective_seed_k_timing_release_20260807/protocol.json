@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "study": "deterministic seed-selection timing and lookahead-width sensitivity",
+  "state": "complete",
+  "started_utc": "2026-08-07T12:38:11.555+00:00",
+  "finished_utc": "2026-08-07T13:41:57.935+00:00",
+  "repetitions": 10,
+  "schedule_seed": 2026080701,
+  "expected_runs": 140,
+  "completed_runs": 140,
+  "experiments": [
+    {
+      "label": "largest_overlap",
+      "seed": "largest",
+      "rule": "overlap",
+      "k": null,
+      "config_id": "retrospective_seed_largest_overlap",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\largest_overlap.cfg",
+      "config_sha256": "2e0e09d4db3c09bee773caf91f19e0fe0893dbf55648173ec356709ec453115c"
+    },
+    {
+      "label": "largest_span_expansion",
+      "seed": "largest",
+      "rule": "span",
+      "k": null,
+      "config_id": "retrospective_seed_largest_span_expansion",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\largest_span_expansion.cfg",
+      "config_sha256": "b7ee43e13e215ee092689e9a86b96d4c0a44598c9365be7c3a9ec6555dbb028a"
+    },
+    {
+      "label": "smallest_overlap",
+      "seed": "smallest",
+      "rule": "overlap",
+      "k": null,
+      "config_id": "retrospective_seed_smallest_overlap",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\smallest_overlap.cfg",
+      "config_sha256": "1a17b6ee070c086f210a70054a164776ff6d93427ffef8216b5d4579b8bf3af4"
+    },
+    {
+      "label": "smallest_span_expansion",
+      "seed": "smallest",
+      "rule": "span",
+      "k": null,
+      "config_id": "retrospective_seed_smallest_span_expansion",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\smallest_span_expansion.cfg",
+      "config_sha256": "2858b47c0dc3218fac2eaba579d5bd6e4c51a1729c8c756c7f4893eacb49bd33"
+    },
+    {
+      "label": "largest_immediate",
+      "seed": "largest",
+      "rule": "immediate",
+      "k": null,
+      "config_id": "retrospective_seed_largest_immediate",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\largest_immediate.cfg",
+      "config_sha256": "6c3d8d93fc40bf99d3bcc010a7bc778292a44810985c61de0dc54234604755c1"
+    },
+    {
+      "label": "smallest_immediate",
+      "seed": "smallest",
+      "rule": "immediate",
+      "k": null,
+      "config_id": "retrospective_seed_smallest_immediate",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\smallest_immediate.cfg",
+      "config_sha256": "ab6d9e165715305a824743189da360388f077f8e6cfee0e26d88c12fbe76bb25"
+    },
+    {
+      "label": "largest_k2",
+      "seed": "largest",
+      "rule": "two_step",
+      "k": 2,
+      "config_id": "retrospective_seed_largest_two_step_k2",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\largest_k2.cfg",
+      "config_sha256": "3180072334a8efa9f9c11a18e5e7942ad4c954c74d674802c971a773e1ea8e88"
+    },
+    {
+      "label": "largest_k4",
+      "seed": "largest",
+      "rule": "two_step",
+      "k": 4,
+      "config_id": "retrospective_seed_largest_two_step_k4",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\largest_k4.cfg",
+      "config_sha256": "a1c3bef6d86d0d15be3f4ad8ec47e62b0273c1ec9f60daeaf10d2f0c894d32ca"
+    },
+    {
+      "label": "largest_k8",
+      "seed": "largest",
+      "rule": "two_step",
+      "k": 8,
+      "config_id": "retrospective_seed_largest_two_step_k8",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\largest_k8.cfg",
+      "config_sha256": "246d61b549bcb5be0b5de7bd50453d768a6b35066dbf0a352a530f67a4b96f9c"
+    },
+    {
+      "label": "largest_k16",
+      "seed": "largest",
+      "rule": "two_step",
+      "k": 16,
+      "config_id": "retrospective_seed_largest_two_step_k16",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\largest_k16.cfg",
+      "config_sha256": "badd42cb88bbdabcf62116c12c19779a894a0f2bdf091a5d890a557821495a7d"
+    },
+    {
+      "label": "smallest_k2",
+      "seed": "smallest",
+      "rule": "two_step",
+      "k": 2,
+      "config_id": "retrospective_seed_smallest_two_step_k2",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\smallest_k2.cfg",
+      "config_sha256": "10acaeac8675ac2db9e1634ecdfc5df24c0e8f7446cde9f447e0fa3061edd773"
+    },
+    {
+      "label": "smallest_k4",
+      "seed": "smallest",
+      "rule": "two_step",
+      "k": 4,
+      "config_id": "retrospective_seed_smallest_two_step_k4",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\smallest_k4.cfg",
+      "config_sha256": "e1908145afa9ccc847353c630ee08691cef84abcccbf28a7b1206fb2826f03e6"
+    },
+    {
+      "label": "smallest_k8",
+      "seed": "smallest",
+      "rule": "two_step",
+      "k": 8,
+      "config_id": "retrospective_seed_smallest_two_step_k8",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\smallest_k8.cfg",
+      "config_sha256": "a4508b38aba0e662914f6c422768535c29d975549061a5ed410bc9ed088e3286"
+    },
+    {
+      "label": "smallest_k16",
+      "seed": "smallest",
+      "rule": "two_step",
+      "k": 16,
+      "config_id": "retrospective_seed_smallest_two_step_k16",
+      "config_path": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\configs\\retrospective_seed_k\\smallest_k16.cfg",
+      "config_sha256": "a4551456256183c1b5e58a128a15b8fbb0ce76ccdc2b28d737bba7a04a1566b5"
+    }
+  ],
+  "software": {
+    "runner": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\scripts\\retrospective_seed_k_run.py",
+    "runner_sha256": "479f5749e75db9261ecde4ebc446c9bb7a11e49de256455c801cceaf1e69b677",
+    "cli": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_research_release\\optioryx_cli.exe",
+    "cli_sha256": "c6dd7bb88ead07f95c647ce6b4ee36dcc407ce7fd780b6964d9570874555e151",
+    "cmake_build_type": "Release",
+    "cmake_cache": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\build_research_release\\CMakeCache.txt",
+    "python": "C:\\Users\\zepin\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
+  },
+  "data": {
+    "directory": "C:\\Users\\zepin\\temp\\algoritmen_project_optioryx\\data",
+    "pick_data_sha256": "405aa52dbacdeac1722f17b90274cd433f9671a2879724f1e68a5ffb640d0fd5",
+    "dist_matrix_sha256": "2a72ae32135a1c6aca8f074ccd5479a65a33d3a7b8ab4da3ceb69022b93996eb"
+  },
+  "last_schedule_index": 140,
+  "successful_runs": 140
+}
