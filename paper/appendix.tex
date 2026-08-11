@@ -12,8 +12,8 @@
 \begin{table}[H]
 \centering
 \caption{Volledig $2\times2\times2$-SA-ontwerp met een capaciteitsvullende
-randomstart en tien gekoppelde seeds. Afstand en gemiddelde interne
-wave-solvertijd zijn over twaalf waves gesommeerd.}
+randomstart. Voor elke seed zijn $D$ en de interne solvertijd over de twaalf
+waves opgeteld. De resultaten zijn gebaseerd op tien gekoppelde seeds.}
 \label{tab:app-sa}
 \begin{tabular}{@{}lllrrr@{}}
 \toprule
@@ -36,9 +36,10 @@ willekeurig & Lundy--Mees & swap     & $10\,545\,832\pm29\,989$ & $10\,501\,489$
 \begin{table}[H]
 \centering
 \caption{Gekoppelde SA-effecten op $D$. De Student-$t$-95\%-BI's zijn
-ongecorrigeerd. $p_{\mathrm H}$ corrigeert zeven toetsen met Holm. Richtingen:
-$K=$ Lundy--Mees min geometrisch, $B=$ swap min relocate en $S=$ willekeurig
-min greedy. Positief is slechter.}
+ongecorrigeerd. De kolom $p_{\mathrm H}$ bevat de Holm-gecorrigeerde $p$-waarden voor
+zeven toetsen. De contrasten zijn $K$: Lundy--Mees min geometrisch, $B$: swap
+min relocate en $S$: willekeurig min greedy. Een positieve $\Delta D$ is
+ongunstig.}
 \label{tab:app-sa-effects}
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -57,10 +58,10 @@ $K\times B\times S$ & $-31\,112\;[-59\,457\text{--}-2\,766]$ & $0,133$ \\
 
 \begin{table}[H]
 \centering
-\caption{Gekoppelde GA-OFAT-contrasten, variant min basis. De basis gebruikt
-populatie 12, twintig generaties, mutatiekans 0,20 en elitisme 0,08. De
-Student-$t$-95\%-BI's zijn ongecorrigeerd. $p_{\mathrm H}$ bevat de
-Holm-correctie over acht kwaliteitstoetsen.}
+\caption{Gekoppelde GA-OFAT-contrasten. Elke rij geeft het verschil tussen de
+variant en de basis met populatie 12, twintig generaties, mutatiekans 0,20 en
+elitisme 0,08. De Student-$t$-95\%-BI's zijn ongecorrigeerd. De kolom
+$p_{\mathrm H}$ bevat de Holm-gecorrigeerde $p$-waarden voor acht kwaliteitstoetsen.}
 \label{tab:app-ga}
 \begin{tabular}{@{}llrrr@{}}
 \toprule
@@ -79,16 +80,16 @@ elitisme   & 0,20 (0,08)  & $-13\;[-188\text{--}163]$   & $1,000$ & $-5,76\%$ \\
 \end{tabular}
 \end{table}
 
-\noindent De OFAT-uitspraken zijn conditioneel op OX, toernooigrootte 3 en een
-50/50-mix van invoeg- en wisselmutaties. Bij populaties 6, 12 en 24 verandert het
-afgeronde elite-aantal respectievelijk naar 0, 1 en 2. Het populatiecontrast
-is daardoor niet los van het elite-aantal interpreteerbaar. De OFAT-volgorde
-was niet gerandomiseerd. De tijdsverschillen zijn daarom uitsluitend
-beschrijvend.
+\noindent De OFAT-resultaten gelden alleen voor OX, toernooigrootte 3 en een
+50/50-verdeling van invoeg- en wisselmutaties. Door afronding gebruiken
+populaties van 6, 12 en 24 respectievelijk 0, 1 en 2 elites. Het effect van de
+populatiegrootte kan daardoor niet van het aantal elites worden gescheiden.
+Omdat de uitvoeringsvolgorde niet was gerandomiseerd, zijn de tijdsverschillen
+uitsluitend beschrijvend.
 \endgroup
 
 \clearpage
-\section{Budget, schaal, waves en convergentie}
+\section{Budget, schaalgedrag, waveverschillen en convergentie}
 \label{app:matched}
 
 \begingroup
@@ -101,10 +102,11 @@ beschrijvend.
 
 \begin{table}[H]
 \centering
-\caption{Intern consistente Release-budgetstudie met tien gekoppelde seeds,
-afzonderlijk van Bijlage~\ref{app:meta}. $D$ en interne tijd sommeren twaalf
-waves. Winst is greedy min kandidaat. De Student-$t$-95\%-BI's zijn
-ongecorrigeerd. $p_{\mathrm H}$ corrigeert zeven budgettoetsen met Holm.}
+\caption{Afzonderlijke Release-budgetstudie met tien gekoppelde seeds. Per seed
+zijn $D$ en de interne solvertijd over twaalf waves opgeteld. Winst is berekend
+als de greedyscore min de kandidaatscore, zodat een positieve waarde een
+verbetering aangeeft. De Student-$t$-95\%-BI's zijn ongecorrigeerd. De kolom
+$p_{\mathrm H}$ bevat de Holm-gecorrigeerde $p$-waarden voor zeven budgettoetsen.}
 \label{tab:app-budget}
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
@@ -125,9 +127,9 @@ GA--40       & $5\,307\,044\pm182$    & $31,148\pm1,823$ & $0,0049\;[0,0024\text
 
 \begin{table}[H]
 \centering
-\caption{Log--logfit $T(n)=a n^b$ op vijf groottes en negen timings per grootte.
-Het Student-$t$-BI voor $b$ heeft drie vrijheidsgraden. De fit geldt alleen voor
-$50\leq n\leq800$.}
+\caption{De exponent $b$ is met een log--logregressie van $T(n)=a n^b$ geschat
+op vijf groottes en negen timings per grootte. Het Student-$t$-95\%-BI voor $b$
+heeft drie vrijheidsgraden. De fit geldt alleen voor $50\leq n\leq800$.}
 \label{tab:app-scaling}
 \begin{tabular}{@{}lrrr@{}}
 \toprule
@@ -159,16 +161,16 @@ gebeurt over alle twaalf wave-toetsen.}
 \end{tabular}
 \end{table}
 
-\noindent Voor GA--40 bevat vijf van twaalf waves minstens één verbeterende
-seed. Geen wave heeft een positief ongecorrigeerd 95\%-BI en geen wave blijft
-significant na Holm-correctie.
+\noindent Bij GA--40 verbetert minstens één seed in vijf van de twaalf waves.
+Geen enkele wave heeft een positief ongecorrigeerd 95\%-BI of blijft na
+Holm-correctie significant.
 
 \begin{table}[H]
 \centering
 \caption{Lange convergentiestudie met tien seeds per budget. $t_{95}$ en
-$t_{99}$ gelden binnen het eigen budget en alleen voor verbeterende runs. De
-laatste kolom telt runs zonder winst, met winst in de laatste 10\% en met winst
-op de eindstap.}
+$t_{99}$ zijn berekend binnen het eigen budget en alleen voor runs die
+verbeteren. De laatste kolom telt achtereenvolgens runs zonder winst, runs met
+winst in de laatste 10\% en runs met winst op de eindstap.}
 \label{tab:app-convergence}
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
@@ -201,9 +203,10 @@ GA--200 & $5\,307\,506\pm793$ & $88,876$ & $164\;[145\text{--}172]$ & $164\;[145
 
 \begin{table}[H]
 \centering
-\caption{Veertien deterministische seed-, selectie- en $K$-varianten. Het
-objectief was in tien afzonderlijke procesuitvoeringen exact gelijk. Tijd is
-mediaan [IQR] uit een gerandomiseerde uitvoeringsvolgorde.}
+\caption{Veertien deterministische varianten van seedregel, selectieregel en
+$K$. De tien procesuitvoeringen van elke configuratie leverden exact dezelfde
+doelfunctiewaarde op. De laatste kolom toont de mediane tijd en IQR uit een
+gerandomiseerde uitvoeringsvolgorde.}
 \label{tab:app-seed}
 \begin{tabular}{@{}llcrr@{}}
 \toprule
@@ -231,9 +234,9 @@ kleinste span & tweestapsvooruitblik & 16  & $5\,447\,494$ & $77,380\;[76,707\te
 
 \begin{table}[H]
 \centering
-\caption{Zeven cumulatieve mijlpalen uit de adaptieve greedy-ontwikkeling.
-Marginale winst vergelijkt samengestelde configuraties. Historische tijden zijn
-afgeronde enkelvoudige metingen.}
+\caption{Zeven opeenvolgende mijlpalen in de adaptieve greedy-ontwikkeling. De
+marginale winst is telkens het verschil met de voorgaande samengestelde
+configuratie. De historische tijden zijn afgeronde enkelvoudige metingen.}
 \label{tab:app-greedy}
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
@@ -243,24 +246,25 @@ afgeronde enkelvoudige metingen.}
 besparingsbasis                 & $5\,511\,080$ & ---       & 534 & 20 \\
 $+$ lokale paarzoektocht        & $5\,100\,290$ & $410\,790$ & 534 & 81 \\
 $+$ eliminatie en post-LS       & $5\,066\,010$ & $34\,280$  & 517 & 135 \\
-$+$ pair- en final-LS           & $5\,002\,250$ & $63\,760$  & 517 & 487 \\
+$+$ paarheropbouw en afsluitende LS & $5\,002\,250$ & $63\,760$  & 517 & 487 \\
 $+$ routedrietalheropbouw       & $4\,996\,960$ & $5\,290$   & 517 & 565 \\
-$+$ triplecyclus en combinatievenster & $4\,944\,950$ & $52\,010$ & 517 & $2\,383$ \\
+$+$ drietalcyclus en combinatievenster & $4\,944\,950$ & $52\,010$ & 517 & $2\,383$ \\
 $+$ afsluitende paarheropbouw   & $4\,941\,530$ & $3\,420$   & 517 & $2\,523$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \noindent Over het volledige ontwikkelingspad daalt $D$ met $569\,550$
-($10,335\%$). Alle mechanismen zijn op dezelfde instantie ontwikkeld en
-geselecteerd. Zonder afgeschermde testinstantie volgt daaruit geen claim over
-generalisatie.
+($10,335\%$). Omdat alle mechanismen op dezelfde instantie zijn ontwikkeld en
+geselecteerd, kunnen de resultaten zonder afzonderlijke testinstantie niet
+worden veralgemeend.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.82\linewidth]{figures/retrospective_seed.pdf}
-\caption{Doelfunctie van het oorspronkelijke $2\times2$-ontwerp, winst van de
-tweestapsvooruitblik en mediane tijd met IQR uit tien procesmetingen.}
+\caption{De drie panelen tonen de doelfunctie van het oorspronkelijke
+$2\times2$-ontwerp, de winst van de tweestapsvooruitblik en de mediane tijd met
+IQR uit tien procesmetingen.}
 \label{fig:app-seed}
 \end{figure}
 \endgroup

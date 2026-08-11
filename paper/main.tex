@@ -39,111 +39,129 @@
 
 \begin{center}
   {\LARGE\bfseries Order batching bij Optioryx}\\[3pt]
-  {\large Retrospectieve experimentele analyse}\\[5pt]
+  {\large Experimentele evaluatie van oplossingsmethoden}\\[5pt]
   {Ze Ip \enspace--\enspace 02006554}
 \end{center}
 \vspace{4pt}
 
-\textbf{Evaluatieprotocol.} De instantie bevat $10\,246$ orders in twaalf
-waves. Een route bevat maximaal $n_{\max}=20$ orders uit één wave, splitst geen
-order en volgt START--unieke picklocaties in snake-volgorde--END. De
-doelfunctie \dist{} is de som van alle routeafstanden. De gecontroleerde
-Release-tijdstudies liepen
-serieel op een Intel Core i7-8750H met GCC~13.2, een Release-build en
-\texttt{-O3}. Configuraties en seeds werden waar mogelijk in vergrendelde,
-gerandomiseerde volgorde uitgevoerd. In de stochastische
-volledige-instantieanalyses vormen de twaalf opgetelde waves per seed één
-waarneming. Hun gemiddelden, steekproef-SD en tweezijdige
-Student-$t$-95\%-betrouwbaarheidsintervallen gebruiken de tien gekoppelde seeds
-0--9. Holm-correctie gebeurt per vooraf bepaalde familie.
-Gelijke seedlabels maken gekoppelde contrasten mogelijk, al kan een
-factorwijziging het verdere
-verbruik van toevalsgetallen veranderen. Afzonderlijke protocollen worden niet
-samengevoegd.
+\textbf{Doel en aanpak.} De opdracht voor Optioryx behandelt het groeperen van
+orders in efficiënte pickroutes. Orders mogen alleen binnen dezelfde wave worden
+gebundeld, blijven altijd intact en elke route bevat hoogstens twintig orders.
+Tussen START en END worden de unieke picklocaties volgens een vaste
+snake-volgorde bezocht. Het doel is de totale loopafstand over alle routes te
+minimaliseren. Daarvoor worden een greedy-heuristiek, simulated annealing en een
+genetisch algoritme onderzocht. Daarnaast worden seed-and-selectionregels uit de
+bronpaper naar deze magazijnsetting vertaald en met een eigen regel uitgebreid.
+De vergelijking richt zich op kwaliteit, rekentijd, convergentie, stabiliteit en
+verschillen tussen waves.
+
+\textbf{Evaluatieprotocol.} De onderzochte instantie telt $10\,246$ orders in
+twaalf waves en gebruikt $n_{\max}=20$. De doelfunctie \dist{} sommeert alle
+routeafstanden. De gecontroleerde tijdstudies zijn serieel uitgevoerd op een
+Intel Core i7-8750H met GCC~13.2, een
+Release-build en \texttt{-O3}. Configuraties en seeds zijn waar mogelijk in een
+vooraf vastgelegde, gerandomiseerde volgorde getest. Bij de stochastische
+analyses vormt de som over twaalf waves per seed één waarneming. De gerapporteerde
+gemiddelden, steekproef-SD's en tweezijdige Student-$t$-95\%-BI's zijn gebaseerd
+op de tien gekoppelde seeds 0--9. De Holm-correctie geldt per vooraf bepaalde familie. Gelijke
+seedlabels laten gekoppelde contrasten toe, al kan een factorwijziging het
+verdere gebruik van toevalsgetallen veranderen. Afzonderlijke protocollen worden
+alleen beschrijvend vergeleken.
 
 \section{Metaheuristieken}
 
-\subsection{Greedy heuristiek}
-Elke order start als afzonderlijke route. Het haalbare paar met maximale
-besparing $s(A,B)=C(A)+C(B)-C(A\cup B)$ wordt samengevoegd. Hier is $C$ de
-exacte snake-routekost over unieke locaties. Een prioriteitswachtrij met
-uitgestelde actualisatie beperkt herberekening. Daarna worden routes volgens
-het middelpunt van hun snake-span gesorteerd. Eén passage onderzoekt elk
-routepaar binnen een venster van acht. Per paar wordt herhaald de beste strikt
-verbeterende swap of capaciteitsgeldige relocate toegepast totdat geen van
-beide nog verbetert. Lege routes verdwijnen. Deze LS1 vormt de
-gemeenschappelijke basis voor de gecontroleerde vergelijking. Uitgebreidere
-route-eliminatie en heropbouw worden afzonderlijk onderzocht, omdat hun veel
-grotere budget niet uitwisselbaar is met dat van de LS1-basis.
-Bij eliminatie herverdeelt een begrensde beamzoektocht alle orders van een bronroute
-over vrije capaciteit. Pair- en triple-rebuild combineren twee of drie nabije
-routes en proberen deterministische volledige herpartitioneringen. Alleen
-strikt goedkopere uitkomsten worden behouden.
-De grootste onmiddellijke besparing is aannemelijk wanneer ruimtelijk
-overlappende orders ook samen een goede batch vormen. De keuze kijkt echter
-niet vooruit. Een vroege samenvoeging kan daardoor latere, betere combinaties
-blokkeren. LS1 herstelt een deel van zulke fouten, maar alleen binnen het
-beperkte routevenster.
+\subsection{Greedy-heuristiek}
+De greedy-opbouw vertrekt met één route per order. Vervolgens wordt telkens het
+haalbare routepaar met de grootste besparing
+$s(A,B)=C(A)+C(B)-C(A\cup B)$ samengevoegd. Daarbij is $C$ de exacte kost van
+de snake-route langs de unieke locaties. Een prioriteitswachtrij met
+uitgestelde updates voorkomt dat na elke samenvoeging alle paren opnieuw moeten
+worden berekend.
+
+Daarna volgt de lokale zoekstap LS1. De routes worden gesorteerd op het
+middelpunt van hun snake-span en per route worden de acht volgende routes
+onderzocht. Voor elk paar wordt telkens de beste strikt verbeterende swap of
+capaciteitsgeldige relocate uitgevoerd, totdat geen van beide nog winst oplevert.
+Lege routes verdwijnen. LS1 vormt de basis van de gecontroleerde vergelijking.
+Zwaardere route-eliminatie en heropbouw zijn apart onderzocht. Bij eliminatie
+verdeelt een begrensde beamzoektocht de orders uit een bronroute over de
+beschikbare capaciteit van andere routes.
+Pair- en triple-rebuild voegen twee of drie nabije routes samen en testen
+volledige deterministische herverdelingen. Alleen strikt betere oplossingen
+worden aanvaard.
+
+De greedy-keuze is vooral redelijk wanneer orders met veel ruimtelijke overlap
+ook samen een korte route vormen. Het nadeel is dat de methode niet vooruitkijkt.
+Een vroege samenvoeging kan daardoor een betere latere combinatie onmogelijk
+maken. LS1 kan sommige van die fouten herstellen, maar uitsluitend binnen het
+gekozen routevenster.
 
 \subsection{Simulated annealing}
 Het volledige $2\times2\times2$-ontwerp combineert geometrische of
-Lundy--Mees-koeling, \emph{relocate} of \emph{swap} en een greedy-LS1-start of
-een willekeurige start. Beide buurten bewaren wave en capaciteit. Iedere run
-gebruikt 400 iteraties met $T_0=60$ en $T_f=0,05$. De willekeurige start schudt
-de orders per wave en verdeelt ze daarna in volle batches van twintig, gevolgd
-door hoogstens één restbatch. Deze capaciteitsvullende randomstart gebruikt dus
-de routeondergrens van 517. De greedy-LS1-start telt 534 routes. Geometrische koeling gebruikt
-$T_{k+1}=\max(T_f,\alpha T_k)$. Lundy--Mees gebruikt
-$T_{k+1}=T_k/(1+\beta T_k)$. De factoren worden zo bepaald dat beide schema's
-dezelfde begin- en eindtemperatuur delen.
-Relocate verplaatst één order naar een bestaande niet-volle of een nieuwe
-singletonroute. Een lege bronroute verdwijnt, waardoor het routeaantal kan
-stijgen of dalen. Swap wisselt orders tussen twee routes en bewaart hun groottes
-en het routeaantal. Zo contrasteert een flexibele bezettingswijziging met een
-beweging die ook bij volledig gevulde routes toepasbaar blijft.
+Lundy--Mees-koeling, \emph{relocate} of \emph{swap}, en een greedy-LS1-start of
+een willekeurige start. Elke run telt 400 iteraties met $T_0=60$ en $T_f=0,05$.
 
-Na Holm-correctie zijn start, buurt en hun interactie aantoonbaar. Tegenover de
-greedy-start verhoogt randomisatie \dist{} gemiddeld met
+Voor de willekeurige start worden de orders per wave geschud en in volle groepen
+van twintig verdeeld, met hoogstens één restgroep. De resulterende 517 routes
+vormen de theoretische ondergrens. De greedy-LS1-start bevat 534 routes.
+Geometrische koeling gebruikt
+$T_{k+1}=\max(T_f,\alpha T_k)$ en Lundy--Mees gebruikt
+$T_{k+1}=T_k/(1+\beta T_k)$. De parameters zijn zo gekozen dat beide schema's
+met dezelfde begin- en eindtemperatuur werken.
+
+Een relocate verplaatst één order naar een bestaande niet-volle route of naar
+een nieuwe singletonroute.
+Een lege bronroute verdwijnt, zodat het routeaantal kan stijgen of dalen. Een
+swap wisselt twee orders en behoudt de routegroottes. Beide bewegingen
+respecteren wave en capaciteit. Relocate past de bezetting aan, terwijl swap ook
+bij volledig gevulde routes mogelijk blijft.
+
+De resultaten laten vooral een sterk starteffect zien. Tegenover de
+greedy-start verhoogt de willekeurige start \dist{} gemiddeld met
 $5\,450\,754$ [95\%-BI $5\,442\,863$--$5\,458\,644$]. Swap verlaagt \dist{}
-gemiddeld met $204\,702$ [197\,448--211\,956], maar bijna het volledige effect
-ontstaat bij randomstarts. Het koelschema geeft slechts $-744$
-[$-9\,200$--$7\,712$] en blijft na correctie niet aantoonbaar. De startstrategie
-is binnen 400 stappen dus belangrijker dan de keuze tussen deze koelschema's.
-Ze verandert echter tegelijk samenstelling en routeaantal, zodat die twee
-effecten niet afzonderlijk identificeerbaar zijn. Dat de randomstart ondanks
-517 routes veel slechter is, toont wel dat minimaal routeaantal alleen niet
-volstaat. De volledige cellen en contrasten staan in
-Tabel~\ref{tab:app-sa} en Tabel~\ref{tab:app-sa-effects}.
+gemiddeld met $204\,702$ [197\,448--211\,956], al ontstaat vrijwel die volledige
+winst bij de willekeurige starts. Start, buurt en hun interactie blijven na de
+Holm-correctie aantoonbaar. Voor het koelschema bedraagt het geschatte verschil
+slechts $-744$ [$-9\,200$--$7\,712$] en is geen aantoonbaar effect gevonden.
+Binnen 400 stappen weegt de startstrategie dus zwaarder door dan het gekozen
+koelschema. De twee starts verschillen echter zowel in routesamenstelling als
+in routeaantal, zodat die effecten niet van elkaar kunnen worden gescheiden. De
+zwakke randomstart toont wel dat het minimale aantal routes op zichzelf geen
+goede oplossing garandeert. Tabel~\ref{tab:app-sa} en
+Tabel~\ref{tab:app-sa-effects} bevatten alle cellen en contrasten.
 
 \subsection{Genetisch algoritme}
-Een chromosoom is per wave een orderpermutatie. Een dynamische decoder kiest de
-optimale opeenvolgende batches van maximaal twintig orders, zodat elk chromosoom
-haalbaar decodeert. Eén greedy-LS1-permutatie bewaart startkwaliteit. De overige
-individuen zijn willekeurig. De basis gebruikt populatie 12, twintig generaties,
-toernooigrootte 3, order crossover, mutatiekans 0,20, een gelijke mix van
-invoeg- en wisselmutatie conditioneel op een mutatie en elitisme 0,08. Fitness
-rangschikt haalbaar gedecodeerde oplossingen op de laagste totale afstand.
+Een chromosoom stelt voor elke wave een permutatie van de orders voor. Een
+dynamische decoder verdeelt die volgorde optimaal in opeenvolgende batches van
+maximaal twintig orders. Daardoor levert elk chromosoom een haalbare oplossing
+op. Eén individu wordt geïnitialiseerd met de greedy-LS1-volgorde, terwijl de
+overige individuen willekeurig zijn. De basisconfiguratie gebruikt een populatie
+van 12, twintig generaties, toernooigrootte 3, order crossover, mutatiekans 0,20
+en elitisme 0,08. Als mutatie plaatsvindt, wordt met gelijke kans een invoeg- of
+wisselmutatie toegepast. De fitness is de totale afstand van de gedecodeerde
+oplossing, waarbij een lagere waarde beter is.
 
-Geen van acht gekoppelde OFAT-kwaliteitscontrasten blijft significant na Holm-
-correctie. Populatie 24 geeft bijvoorbeeld $\Delta D=-243$
-[$-478$--$-9$], maar $p_{\mathrm{Holm}}=0,347$. De gemiddelde genormaliseerde
-Hammingdiversiteit van de basis daalt van 0,997 naar 0,109. Een mutatiekans van
-0,40 verhoogt de einddiversiteit tot 0,221 zonder aantoonbare kwaliteitswinst.
-De decoder maakt batchgrenzen impliciet in aaneengesloten chromosoomsegmenten.
-Kruising en positieveranderingen kunnen daardoor nuttige lokale
-batchstructuren verbreken. Samen met de snelle homogenisering vormt dit een
-plausibele verklaring voor de beperkte winst. De OFAT-conclusies blijven conditioneel op de vaste operatoren
-en identificeren geen interacties. Tabel~\ref{tab:app-ga} geeft alle acht
-varianten.
+Na Holm-correctie blijft geen van de acht gekoppelde OFAT-contrasten
+significant. Een populatie van 24 geeft bijvoorbeeld $\Delta D=-243$
+[$-478$--$-9$], maar na correctie is $p_{\mathrm{Holm}}=0,347$. Tegelijk daalt
+de gemiddelde genormaliseerde Hammingdiversiteit in de basisconfiguratie van
+0,997 naar 0,109. Een hogere mutatiekans van 0,40 behoudt meer diversiteit
+(0,221), zonder aantoonbare kwaliteitswinst. Omdat batchgrenzen in de decoder
+samenvallen met opeenvolgende chromosoomsegmenten, kunnen crossover en
+positieveranderingen bruikbare lokale batchstructuren doorbreken. Samen met de
+snelle homogenisering kan dit de beperkte winst verklaren. Deze interpretatie
+blijft voorzichtig, want bij OFAT blijven de overige operatoren vast en worden
+interacties niet onderzocht. Alle acht varianten staan in Tabel~\ref{tab:app-ga}.
 
 \subsection{Vergelijkende studie}
-De gecontroleerde Release-studie gebruikt dezelfde deterministische
-greedy-LS1/venster-8-oplossing als referentie en sterke start. SA gebruikt
-geometrische koeling, relocate, $T_0=60$ en $T_f=0,05$. De koelfactor wordt per
-iteratiebudget herberekend, zodat alle budgetten dezelfde eindtemperatuur
-bereiken. GA gebruikt de hierboven beschreven basis en varieert alleen het
-aantal generaties. De uitvoeringsvolgorde van acht configuraties en tien seeds
-is per wave gerandomiseerd. Alle 960 wave-runs waren haalbaar.
+Voor de gecontroleerde Release-studie dient dezelfde deterministische
+greedy-LS1-oplossing met venster acht zowel als referentie als sterke start. SA
+gebruikt geometrische koeling, relocate, $T_0=60$ en $T_f=0,05$. Per
+iteratiebudget wordt de koelfactor opnieuw berekend, zodat elk budget bij
+dezelfde eindtemperatuur uitkomt. Bij GA blijft de basisconfiguratie vast en
+verandert alleen het aantal generaties. Voor elke wave is de volgorde van acht
+configuraties en tien seeds gerandomiseerd. Alle 960 uitgevoerde wave-runs
+leverden een haalbare oplossing op.
 
 \begin{table}[H]
 \centering
@@ -159,183 +177,196 @@ SA, $10\,000$ iter. & $5\,301\,464\pm1\,789$ & $13,195\pm0,555$ & $0,1100\,[0,08
 GA, 40 gen. & $5\,307\,044\pm182$ & $31,148\pm1,823$ & $0,0049\,[0,0024\text{--}0,0073]$ & 0,008 \\
 \bottomrule
 \end{tabular}
-\caption{Beste onderzochte budget per algoritme in de gecontroleerde studie
-met tien gekoppelde seeds. Afstand en interne solvertijd zijn per seed over
-twaalf waves gesommeerd. Positieve winst is beter dan greedy. Holm corrigeert
-gezamenlijk over alle zeven stochastische budgetpunten. De volledige
-budgetreeks staat in Figuur~\ref{fig:comparison} en
-Tabel~\ref{tab:app-budget}.}
+\caption{Beste onderzochte configuratie per methode, gemeten met tien gekoppelde
+seeds. Afstand en interne solvertijd zijn per seed over twaalf waves
+gesommeerd. Een positieve winst betekent een verbetering tegenover greedy. De
+Holm-correctie omvat alle zeven stochastische budgetpunten. Figuur~\ref{fig:comparison}
+en Tabel~\ref{tab:app-budget} tonen de volledige reeks.}
 \label{tab:comparison}
 \end{table}
 
 \subsubsection{Uitvoeringstijd}
-De schaalstudie gebruikt binnen W000003 drie willekeurige geneste subsetreeksen
-met achtereenvolgens 50, 100, 200, 400 en 800 orders, drie seeds en dezelfde subsets voor elke
-methode. Dit levert 135 seriële runs op. OLS op de logaritme van de mediane
-interne tijd schat $T(n)=an^b$. De exponenten met Student-$t$-95\%-BI zijn
-1,888 [1,810--1,967] voor greedy, 1,892 [1,842--1,942] voor SA en 1,303
-[1,176--1,429] voor GA. Met vast $n_{\max}=20$ is de bijna-kwadratische groei
-van greedy verenigbaar met routepaarinitialisatie. SA bevat dezelfde start en
-een vast iteratiebudget. GA combineert die ene kwadratische warmstart met een
-evolutieve decoder die $O(PG\,n\,n_{\max})$ kandidaatsegmenten test. De werkelijke
-tijd omvat ook het scoren ervan. De GA-exponent beschrijft daarom een
-gemengd eindig bereik en geen asymptotische complexiteit. De tijdsniveaus staan
-in Tabel~\ref{tab:app-scaling}.
+Om orderaantal en waveverschillen niet te vermengen, gebruikt de schaalstudie
+alleen W000003. Drie willekeurige, geneste subsetreeksen bevatten 50, 100, 200,
+400 en 800 orders. Alle methoden gebruiken dezelfde subsets en drie seeds, goed
+voor 135 seriële runs. Een log--logregressie op de mediane interne tijd schat
+$T(n)=an^b$. De exponent bedraagt 1,888 [95\%-BI 1,810--1,967] voor greedy,
+1,892 [1,842--1,942] voor SA en 1,303 [1,176--1,429] voor GA.
+
+De bijna-kwadratische groei van greedy past bij het initialiseren van alle
+routeparen wanneer $n_{\max}=20$ vastligt. SA begint met dezelfde greedy-stap en
+voegt een vast iteratiebudget toe. GA gebruikt eveneens die kwadratische
+warmstart, gevolgd door een decoder die $O(PG\,n\,n_{\max})$
+kandidaatsegmenten onderzoekt en scoort. De lagere gemeten GA-exponent geldt
+daarom alleen voor dit eindige bereik en mag niet als asymptotische complexiteit
+worden gelezen. Tabel~\ref{tab:app-scaling} geeft de bijbehorende tijdsniveaus.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.98\linewidth]{figures/retrospective_comparison.pdf}
-\caption{Gecontroleerde vergelijking. (a) Mediane interne tijd en IQR op
-geneste subsets, met Student-$t$-95\%-BI voor de schaalexponent. (b) Gemiddelde
-gekoppelde afstandswinst en 95\%-BI per Release-budget. Sterren markeren
-Holm-significantie binnen de zeven budgettoetsen.}
+\caption{Gecontroleerde vergelijking. (a) Mediane interne tijd en IQR voor de
+geneste subsets, met het Student-$t$-95\%-BI van de schaalexponent. (b)
+Gemiddelde gekoppelde afstandswinst en 95\%-BI per Release-budget. Een ster
+duidt Holm-significantie binnen de zeven budgettoetsen aan.}
 \label{fig:comparison}
 \end{figure}
 
 \subsubsection{Convergentie}
-Een afzonderlijke studie registreert voor tien seeds de volledige best-so-far-
-curve. De som over waves bij hetzelfde stapnummer is een gesynchroniseerde
-werkbudgetcurve en geen chronologische tijdlijn. $t_{95}$ en $t_{99}$ gelden
-alleen ten opzichte van de uiteindelijke winst binnen het eigen budget. De
-budgetcontrast-BI's zijn ongecorrigeerde Student-$t$-intervallen. Bij
-SA-10\,000 ligt de mediane $t_{95}$ op $9\,259$ en $t_{99}$ op
-$9\,415$ iteraties. Bij SA-50\,000 worden dit $42\,872$ en $47\,924$. Alle
-twintig SA-runs verbeteren nog in de laatste 10\% van hun budget. SA-50\,000
-verbetert tegenover de alternatieve 10\,000-configuratie gemiddeld nog
-$13\,606$ [95\%-BI $12\,071$--$15\,141$], bij een gemiddelde tijdsratio van
-1,184. Beide budgetten gebruiken echter een eigen koelfactor tot hetzelfde
-$T_f$ en zijn dus geen voortgezette curve. Binnen de gemeten horizon is voor SA
-geen plateau aangetoond.
+Voor de convergentieanalyse is bij tien seeds na elke stap de beste tot dan toe
+gevonden waarde opgeslagen. De curves sommeren de twaalf waves op hetzelfde
+stapnummer. Ze tonen dus de voortgang bij een gelijk werkbudget, niet het
+chronologische verloop van de opeenvolgend uitgevoerde waves. Ook $t_{95}$ en
+$t_{99}$ zijn relatief aan de uiteindelijke winst binnen het eigen budget. De
+betrouwbaarheidsintervallen voor de budgetcontrasten zijn ongecorrigeerde
+Student-$t$-intervallen.
 
-GA gebruikt één RNG-stroom opeenvolgend over de waves. Een ander
-generatiebudget verschuift daardoor na de eerste wave de RNG-toestand. De drie
-horizonten zijn dus afzonderlijke uitvoeringen met dezelfde seedlabels. Bij GA-200 geeft één seed
-geen winst. Voor de negen verbeterende seeds vallen de mediane $t_{95}$ en
-$t_{99}$ beide op generatie 164 [IQR 145--172]. Slechts één seed verbetert nog
-in de laatste 10\% en geen op generatie 200. De stap van 100 naar 200 generaties
-levert gemiddeld $538$ [$-113$--$1\,189$] bij 1,666 keer de tijd. Dit wijst op
-afnemende meeropbrengst, maar bewijst geen volledig plateau.
+Bij SA-10\,000 ligt de mediane $t_{95}$ op $9\,259$ en $t_{99}$ op $9\,415$
+iteraties. Voor SA-50\,000 verschuiven die punten naar $42\,872$ en $47\,924$.
+Alle twintig SA-runs vinden nog een verbetering in de laatste 10\% van hun
+budget. De 50\,000-configuratie verlaagt \dist{} gemiddeld nog met $13\,606$ [95\%-BI
+$12\,071$--$15\,141$] tegenover de afzonderlijk uitgevoerde
+10\,000-configuratie, terwijl de gemiddelde rekentijd slechts met een factor
+1,184 stijgt. Beide budgetten gebruiken wel een eigen koelfactor om hetzelfde
+$T_f$ te bereiken. Het gaat dus niet om één run die langer is voortgezet. Binnen
+de gemeten horizon is voor SA nog geen plateau zichtbaar.
+
+Bij GA vraagt de vergelijking tussen generatiebudgetten extra voorzichtigheid.
+Eén RNG-stroom loopt opeenvolgend over alle waves, waardoor een langer budget in
+een vroege wave de RNG-toestand voor de volgende waves verschuift. De drie
+horizonten zijn bijgevolg afzonderlijke runs met dezelfde seedlabels en geen
+verlengingen van exact hetzelfde traject. Bij GA-200 levert één seed geen winst
+op. Voor de negen verbeterende seeds liggen de mediane $t_{95}$ en $t_{99}$
+beide op generatie 164 [IQR 145--172]. Slechts één seed verbetert nog in de
+laatste 10\% van het budget en geen enkele op generatie 200. Het gekoppelde
+contrast tussen de afzonderlijke GA-100- en GA-200-configuraties bedraagt
+gemiddeld $538$ [$-113$--$1\,189$], bij een tijdsratio van 1,666. Het interval
+omvat nul. Het patroon is hoogstens verenigbaar met afnemende meeropbrengst en
+bewijst geen plateau.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.96\linewidth]{figures/retrospective_long_convergence.pdf}
-\caption{Lange convergentie met tien seeds per budget. Curven tonen gemiddelde
-winst tegenover de eigen start met ongecorrigeerde Student-$t$-95\%-BI's. De
-stippellijnen markeren 90\% van elk budget. SA-budgetten gebruiken afzonderlijke
-koelschema's. GA-horizonten zijn geen gedeelde volledige-instanceprefixen.}
+\includegraphics[width=0.90\linewidth]{figures/retrospective_long_convergence.pdf}
+\caption{Convergentie met tien seeds per budget. Gemiddelde winst tegenover de
+eigen start met ongecorrigeerde Student-$t$-95\%-BI's. Stippellijnen tonen 90\%
+van het budget. SA gebruikt afzonderlijke koelschema's en de GA-horizonten delen
+geen prefix over de volledige instantie.}
 \label{fig:long-convergence}
 \end{figure}
 
 \subsubsection{Verschillen tussen de waves}
-SA-10\,000 verbetert in minstens één seed bij elf van twaalf waves. Acht ruwe
-intervallen sluiten nul positief uit. Na Holm-correctie over twaalf waves
-blijven W000002, W000005, W000007 en W000010 significant. GA-40 verbetert in
-minstens één seed bij vijf waves, maar geen wave blijft significant. De grootste
-relatieve SA-puntschatting ligt bij de kleine W000011 en is door seedspreiding
-niet Holm-significant. Een enkel wavekenmerk volstaat dus niet als verklaring.
-Vooraf gekozen verklarende kenmerken waren orderaantal, gemiddelde paarsgewijze
-Jaccard-overlap van unieke picklocaties en de SD van orderspans. Exploratief
-correleert alleen de relatieve GA-winst aantoonbaar negatief met orderaantal
-($\rho=-0,773$, $p_{\mathrm{Holm}}=0,0095$), maar twaalf waves met veel
-nulwaarden laten geen causale conclusie toe. De wavegewijze contrasten staan in
-Tabel~\ref{tab:app-waves}.
+Voor elf van de twaalf waves levert minstens één SA-10\,000-seed verbetering op. Acht
+ongecorrigeerde intervallen zijn volledig positief. Na Holm-correctie blijven
+W000002, W000005, W000007 en W000010 significant. Bij GA-40 verbetert in vijf
+waves minstens één seed, maar geen effect blijft significant. W000011 heeft de
+grootste relatieve SA-puntschatting, maar dit effect is na correctie niet
+significant.
+
+De vooraf gekozen wavekenmerken zijn het orderaantal, de gemiddelde paarsgewijze
+Jaccard-overlap van picklocaties en de SD van de orderspans. Alleen de relatieve
+GA-winst hangt aantoonbaar negatief samen met orderaantal ($\rho=-0,773$,
+$p_{\mathrm{Holm}}=0,0095$). Op basis van twaalf waves met veel nulwaarden kan
+daaruit geen causaal verband worden afgeleid. Tabel~\ref{tab:app-waves} geeft de
+contrasten.
 
 \subsubsection{Rekentijd versus kwaliteit}
-SA-400 meet gemiddeld 12,016 s tegenover 12,057 s voor greedy ($-0,35\%$) en
-geeft een kleine Holm-significante winst. De extra winst van SA-2\,000 tegenover SA-400 bedraagt
-$789$ [431--$1\,146$]. SA-10\,000 voegt daar nog $4\,796$
-[$3\,784$--$5\,807$] aan toe en kost gemiddeld slechts 9,44\% meer tijd dan
-greedy. GA-40 verbetert tegenover GA-20 met $127$ [18--236], maar kost 2,58 keer
-de greedytijd en blijft slechter dan SA-10\,000. Binnen deze budgetten domineert
-SA daarom de gemeten GA-keuzes op zowel tijd als kwaliteit.
+SA-400 vraagt gemiddeld 12,016 s tegenover 12,057 s voor greedy ($-0,35\%$) en
+behaalt een kleine Holm-significante winst. Tegenover SA-400 verlaagt SA-2\,000
+\dist{} nog met $789$ [431--$1\,146$]. De stap naar SA-10\,000 levert nog
+$4\,796$ [$3\,784$--$5\,807$] op, bij 9,44\% meer tijd dan greedy. GA-40 verlaagt
+\dist{} met $127$ [18--236] tegenover GA-20, maar
+vraagt 2,58 keer de greedytijd en blijft slechter dan SA-10\,000. SA biedt binnen
+deze budgetten dus de beste afweging.
 
 \subsubsection{Zelfgekozen bijkomende analyse}
-Het cumulatieve greedy-ontwikkelingspad start op $D=5\,511\,080$ met 534 routes.
-Lokale paarzoektocht verlaagt dit naar $5\,100\,290$ en levert 72,1\% van de
-uiteindelijke winst. De gebundelde fase eliminatie en post-LS bereikt vervolgens
-de ondergrens van 517 routes. Gebundelde pair-, triple- en combinatiestappen eindigen op
-$D=4\,941\,530$, een totale reductie van 10,33\%. Dit pad is geen causale
-ablatie. Fasen bundelen meerdere wijzigingen, afstanden zijn historische
-afgeronde scores en elke tijd is één meting. Bovendien vonden ontwikkeling en
-selectie adaptief op dezelfde instantie plaats zonder testinstantie. De $2\,523$ s
-voor het eindpunt is daarom alleen een orde van grootte.
-Tabel~\ref{tab:app-greedy} documenteert de afzonderlijke mijlpalen.
+Lokale paarzoektocht verlaagt de greedy-beginscore van $5\,511\,080$ tot
+$5\,100\,290$ en levert 72,1\% van de uiteindelijke winst. Eliminatie en post-LS
+bereiken daarna de ondergrens van 517 routes. Verdere stappen eindigen op
+$D=4\,941\,530$, een totale reductie van 10,33\%.
 
+Dit pad is geen causale ablatie. Een fase kan meerdere aanpassingen bundelen, de
+scores zijn historisch afgerond en de tijden zijn slechts eenmaal gemeten.
+Bovendien zijn alle keuzes tijdens de ontwikkeling op dezelfde instantie
+afgestemd, zonder afzonderlijke testinstantie. De eindtijd van
+$2\,523$ s geeft daarom slechts een orde van grootte. Tabel~\ref{tab:app-greedy}
+toont de tussenstappen.
+
+\vspace{5pt}
 \section{Probleemspecifieke heuristieken}
 
 \subsection{Beschrijving van de heuristieken}
-De rechthoekige dekkingsregels uit de opdracht worden aangepast aan de vaste
-snake-route. \emph{Smallest} en \emph{greatest rectangular covering area}
-worden respectievelijk de kleinste en grootste span tussen de uiterste
-snake-ranks van een order. \emph{Greatest number of identical picking
-locations} maximaliseert locatieoverlap. \emph{Smallest additional covering
-area} minimaliseert de extra span na toevoeging aan de huidige batch. Gelijke
-seedscores behouden de invoervolgorde. Bij selectieties volgt incrementele kost
-op overlap of spanuitbreiding, terwijl span volgt op incrementele kost. Verdere
-ties behouden de invoervolgorde. Iedere batch wordt tot maximaal twintig orders gevuld.
-De twee extreme spanseeds toetsen of een compacte of juist brede eerste order
-gunstiger is. De selectieregels contrasteren hergebruik van dezelfde locaties
-met het begrenzen van de extra route-omvang.
+De bronpaper gebruikt itemcapaciteit en een magazijn met twee cross aisles. Hier
+geldt een capaciteit van twintig orders en een vaste snake-route. Daarom wordt
+de rechthoekige oppervlakte vertaald naar de span tussen de uiterste posities
+van een order in de snake-volgorde. \emph{Smallest} en \emph{greatest
+rectangular covering area} kiezen respectievelijk de kleinste en de grootste span. \emph{Greatest
+number of identical picking locations} maximaliseert locatieoverlap en
+\emph{smallest additional covering area} minimaliseert de extra span.
+
+Bij een gelijke seedscore beslist de invoervolgorde. Een gelijkstand bij overlap of
+spanuitbreiding wordt beslist door de incrementele routekost. Bij gelijke
+routekost beslist de span, gevolgd door de invoervolgorde. Zo vergelijken de
+seedregels een compacte met een brede eerste order. De selectieregels vergelijken
+locatiehergebruik met het beperken van de route-uitbreiding.
 
 \subsection{Invloed van seed- en selectieregel}
-In het deterministische $2\times2$-experiment verlaagt minimale spanuitbreiding
-het gemiddelde van 7,604 naar 6,798 miljoen, een winst van 10,60\% tegenover
-maximale overlap. De grootste-spanseed verlaagt het gemiddelde met 157\,464 of
-2,16\% tegenover de kleinste-spanseed. Het selectiecontrast van 806\,285 is dus
-5,1 keer groter dan het seedcontrast. De beste oorspronkelijke combinatie is
-grootste span met minimale spanuitbreiding op $D=6\,759\,161$. Alle
-regelcombinaties staan in Tabel~\ref{tab:app-seed}.
+In het deterministische $2\times2$-experiment verlaagt selectie op minimale
+spanuitbreiding het gemiddelde van 7,604 naar 6,798 miljoen, 10,60\% beter dan
+maximale overlap. De grootste-spanseed verlaagt \dist{} gemiddeld met $157\,464$,
+of 2,16\%, tegenover de kleinste-spanseed. Het selectieverschil van $806\,285$ is daarmee 5,1 keer zo
+groot als het seedverschil. De beste oorspronkelijke combinatie koppelt de
+grootste-spanseed aan minimale spanuitbreiding en bereikt $D=6\,759\,161$.
+Tabel~\ref{tab:app-seed} bevat alle combinaties.
 
-\subsection{Prestatievergelijking met greedy heuristiek}
-De beste oorspronkelijke combinatie blijft 27,36\% boven de gecontroleerde
-greedy-LS1-score. Haar mediane interne tijd bedraagt 6,681 s tegenover 12,057 s
-voor greedy. Deze tijden komen uit afzonderlijke Release-protocollen en vormen
-daarom slechts een beschrijvende vergelijking. Minimale directe routekost met
-de kleinste-spanseed verkleint de kwaliteitsachterstand tot 3,39\% bij een
-mediaan van 6,880 s.
+\subsection{Vergelijking met de greedy-heuristiek}
+De beste oorspronkelijke combinatie scoort 27,36\% hoger dan de gecontroleerde
+greedy-LS1. De mediane tijd is 6,681 s, tegenover 12,057 s voor greedy. Omdat
+beide tijden uit afzonderlijke Release-protocollen komen, blijft de vergelijking
+beschrijvend. Met de kleinste-spanseed verkleint selectie op minimale directe routekost de
+achterstand tot 3,39\% bij een mediaan van 6,880 s.
 
 \subsection{Ontwerp van een eigen regel}
-De begrensde tweestapsvooruitblik selecteert eerst de $K$ laagste directe
-meerkosten. Voor elke eerste kandidaat wordt de goedkoopste haalbare tweede
-toevoeging gezocht. De kandidaat met het beste tweestapsresultaat wordt gekozen.
-De score gebruikt de exacte snake-routekost en de capaciteit van twintig
-orders. Alleen de eerste kandidaat wordt definitief toegevoegd. De tweede dient
-uitsluitend als vooruitblik. Hierdoor blijft de stapkost begrensd, terwijl een
-eerste keuze die pas na de volgende order gunstig wordt zichtbaar kan blijven.
+De eigen selectieregel gebruikt een begrensde tweestapsvooruitblik. Eerst worden
+de $K$ kandidaten met de laagste directe meerkosten geselecteerd. Voor elk van
+hen wordt de goedkoopste haalbare tweede toevoeging gezocht. Het beste
+tweestapsresultaat bepaalt de keuze. De score gebruikt de exacte snake-routekost
+en een capaciteit van twintig orders. Alleen de eerste kandidaat wordt
+toegevoegd. De tweede dient als vooruitblik. Zo blijft het rekenwerk begrensd en
+blijft ook een kandidaat in beeld waarvan het voordeel pas één toevoeging later
+zichtbaar wordt.
 
-Voor $K\in\{2,4,8,16\}$ is de volledige deterministische configuratie telkens
-tienmaal in gerandomiseerde volgorde gemeten. De score was binnen elke
-configuratie exact identiek. Met de kleinste-spanseed is $K=8$ het beste punt:
-$D=5\,436\,249$, of 0,928\% beter dan directe kost. De mediane tijd stijgt van
-6,880 s naar 41,075 s, een factor 5,97. $K=16$ is met 77,380 s trager en met
-0,723\% winst slechter. Voor de grootste-spanseed is $K=8$ eveneens het beste
-kwaliteitsresultaat met 1,133\% winst. Kwaliteit verbetert dus niet monotoon met
-$K$.
+Elke deterministische configuratie met $K\in\{2,4,8,16\}$ is tienmaal in
+gerandomiseerde volgorde gemeten. De score bleef per configuratie exact gelijk.
+Met de kleinste-spanseed is $K=8$ het best: $D=5\,436\,249$, of 0,928\% beter
+dan directe kost. De mediane tijd stijgt van 6,880 s naar 41,075 s, een factor
+5,97. Bij $K=16$ loopt ze op tot 77,380 s en daalt de winst tot 0,723\%. Ook met
+de grootste-spanseed is $K=8$ het best, met 1,133\% winst. Een grotere $K$
+garandeert dus geen betere oplossing.
 
 \subsection{Rekentijd versus kwaliteit}
-De originele span- en overlapregels zijn snel, maar leveren 27\% of meer
-kwaliteitsverlies tegenover greedy. Tweestapsvooruitblik sluit een deel van die
-kloof, maar $K=8$ met de kleinste-spanseed blijft 2,43\% slechter en de mediane
-41,075 s ligt ruim boven de afzonderlijk gemeten greedytijd. Het punt wordt in
-deze beschrijvende vergelijking dus door greedy gedomineerd. Een kleine $K$ is
-alleen verdedigbaar wanneer de eenvoudige constructieregel zelf vereist is.
+De oorspronkelijke span- en overlapregels zijn snel, maar leveren een \dist{}
+die minstens 27\% boven die van greedy ligt. Tweestapsvooruitblik verkleint de achterstand. Met de
+kleinste-spanseed blijft $K=8$ echter 2,43\% slechter en de mediane tijd van 41,075 s ligt
+ruim boven de afzonderlijk gemeten greedytijd. Greedy is hier dus sneller én
+beter. Een kleine $K$ is alleen zinvol wanneer de eenvoudige constructieregel
+zelf vereist is.
 
 \subsection{Kritische analyse}
-De constructie is onomkeerbaar en corrigeert geen vroege batchfout. De
-spanvertaling verliest tweedimensionale geometrie en ordercapaciteit geeft andere
-prikkels dan itemcapaciteit. De $K$-voorselectie kan de beste eerste keuze
-uitsluiten, terwijl grotere $K$ geen monotone kwaliteitswinst geeft. Eén
-instantie ondersteunt geen generaliseerbaarheid.
+Een toegevoegde order kan niet worden teruggenomen, zodat een vroege batchfout
+blijft doorwerken. Door de geometrie tot één span te herleiden, gaat bovendien
+tweedimensionale informatie verloren. Ordercapaciteit stuurt de keuze anders
+dan itemcapaciteit. De $K$-voorselectie
+kan de beste kandidaat uitsluiten, terwijl een grotere $K$ geen kwaliteitswinst
+garandeert. Resultaten op één instantie zijn niet zonder meer te veralgemenen.
 
 \textbf{Besluit.}
-SA-400 biedt rond twaalf seconden een kleine aantoonbare winst boven LS1-greedy.
-In de gecontroleerde budgetstudie geeft SA-10\,000 bij dertien seconden 0,1100\%
-winst voor 9,44\% extra tijd. De lange studie vindt nog geen SA-plateau en geen
-zekere meerwinst van GA-100 naar GA-200. Zonder strak tijdbudget bereikt de
-adaptieve greedy-pijplijn $D=4\,941\,530$, maar één tijdmeting en geen
-testinstantie verhinderen robuuste runtime- en generalisatieclaims. De
-tweestapsregel verbetert de eenvoudige constructie, maar blijft door LS1-greedy
-gedomineerd.
+SA-400 levert bij een looptijd van ongeveer twaalf seconden een kleine, aantoonbare winst boven
+LS1-greedy. Bij 10\,000 iteraties stijgt de winst tot 0,1100\% voor gemiddeld
+9,44\% extra tijd. De lange studie toont nog geen plateau voor SA en evenmin een
+statistisch aantoonbare meerwinst van GA-100 naar GA-200. Zonder strak tijdbudget bereikt de adaptieve
+greedy-pijplijn $D=4\,941\,530$, maar één tijdmeting en het ontbreken van een
+testinstantie beperken uitspraken over rekentijd en generalisatie. De
+tweestapsregel verbetert de eenvoudige constructie, maar blijft achter bij
+LS1-greedy.
 
 \clearpage
 \appendix
